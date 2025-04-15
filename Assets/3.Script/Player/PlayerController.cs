@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private static readonly int Walk = Animator.StringToHash("walk");
+    private static readonly int Walk = Animator.StringToHash("Walk");
     private static readonly int DirX = Animator.StringToHash("DirX");
     private static readonly int DirZ = Animator.StringToHash("DirZ");
+    private static readonly int Attack1 = Animator.StringToHash("Attack");
 
     [Header("moving Settings")] [SerializeField]
     private Transform rotatePlayer;
@@ -22,6 +23,8 @@ public class PlayerController : MonoBehaviour
     [Header("Animation Settings")] [SerializeField]
     private Animator animator;
 
+    private AnimatorStateInfo animInfo;
+
     private void Start()
     {
         if (rotatePlayer == null)
@@ -30,8 +33,17 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        RotatePlayer();
-        MovePlayer();
+        animInfo = animator.GetCurrentAnimatorStateInfo(0);
+        if (!animInfo.IsName("Attack01"))
+        {
+            RotatePlayer();
+            MovePlayer();
+            
+            if (Input.GetMouseButtonDown(0))
+            {
+                Attack();
+            }
+        }
     }
 
     private void MovePlayer()
@@ -40,25 +52,24 @@ public class PlayerController : MonoBehaviour
 
         Vector3 camForward = mainCam.transform.forward;
         Vector3 camRight = mainCam.transform.right;
-        
+
         camForward.y = 0;
         camRight.y = 0;
-        
+
         camForward.Normalize();
         camRight.Normalize();
-        
+
         Vector3 direction = getAxis.z * camForward + getAxis.x * camRight;
 
         direction.Normalize();
-        Debug.Log(direction);
         transform.Translate(direction * (moveSpeed * Time.deltaTime), Space.World);
-        
+
         mainCam.transform.position = transform.position + offSet;
 
         Vector3 localDir = transform.InverseTransformDirection(direction.normalized);
-        
+
         animator.SetBool(Walk, getAxis != Vector3.zero);
-        
+
         animator.SetFloat(DirX, localDir.x);
         animator.SetFloat(DirZ, localDir.z);
     }
@@ -79,6 +90,15 @@ public class PlayerController : MonoBehaviour
                 Quaternion lookRotation = Quaternion.LookRotation(direction);
                 transform.rotation = lookRotation;
             }
+        }
+    }
+
+    private void Attack()
+    {
+        if (!animInfo.IsName("Attack01"))
+        {
+            animator.ResetTrigger(Attack1);
+            animator.SetTrigger(Attack1);
         }
     }
 }
