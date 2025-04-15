@@ -57471,7 +57471,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5043727500662150062}
-  - component: {fileID: 5043727500662150064}
   - component: {fileID: 5043727500648338322}
   - component: {fileID: 5043727500662150063}
   m_Layer: 0
@@ -57878,6 +57877,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5043727500662174580}
+  - component: {fileID: 5043727500662174584}
   - component: {fileID: 5043727500662174581}
   - component: {fileID: 5043727500662174582}
   - component: {fileID: 5043727500662174583}
@@ -58244,27 +58244,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
---- !u!95 &5043727500662150064
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5043727500661806224}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: b69174d668ba02d44b14a084b217670a, type: 3}
-  m_Controller: {fileID: 9100000, guid: 306792155167daf4c9c6afb90fc260f9, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &5043727500662150354
 Transform:
   m_ObjectHideFlags: 0
@@ -58599,7 +58578,7 @@ MonoBehaviour:
   moveSpeed: 7
   mainCam: {fileID: 330585545}
   offSet: {x: -6, y: 15, z: -6}
-  animator: {fileID: 5043727500662150064}
+  animator: {fileID: 5043727500662174584}
 --- !u!136 &5043727500662174582
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -58650,6 +58629,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!95 &5043727500662174584
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5043727500661980694}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: b69174d668ba02d44b14a084b217670a, type: 3}
+  m_Controller: {fileID: 9100000, guid: 306792155167daf4c9c6afb90fc260f9, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &5043727500662182300
 Transform:
   m_ObjectHideFlags: 0
