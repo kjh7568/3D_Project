@@ -6,8 +6,8 @@ public class LocalPlayer  : Player, IDamageAble
 {
     public Collider MainCollider => collider;
     public GameObject GameObject =>  gameObject;
-    
-    public Weapon CurrentWeapon { get; set; }
+
+    public Weapon CurrentWeapon;
     public PlayerStat Stat { get; private set; }
 
     [SerializeField] private Collider collider;

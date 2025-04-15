@@ -10,5 +10,7 @@ public class Player : MonoBehaviour
     {
         public int HP { get; set; }
         public int MaxHP { get; set; }
+        
+        //todo 패시브 만들면 여기에 스탯 추가
     }
 }
