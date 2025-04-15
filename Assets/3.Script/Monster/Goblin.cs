@@ -19,18 +19,14 @@ public class Goblin : MonoBehaviour, IDamageAble
 
     [SerializeField] private MonsterStat monsterStat;
     [SerializeField] private Collider collider;
-
+    
+    private MonsterController monster;
     
     // Start is called before the first frame update
     void Start()
     {
         CombatSystem.Instance.RegisterMonster(this);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        monster = GetComponent<MonsterController>();
     }
     
     public void TakeDamage(CombatEvent combatEvent)
@@ -41,7 +37,14 @@ public class Goblin : MonoBehaviour, IDamageAble
         
         if (monsterStat.hp <= 0)
         {
-            //todo 사망 판정 만들기
+            OnDead();
         }
+    }
+
+    private void OnDead()
+    {
+        //todo 사망 판정 만들기
+        collider.enabled = false;
+        monster.PlayDead();
     }
 }

@@ -1372,6 +1372,50 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 186472479}
   m_SourcePrefab: {fileID: 100100000, guid: 0e2d311aa2f76c2479ed7bbf11aa4ffb, type: 3}
+--- !u!1 &80417899
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 80417901}
+  - component: {fileID: 80417900}
+  m_Layer: 0
+  m_Name: CombatSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &80417900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 80417899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7093e4e1bbc78444b007693300ce1e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &80417901
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 80417899}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12.642196, y: 1.0755984, z: -48.118103}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &81243081
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12749,6 +12793,37 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2094372138}
   m_SourcePrefab: {fileID: 100100000, guid: 939f27c57ef13654eafcf37ff873a454, type: 3}
+--- !u!1 &735733969
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 735733970}
+  m_Layer: 0
+  m_Name: ------------------
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &735733970
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 735733969}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12.642196, y: 1.0755984, z: -48.118103}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &736506165 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 127758, guid: 0e2d311aa2f76c2479ed7bbf11aa4ffb,
@@ -46816,9 +46891,10 @@ GameObject:
   - component: {fileID: 1566764959}
   - component: {fileID: 1565946601}
   - component: {fileID: 1564966741}
+  - component: {fileID: 64136518082116146}
   - component: {fileID: 64136518082116145}
   m_Layer: 0
-  m_Name: SM_Wep_BrokenSword_01
+  m_Name: BrokenSword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57503,11 +57579,28 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 43576589373517420, guid: 60b2a7f7020b3204c88877411d4c6fb5, type: 2}
+--- !u!114 &64136518082116146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1566997349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 660e12ec5d874af4e9c0fca4eb144066, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    WeaponName: "\uBD80\uC11C\uC9C4 \uAC80"
+    MinDamage: 2
+    MaxDamage: 6
+    AttackSpeed: 1
 --- !u!137 &5043727500648338322
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -58205,6 +58298,7 @@ GameObject:
   - component: {fileID: 5043727500662174580}
   - component: {fileID: 5043727500662174584}
   - component: {fileID: 5043727500662174581}
+  - component: {fileID: 5043727500662174585}
   - component: {fileID: 5043727500662174582}
   - component: {fileID: 5043727500662174583}
   m_Layer: 0
@@ -58977,6 +59071,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5043727500662174585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5043727500661980694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eabb419334e61334585d8beb871f00f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentWeapon: {fileID: 64136518082116146}
+  collider: {fileID: 5043727500662174582}
 --- !u!4 &5043727500662182300
 Transform:
   m_ObjectHideFlags: 0
@@ -59865,12 +59973,13 @@ GameObject:
   - component: {fileID: 5892416828231602796}
   - component: {fileID: 5892416828240575594}
   - component: {fileID: 5892416828240575595}
+  - component: {fileID: 5892416828240575599}
   - component: {fileID: 5892416828240575596}
   - component: {fileID: 5892416828240575598}
   - component: {fileID: 5892416828240575597}
   m_Layer: 0
   m_Name: Goblin_Male
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -61849,10 +61958,10 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!136 &5892416828240575598
 CapsuleCollider:
@@ -61877,6 +61986,25 @@ CapsuleCollider:
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.8, z: 0}
+--- !u!114 &5892416828240575599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5892416828231173850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0c23cade21cddc40935e2a2fbe08dda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monsterStat:
+    name: "\uACE0\uBE14\uB9B0"
+    hp: 10
+    maxHp: 10
+    range: 2
+    speed: 5
+  collider: {fileID: 5892416828240575598}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -61888,3 +62016,5 @@ SceneRoots:
   - {fileID: 5043727500662174580}
   - {fileID: 330585546}
   - {fileID: 5892416828231602796}
+  - {fileID: 735733970}
+  - {fileID: 80417901}

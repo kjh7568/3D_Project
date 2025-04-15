@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.ProBuilder.MeshOperations;
 using UnityEngine.Serialization;
 
 public class MonsterController : MonoBehaviour
 {
     private static readonly int Walk = Animator.StringToHash("Walk");
     private static readonly int Attack = Animator.StringToHash("Attack");
+    private static readonly int Dead = Animator.StringToHash("Dead");
 
     private const float ATTACK_RANGE = 2f;
 
@@ -24,7 +26,9 @@ public class MonsterController : MonoBehaviour
     private readonly WaitForSeconds coroutineWaitTime = new WaitForSeconds(0.5f);
     private float navDistance;
     private AnimatorStateInfo animInfo;
-    
+    private bool isDead = false;
+    private Rigidbody rigidbody;
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -33,21 +37,23 @@ public class MonsterController : MonoBehaviour
     private void Start()
     {
         StartCoroutine(GetPathDistanceCoroutine());
-        
-        
+        rigidbody = GetComponent<Rigidbody>();
     }
 
     private void Update()
     {
-        animInfo = animator.GetCurrentAnimatorStateInfo(0);
-        
-        if (navDistance <= ATTACK_RANGE)
+        if (!isDead)
         {
-            AttackMonster();
-        }
-        else
-        {
-            MoveMonster();
+            animInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+            if (navDistance <= ATTACK_RANGE)
+            {
+                AttackMonster();
+            }
+            else
+            {
+                MoveMonster();
+            }
         }
     }
 
@@ -71,14 +77,14 @@ public class MonsterController : MonoBehaviour
         {
             agent.ResetPath();
             animator.SetBool(Walk, false);
-        
-            transform.LookAt(player);   
-        
+
+            transform.LookAt(player);
+
             animator.ResetTrigger(Attack);
             animator.SetTrigger(Attack);
         }
     }
-    
+
     private float GetPathDistance(Vector3 start, Vector3 end)
     {
         NavMeshPath path = new NavMeshPath();
@@ -104,5 +110,13 @@ public class MonsterController : MonoBehaviour
 
             yield return coroutineWaitTime;
         }
+    }
+
+    public void PlayDead()
+    {
+        animator.SetTrigger(Dead);
+        agent.enabled = false;
+        rigidbody.velocity = Vector3.zero;
+        isDead = true;
     }
 }
