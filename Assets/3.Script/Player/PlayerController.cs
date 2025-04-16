@@ -38,11 +38,7 @@ public class PlayerController : MonoBehaviour
         {
             RotatePlayer();
             MovePlayer();
-            
-            if (Input.GetMouseButtonDown(0))
-            {
-                Attack();
-            }
+            UpdateCombatInput();
         }
     }
 
@@ -90,6 +86,28 @@ public class PlayerController : MonoBehaviour
                 Quaternion lookRotation = Quaternion.LookRotation(direction);
                 transform.rotation = lookRotation;
             }
+        }
+    }
+
+    private void UpdateCombatInput()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Attack();
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            SkillManager.instance.UseSkill(0);
+        }
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            SkillManager.instance.UseSkill(1);
+        }
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            SkillManager.instance.UseSkill(2);
         }
     }
 
