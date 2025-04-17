@@ -20,8 +20,8 @@ public class InventorySystem : MonoBehaviour
     private GraphicRaycaster raycaster;
 
     [SerializeField] private ItemTableManager itemTableManager;
-    [SerializeField] private Inventory traderInventory;
-    [SerializeField] private Inventory userInventory;
+    [SerializeField] private Inventory gemTab;
+    [SerializeField] private Inventory inventoryTab;
     
     private void Awake()
     {
@@ -32,8 +32,8 @@ public class InventorySystem : MonoBehaviour
     private void Start()
     {
         itemTableManager.LoadItemTable();
-        userInventory.Initialize(itemTableManager.GetItemTable());
-        userInventory.Initialize(null);
+        inventoryTab.Initialize(itemTableManager.GetItemTable());
+        gemTab.Initialize(null);
     }
     
     public void StartDrag(InventorySlot source)
@@ -73,15 +73,15 @@ public class InventorySystem : MonoBehaviour
                 }
                 else
                 {
-                    if (from.Equals(traderInventory))
+                    if (from.Equals(gemTab))
                     {
-                        //Trader -> User (구매)
-                        Debug.Log($"아이템 구매 {SourceSlot.gameObject.name}");
+                        //Trader -> User
+                        Debug.Log($"젬 해제 {targetSlot.gameObject.name}");
                     }
                     else
                     {
-                        //User -> Trader (판매)
-                        Debug.Log($"아이템 판매 {SourceSlot.gameObject.name}");
+                        //User -> Trader
+                        Debug.Log($"젬 장착 {targetSlot.gameObject.name}");
                     }
                 }
                 
@@ -99,6 +99,6 @@ public class InventorySystem : MonoBehaviour
 
     private Inventory FindInventory(InventorySlot slot)
     {
-        return traderInventory.IsIn(slot) ? traderInventory : userInventory;
+        return gemTab.IsIn(slot) ? gemTab : inventoryTab;
     }
 }
