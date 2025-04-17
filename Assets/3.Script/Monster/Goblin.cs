@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Goblin : MonoBehaviour, IDamageAble
 {
-    public Collider MainCollider => collider;
+    public Collider MainCollider => monsterCollider;
     public GameObject GameObject => gameObject;
     
     [System.Serializable]
@@ -18,7 +19,7 @@ public class Goblin : MonoBehaviour, IDamageAble
     }
 
     [SerializeField] private MonsterStat monsterStat;
-    [SerializeField] private Collider collider;
+    [SerializeField] private Collider monsterCollider;
     
     private MonsterController monster;
     
@@ -44,7 +45,7 @@ public class Goblin : MonoBehaviour, IDamageAble
     private void OnDead()
     {
         //todo 사망 판정 만들기
-        collider.enabled = false;
+        monsterCollider.enabled = false;
         monster.PlayDead();
     }
 }

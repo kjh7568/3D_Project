@@ -27,7 +27,7 @@ public class MonsterController : MonoBehaviour
     private float navDistance;
     private AnimatorStateInfo animInfo;
     private bool isDead = false;
-    private Rigidbody rigidbody;
+    private Rigidbody rigid;
 
     private void Awake()
     {
@@ -37,7 +37,7 @@ public class MonsterController : MonoBehaviour
     private void Start()
     {
         StartCoroutine(GetPathDistanceCoroutine());
-        rigidbody = GetComponent<Rigidbody>();
+        rigid = GetComponent<Rigidbody>();
     }
 
     private void Update()
@@ -116,7 +116,7 @@ public class MonsterController : MonoBehaviour
     {
         animator.SetTrigger(Dead);
         agent.enabled = false;
-        rigidbody.velocity = Vector3.zero;
+        rigid.velocity = Vector3.zero;
         isDead = true;
     }
 }
