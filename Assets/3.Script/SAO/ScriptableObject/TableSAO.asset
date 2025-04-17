@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: TableSAO
   m_EditorClassIdentifier: 
   ItemSpriteTable:
-  - {fileID: 11400000, guid: 562208ac88516ed4abb8a905a2fcfe79, type: 2}
   - {fileID: 11400000, guid: 8600c6cf72637a84aa11df709b4fedcc, type: 2}
+  - {fileID: 11400000, guid: 562208ac88516ed4abb8a905a2fcfe79, type: 2}
+  - {fileID: 11400000, guid: 52a60b52817113945a7b375495830868, type: 2}

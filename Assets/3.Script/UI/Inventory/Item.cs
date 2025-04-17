@@ -8,7 +8,6 @@ public class Item
     public ItemData ItemData { get; set; }
 }
 
-//todo 나중에 직렬화 해보기
 public class ItemData
 {
     public string Name { get; set; }

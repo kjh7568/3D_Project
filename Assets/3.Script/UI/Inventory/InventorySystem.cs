@@ -22,7 +22,7 @@ public class InventorySystem : MonoBehaviour
     [SerializeField] private ItemTableManager itemTableManager;
     [SerializeField] private Inventory gemTab;
     [SerializeField] private Inventory inventoryTab;
-    
+
     private void Awake()
     {
         Instance = this;
@@ -35,7 +35,7 @@ public class InventorySystem : MonoBehaviour
         inventoryTab.Initialize(itemTableManager.GetItemTable());
         gemTab.Initialize(null);
     }
-    
+
     public void StartDrag(InventorySlot source)
     {
         // source를 캐싱을 해준다 
@@ -53,38 +53,33 @@ public class InventorySystem : MonoBehaviour
     public void EndDrag(PointerEventData eventData)
     {
         dragSlot.ClearSlot();
-        
+
         var results = new List<RaycastResult>();
         raycaster.Raycast(eventData, results);
 
         for (int i = 0; i < results.Count; i++)
         {
-            InventorySlot targetSlot = 
-                results[i].gameObject.GetComponent<InventorySlot>();
-            if (targetSlot != null && 
-                targetSlot != SourceSlot && targetSlot != dragSlot)
+            InventorySlot targetSlot = results[i].gameObject.GetComponent<InventorySlot>();
+            if (targetSlot != null && targetSlot != SourceSlot && targetSlot != dragSlot)
             {
                 Inventory from = FindInventory(SourceSlot);
                 Inventory to = FindInventory(targetSlot);
 
-                if (from.Equals(to))
+                var gemSet = targetSlot.gameObject.GetComponentInParent<GemSet>();
+
+                if (from.Equals(to)) //아이템 위치만 변경
                 {
-                    //아무일도 일어나지 않음.
                 }
-                else
+                else //아이템 장착과 삽입
                 {
                     if (from.Equals(gemTab))
                     {
-                        //Trader -> User
-                        Debug.Log($"젬 해제 {targetSlot.gameObject.name}");
                     }
                     else
                     {
-                        //User -> Trader
-                        Debug.Log($"젬 장착 {targetSlot.gameObject.name}");
                     }
                 }
-                
+
                 SwapItem(SourceSlot, targetSlot);
             }
         }

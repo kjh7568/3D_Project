@@ -13008,6 +13008,7 @@ GameObject:
   - component: {fileID: 430787518}
   - component: {fileID: 430787517}
   - component: {fileID: 430787516}
+  - component: {fileID: 430787519}
   m_Layer: 5
   m_Name: GemSet (2)
   m_TagString: Untagged
@@ -13103,6 +13104,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 430787514}
   m_CullTransparentMesh: 1
+--- !u!114 &430787519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430787514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a2c19585d4381948bf15760e4ffad85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isInMainGem: 0
+  isInSupportGem: 
 --- !u!1001 &433275692
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20567,8 +20582,9 @@ GameObject:
   - component: {fileID: 717862093}
   - component: {fileID: 717862092}
   - component: {fileID: 717862091}
+  - component: {fileID: 717862094}
   m_Layer: 5
-  m_Name: MainSocket
+  m_Name: MainGem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20645,6 +20661,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 717862089}
   m_CullTransparentMesh: 1
+--- !u!114 &717862094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717862089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2471c7bdfda5ea4da5e8e0d2638233f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &718647653
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24259,7 +24287,7 @@ GameObject:
   - component: {fileID: 865680003}
   - component: {fileID: 865680002}
   m_Layer: 5
-  m_Name: SupportSocket
+  m_Name: SupportGem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32487,6 +32515,7 @@ GameObject:
   - component: {fileID: 1171519619}
   - component: {fileID: 1171519618}
   - component: {fileID: 1171519617}
+  - component: {fileID: 1171519620}
   m_Layer: 5
   m_Name: GemSet
   m_TagString: Untagged
@@ -32582,6 +32611,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1171519615}
   m_CullTransparentMesh: 1
+--- !u!114 &1171519620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1171519615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a2c19585d4381948bf15760e4ffad85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isInMainGem: 0
+  isInSupportGem: 
 --- !u!1 &1173538713 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 192550, guid: 3bf01e09059dad54b985779213d8dca8,
@@ -37836,7 +37879,7 @@ GameObject:
   - component: {fileID: 1330284824}
   - component: {fileID: 1330284823}
   m_Layer: 5
-  m_Name: MainSocket
+  m_Name: MainGem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58604,8 +58647,9 @@ GameObject:
   - component: {fileID: 1465103940}
   - component: {fileID: 1465103939}
   - component: {fileID: 1465103938}
+  - component: {fileID: 1465103941}
   m_Layer: 5
-  m_Name: SupportSocket
+  m_Name: SupportGem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58682,6 +58726,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1465103936}
   m_CullTransparentMesh: 1
+--- !u!114 &1465103941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1465103936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cfbb6ea42b10484a957bfc5f0864ae8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1466749566 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 176122, guid: 939f27c57ef13654eafcf37ff873a454,
@@ -61690,7 +61746,7 @@ GameObject:
   - component: {fileID: 1582473948}
   - component: {fileID: 1582473947}
   m_Layer: 5
-  m_Name: SupportSocket
+  m_Name: SupportGem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66751,7 +66807,7 @@ GameObject:
   - component: {fileID: 1738964624}
   - component: {fileID: 1738964623}
   m_Layer: 5
-  m_Name: SupportSocket
+  m_Name: SupportGem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68731,7 +68787,7 @@ GameObject:
   - component: {fileID: 1812523084}
   - component: {fileID: 1812523083}
   m_Layer: 5
-  m_Name: MainSocket
+  m_Name: MainGem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68980,6 +69036,7 @@ GameObject:
   - component: {fileID: 1813997585}
   - component: {fileID: 1813997584}
   - component: {fileID: 1813997583}
+  - component: {fileID: 1813997586}
   m_Layer: 5
   m_Name: GemSet (1)
   m_TagString: Untagged
@@ -69075,6 +69132,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1813997581}
   m_CullTransparentMesh: 1
+--- !u!114 &1813997586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813997581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a2c19585d4381948bf15760e4ffad85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isInMainGem: 0
+  isInSupportGem: 
 --- !u!1001 &1820332197
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -70552,7 +70623,7 @@ GameObject:
   - component: {fileID: 1885159636}
   - component: {fileID: 1885159635}
   m_Layer: 5
-  m_Name: SupportSocket
+  m_Name: SupportGem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75642,7 +75713,7 @@ GameObject:
   - component: {fileID: 2030203372}
   - component: {fileID: 2030203371}
   m_Layer: 5
-  m_Name: SupportSocket
+  m_Name: SupportGem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
