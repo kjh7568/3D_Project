@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class LocalPlayer  : Player, IDamageAble
 {
-    public Collider MainCollider => collider;
+    public Collider MainCollider => playerCollider;
     public GameObject GameObject =>  gameObject;
 
-    public Weapon CurrentWeapon;
+    public Weapon currentWeapon;
     public PlayerStat Stat { get; private set; }
 
-    [SerializeField] private Collider collider;
+    [SerializeField] private Collider playerCollider;
     
     private void Awake()
     {
