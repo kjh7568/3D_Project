@@ -7,7 +7,16 @@ public class PlayerUIMaster : MonoBehaviour
 {
     [SerializeField] private Image inventoryTab;
     [SerializeField] private Image gemTab;
-    void Update()
+
+    private IEnumerator Start()
+    {
+        yield return null;
+        
+        inventoryTab.gameObject.SetActive(false);
+        gemTab.gameObject.SetActive(false);
+    }
+
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.I))
         {

@@ -13,13 +13,6 @@ public class FasterProjectiles : SkillComponent
 
     public string SkillTag { get; private set; } = "FasterProjectiles";
 
-    public void Initialize(string jSonText)
-    {
-        projectileMoveSpeed = float.Parse(jSonText);
-        projectileMoveSpeed = projectileMoveSpeed / 2;
-    }
-    
-    
     public override void AddComponent(Skill skill)
     {
         rootSkill = skill;

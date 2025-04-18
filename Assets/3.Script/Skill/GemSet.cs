@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GemSet : MonoBehaviour
 {
     public bool isInMainGem = false;
     public List<bool> isInSupportGem = new List<bool>();
-
+    
+    [SerializeField]private int gemSetIndex;
+    
     private bool CheckRequiredAttributes(Item item)
     {
         var currentStat = Player.LocalPlayer.Stat;
@@ -46,6 +49,11 @@ public class GemSet : MonoBehaviour
         if (item.ItemData.ItemType.Equals("MainGem"))
         {
             isInMainGem = true;
+            
+            //메인 젬이면 추가하는 Set Index위치에 오브젝트 풀을 만든다. 근데... gem에 대한 정보는 얘한테 없지 않아? -> 매개 변수로 가지고 있음.
+            string[] tokens = item.ItemData.Parameter.Split('_');
+            
+            SkillManager.instance.MakePool(gemSetIndex, int.Parse(tokens[1]));
         }
         else if (item.ItemData.ItemType.Equals("SupportGem"))
         {
@@ -75,6 +83,7 @@ public class GemSet : MonoBehaviour
             else
             {
                 isInMainGem = false;
+                SkillManager.instance.RemovePool(gemSetIndex);
             }
         }
         else if (item.ItemData.ItemType.Equals("SupportGem"))

@@ -5,12 +5,6 @@ using UnityEngine;
     
 public class FireBall : Skill
 {
-    private void Start()
-    {
-        tags.Add("spell");
-        tags.Add("projectile");
-    }
-
     private void Update()
     {
         transform.Translate(Vector3.forward * (Time.deltaTime * data.moveSpeed));

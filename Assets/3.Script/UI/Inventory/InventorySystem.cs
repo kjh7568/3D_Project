@@ -99,7 +99,7 @@ public class InventorySystem : MonoBehaviour
                             {
                                 var gemSet = targetSlot.gameObject.GetComponentInParent<GemSet>();
 
-                                if (gemSet.AddGem(dragSlot.Item))
+                                if (gemSet.AddGem(dragSlot.Item)) //Main젬을 추가하는 순간 오브젝트 풀을 만든다.
                                 {
                                     SwapItem(SourceSlot, targetSlot);
                                 }

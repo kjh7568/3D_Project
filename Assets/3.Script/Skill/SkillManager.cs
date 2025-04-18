@@ -13,7 +13,7 @@ public class SkillManager : MonoBehaviour
 
     public List<GameObject> skillPrefabs = new List<GameObject>();
     public Queue<GameObject>[] skillPool = new Queue<GameObject>[MAX_SKILL_COUNT];
-
+    
     [SerializeField] private Transform[] poolParents = new Transform[MAX_SKILL_COUNT];
 
     private void Awake()
@@ -27,8 +27,6 @@ public class SkillManager : MonoBehaviour
         {
             skillPool[i] = new Queue<GameObject>();
         }
-
-        MakePool();
     }
 
     private void Update()
@@ -59,14 +57,23 @@ public class SkillManager : MonoBehaviour
         }
     }
 
-    public void MakePool()
+    public void MakePool(int parentsIdx, int prefabsIdx)
     {
         for (int i = 0; i < MAX_PREFAB_COUNT; i++)
         {
-            var pool = Instantiate(skillPrefabs[0], poolParents[0]);
+            var pool = Instantiate(skillPrefabs[prefabsIdx], poolParents[parentsIdx]);
             pool.SetActive(false);
 
-            skillPool[0].Enqueue(pool);
+            skillPool[prefabsIdx].Enqueue(pool);
+        }
+    }
+
+    public void RemovePool(int parentsIdx)
+    {
+        while (skillPool[parentsIdx].Count > 0)
+        {
+            var obj = skillPool[parentsIdx].Dequeue();
+            Destroy(obj);
         }
     }
 
