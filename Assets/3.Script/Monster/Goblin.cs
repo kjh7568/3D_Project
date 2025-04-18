@@ -12,8 +12,8 @@ public class Goblin : MonoBehaviour, IDamageAble
     public class MonsterStat
     {
         public string name;
-        public int hp;
-        public int maxHp;
+        public float hp;
+        public float maxHp;
         public float range;
         public float speed;
     }

@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private static readonly int DirX = Animator.StringToHash("DirX");
     private static readonly int DirZ = Animator.StringToHash("DirZ");
     private static readonly int Attack1 = Animator.StringToHash("Attack");
+    private static readonly int Skill1 = Animator.StringToHash("Skill");
 
     [Header("moving Settings")] [SerializeField]
     private Transform rotatePlayer;
@@ -34,7 +35,10 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         animInfo = animator.GetCurrentAnimatorStateInfo(0);
-        if (!animInfo.IsName("Attack01"))
+
+        if (!animInfo.IsName("Attack01") && !animInfo.IsName("Attack01 - Start")
+                                         && !animInfo.IsName("Attack01 - Casting") &&
+                                         !animInfo.IsName("Attack01 - Release"))
         {
             RotatePlayer();
             MovePlayer();
@@ -44,6 +48,11 @@ public class PlayerController : MonoBehaviour
 
     private void MovePlayer()
     {
+        if (animInfo.IsName("Attack01") || animInfo.IsName("Spell01 - Start") || animInfo.IsName("Spell01 - Casting") || animInfo.IsName("Spell01 - Release"))
+        {
+            return;
+        }
+        
         Vector3 getAxis = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
 
         Vector3 camForward = mainCam.transform.forward;
@@ -72,6 +81,11 @@ public class PlayerController : MonoBehaviour
 
     private void RotatePlayer()
     {
+        if (animInfo.IsName("Attack01"))
+        {
+            return;
+        }
+        
         Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
         Plane groundPlane = new Plane(Vector3.up, transform.position);
 
@@ -91,6 +105,11 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateCombatInput()
     {
+        if (animInfo.IsName("Attack01") || animInfo.IsName("Spell01 - Start") || animInfo.IsName("Spell01 - Casting") || animInfo.IsName("Spell01 - Release"))
+        {
+            return;
+        }
+        
         if (Input.GetMouseButtonDown(0))
         {
             Attack();
@@ -99,24 +118,42 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            SkillManager.instance.UseSkill(0);
+            Skill(0);
+            SkillManager.instance.currentCastingSpellIndex = 0;
+            return;
         }
-        else if (Input.GetKeyDown(KeyCode.E))
+
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            SkillManager.instance.UseSkill(1);
+            Skill(1);
+            SkillManager.instance.currentCastingSpellIndex = 1;
+            return;
         }
-        else if (Input.GetKeyDown(KeyCode.R))
+
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            SkillManager.instance.UseSkill(2);
+            Skill(2);
+            SkillManager.instance.currentCastingSpellIndex = 2;
+            return;
         }
     }
 
     private void Attack()
     {
-        if (!animInfo.IsName("Attack01"))
+        animator.ResetTrigger(Attack1);
+        animator.SetTrigger(Attack1);
+    }
+
+    private void Skill(int idx)
+    {
+        if (!SkillManager.instance.isInSkill[idx])
         {
-            animator.ResetTrigger(Attack1);
-            animator.SetTrigger(Attack1);
+            Debug.Log("슬롯에 스킬이 없습니다!");
+        }
+        else
+        {
+            animator.ResetTrigger(Skill1);
+            animator.SetTrigger(Skill1);
         }
     }
 }

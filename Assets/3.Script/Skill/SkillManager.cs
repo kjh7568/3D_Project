@@ -14,9 +14,11 @@ public class SkillManager : MonoBehaviour
     public List<GameObject> skillPrefabs = new List<GameObject>();
     public Queue<GameObject>[] skillPool = new Queue<GameObject>[MAX_SKILL_COUNT];
     public bool[] isInSkill = new bool[MAX_SKILL_COUNT];
-
+    public int currentCastingSpellIndex;
+    
     [SerializeField] private Transform[] poolParents = new Transform[MAX_SKILL_COUNT];
-
+    [SerializeField] private Transform firePoint;
+    
     private Action<Skill>[] addComponentHandler = new Action<Skill>[100];
     private Action<Skill>[] removeComponentHandler = new Action<Skill>[100];
 
@@ -130,14 +132,9 @@ public class SkillManager : MonoBehaviour
 
     public void UseSkill(int idx)
     {
-        if (!isInSkill[idx])
-        {
-            Debug.Log("슬롯에 스킬이 없습니다!");
-            return;
-        }
-
+        //todo 스킬 특성 별로 발사 위치 시전 모션 등등 다르게 해보기
         var temp = skillPool[idx].Dequeue();
-        temp.transform.position = Player.LocalPlayer.transform.position;
+        temp.transform.position = firePoint.position;
         temp.SetActive(true);
         temp.GetComponent<Skill>().Cast();
     }

@@ -4937,8 +4937,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     skillName: "\uD654\uC5FC\uAD6C"
-    damageRatio: 0.5
-    moveSpeed: 5
+    minDamage: 1
+    maxDamage: 4
+    moveSpeed: 10
     castSpeed: 1
   tags:
   - Spell

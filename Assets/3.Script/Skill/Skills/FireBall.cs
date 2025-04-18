@@ -2,7 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-    
+using Random = UnityEngine.Random;
+
 public class FireBall : Skill
 {
     private Camera mainCam;
@@ -48,12 +49,26 @@ public class FireBall : Skill
     {
         if (other.CompareTag("Enemy"))
         {
-            
+            if (!other.CompareTag("Enemy")) return;
+        
+            var monster = CombatSystem.Instance.GetMonsterOrNull(other);
+        
+            if (monster != null)
+            {
+                CombatEvent combatEvent = new CombatEvent
+                {
+                    Sender = Player.LocalPlayer,
+                    Receiver = monster,
+                    Damage = Random.Range(data.minDamage, data.maxDamage),
+                    HitPosition = other.ClosestPoint(transform.position),
+                    Collider = other
+                };
+
+                CombatSystem.Instance.AddInGameEvent(combatEvent);
+            }
         }
-        else if(other.CompareTag("Wall"))
-        {
-            SkillManager.instance.skillPool[0].Enqueue(gameObject);
-            gameObject.SetActive(false);
-        }
+        
+        SkillManager.instance.skillPool[0].Enqueue(gameObject);
+        gameObject.SetActive(false);
     }
 }
