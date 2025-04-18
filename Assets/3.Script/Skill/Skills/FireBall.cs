@@ -2,18 +2,33 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-    
+using Random = UnityEngine.Random;
+
 public class FireBall : Skill
 {
-    private void Start()
+    private Camera mainCam;
+    private Vector3 moveDirection;
+    
+    private void Awake()
     {
-        tags.Add("spell");
-        tags.Add("projectile");
+        mainCam = Camera.main;
+    }
+
+    private void OnEnable()
+    {
+        Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
+        Plane groundPlane = new Plane(Vector3.up, transform.position);
+
+        if (groundPlane.Raycast(ray, out float enter))
+        {
+            Vector3 mouseWorldPosition = ray.GetPoint(enter);
+            moveDirection = (mouseWorldPosition - transform.position).normalized;
+        }
     }
 
     private void Update()
     {
-        transform.Translate(Vector3.forward * (Time.deltaTime * data.moveSpeed));
+        transform.Translate(moveDirection * (Time.deltaTime * data.moveSpeed));
     }
 
     public override void Cast()
@@ -34,12 +49,26 @@ public class FireBall : Skill
     {
         if (other.CompareTag("Enemy"))
         {
-            
+            if (!other.CompareTag("Enemy")) return;
+        
+            var monster = CombatSystem.Instance.GetMonsterOrNull(other);
+        
+            if (monster != null)
+            {
+                CombatEvent combatEvent = new CombatEvent
+                {
+                    Sender = Player.LocalPlayer,
+                    Receiver = monster,
+                    Damage = Random.Range(data.minDamage, data.maxDamage),
+                    HitPosition = other.ClosestPoint(transform.position),
+                    Collider = other
+                };
+
+                CombatSystem.Instance.AddInGameEvent(combatEvent);
+            }
         }
-        else if(other.CompareTag("Wall"))
-        {
-            SkillManager.instance.skillPool[0].Enqueue(gameObject);
-            gameObject.SetActive(false);
-        }
+        
+        SkillManager.instance.skillPool[0].Enqueue(gameObject);
+        gameObject.SetActive(false);
     }
 }

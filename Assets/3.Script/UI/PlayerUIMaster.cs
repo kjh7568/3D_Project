@@ -5,9 +5,19 @@ using UnityEngine.UI;
 
 public class PlayerUIMaster : MonoBehaviour
 {
+    [SerializeField] private Image dragSlot;
     [SerializeField] private Image inventoryTab;
     [SerializeField] private Image gemTab;
-    void Update()
+
+    private IEnumerator Start()
+    {
+        yield return null;
+        
+        inventoryTab.gameObject.SetActive(false);
+        gemTab.gameObject.SetActive(false);
+    }
+
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
@@ -25,11 +35,13 @@ public class PlayerUIMaster : MonoBehaviour
             if (gemTab.gameObject.activeSelf)
             {
                 inventoryTab.gameObject.SetActive(false);
+                dragSlot.gameObject.SetActive(false);
                 gemTab.gameObject.SetActive(false);
             }
             else
             {
                 inventoryTab.gameObject.SetActive(true);
+                dragSlot.gameObject.SetActive(true);
                 gemTab.gameObject.SetActive(true);
             }
         }

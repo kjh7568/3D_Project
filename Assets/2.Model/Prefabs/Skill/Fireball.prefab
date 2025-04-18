@@ -4937,10 +4937,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     skillName: "\uD654\uC5FC\uAD6C"
-    damageRatio: 0.5
-    moveSpeed: 3
+    minDamage: 1
+    maxDamage: 4
+    moveSpeed: 10
     castSpeed: 1
-  tags: []
+  tags:
+  - Spell
+  - Projectile
 --- !u!135 &3442327554151218146
 SphereCollider:
   m_ObjectHideFlags: 0

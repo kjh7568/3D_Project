@@ -8,7 +8,8 @@ public abstract class Skill : MonoBehaviour
     public class SkillData
     {
         public string skillName;
-        public float damageRatio;
+        public int minDamage;
+        public int maxDamage;
         public float moveSpeed;
         public float castSpeed;
     }

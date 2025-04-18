@@ -18,8 +18,7 @@ public class LocalPlayer  : Player, IDamageAble
         Player.LocalPlayer = this;
         
         Stat = new PlayerStat();
-        Stat.MaxHP = 100;
-        Stat.HP = Stat.MaxHP;
+        Stat.Initialize();
     }
     
     public void TakeDamage(CombatEvent combatEvent)
