@@ -8,6 +8,8 @@ using UnityEngine;
 
 public class ItemTableManager : MonoBehaviour
 {
+    public static ItemTableManager instance;
+    
     [SerializeField] private TableSAO spriteTable;
     
     private List<Item> itemTable = new List<Item>();

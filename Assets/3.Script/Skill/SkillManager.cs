@@ -13,8 +13,12 @@ public class SkillManager : MonoBehaviour
 
     public List<GameObject> skillPrefabs = new List<GameObject>();
     public Queue<GameObject>[] skillPool = new Queue<GameObject>[MAX_SKILL_COUNT];
-    
+    public bool[] isInSkill = new bool[MAX_SKILL_COUNT];
+
     [SerializeField] private Transform[] poolParents = new Transform[MAX_SKILL_COUNT];
+
+    private Action<Skill>[] addComponentHandler = new Action<Skill>[100];
+    private Action<Skill>[] removeComponentHandler = new Action<Skill>[100];
 
     private void Awake()
     {
@@ -26,7 +30,10 @@ public class SkillManager : MonoBehaviour
         for (int i = 0; i < MAX_SKILL_COUNT; i++)
         {
             skillPool[i] = new Queue<GameObject>();
+            isInSkill[i] = false;
         }
+
+        InitializeHandler();
     }
 
     private void Update()
@@ -57,6 +64,17 @@ public class SkillManager : MonoBehaviour
         }
     }
 
+    public void InitializeHandler()
+    {
+        addComponentHandler[0] = (skill) => { skill.Add<FasterProjectiles>(); };
+        removeComponentHandler[0] = (skill) => { skill.Remove<FasterProjectiles>(); };
+
+        addComponentHandler[1] = (skill) =>
+        {
+            // skill.Add<Proliferation>();
+        };
+    }
+
     public void MakePool(int parentsIdx, int prefabsIdx)
     {
         for (int i = 0; i < MAX_PREFAB_COUNT; i++)
@@ -64,7 +82,7 @@ public class SkillManager : MonoBehaviour
             var pool = Instantiate(skillPrefabs[prefabsIdx], poolParents[parentsIdx]);
             pool.SetActive(false);
 
-            skillPool[prefabsIdx].Enqueue(pool);
+            skillPool[parentsIdx].Enqueue(pool);
         }
     }
 
@@ -77,15 +95,44 @@ public class SkillManager : MonoBehaviour
         }
     }
 
+    public void AddSkillComponent(int parentsIdx, int prefabsIdx, int componentKey)
+    {
+        //큐 초기화
+        RemovePool(parentsIdx);
+
+        // 컴포넌트 추가하기
+        for (int i = 0; i < MAX_PREFAB_COUNT; i++)
+        {
+            var pool = Instantiate(skillPrefabs[prefabsIdx], poolParents[parentsIdx]);
+            var tempComponent = pool.GetComponent<Skill>();
+
+            addComponentHandler[componentKey - 200]?.Invoke(tempComponent);
+
+            pool.SetActive(false);
+            skillPool[parentsIdx].Enqueue(pool);
+        }
+    }
+
+    public void RemoveSkillComponent(int parentsIdx, int componentKey)
+    {
+        // 컴포넌트 제거하기
+        for (int i = 0; i < MAX_PREFAB_COUNT; i++)
+        {
+            var pool = skillPool[parentsIdx].Dequeue();
+            var tempComponent = pool.GetComponent<Skill>();
+
+            removeComponentHandler[componentKey - 200]?.Invoke(tempComponent);
+
+            pool.SetActive(false);
+            skillPool[parentsIdx].Enqueue(pool);
+        }
+    }
+
     public void UseSkill(int idx)
     {
-        try
+        if (!isInSkill[idx])
         {
-            var temp2 = skillPrefabs[idx] == null;
-        }
-        catch
-        {
-            Debug.Log("스킬 슬롯에 스킬이 없습니다.");
+            Debug.Log("슬롯에 스킬이 없습니다!");
             return;
         }
 

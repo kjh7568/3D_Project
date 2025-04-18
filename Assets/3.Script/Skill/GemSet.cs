@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,9 +8,9 @@ public class GemSet : MonoBehaviour
 {
     public bool isInMainGem = false;
     public List<bool> isInSupportGem = new List<bool>();
-    
-    [SerializeField]private int gemSetIndex;
-    
+
+    [SerializeField] private int gemSetIndex;
+    [SerializeField] private int mainGemKey;
     private bool CheckRequiredAttributes(Item item)
     {
         var currentStat = Player.LocalPlayer.Stat;
@@ -40,6 +41,9 @@ public class GemSet : MonoBehaviour
 
     public bool AddGem(Item item)
     {
+        //메인 젬이면 추가하는 Set Index위치에 오브젝트 풀을 만든다. 근데... gem에 대한 정보는 얘한테 없지 않아? -> 매개 변수로 가지고 있음.
+        // string[] tokens = item.ItemData.Parameter.Split('_');
+
         //능력치 안되면 컷
         if (!CheckRequiredAttributes(item))
         {
@@ -49,17 +53,17 @@ public class GemSet : MonoBehaviour
         if (item.ItemData.ItemType.Equals("MainGem"))
         {
             isInMainGem = true;
+            mainGemKey = item.ItemData.Key - 100;
+            SkillManager.instance.isInSkill[gemSetIndex] = true;
             
-            //메인 젬이면 추가하는 Set Index위치에 오브젝트 풀을 만든다. 근데... gem에 대한 정보는 얘한테 없지 않아? -> 매개 변수로 가지고 있음.
-            string[] tokens = item.ItemData.Parameter.Split('_');
-            
-            SkillManager.instance.MakePool(gemSetIndex, int.Parse(tokens[1]));
+            SkillManager.instance.MakePool(gemSetIndex, mainGemKey);
         }
         else if (item.ItemData.ItemType.Equals("SupportGem"))
         {
             if (isInMainGem)
             {
                 isInSupportGem.Add(true);
+                SkillManager.instance.AddSkillComponent(gemSetIndex,mainGemKey, item.ItemData.Key);
             }
             else
             {
@@ -83,12 +87,15 @@ public class GemSet : MonoBehaviour
             else
             {
                 isInMainGem = false;
+                SkillManager.instance.isInSkill[gemSetIndex] = false;
+                
                 SkillManager.instance.RemovePool(gemSetIndex);
             }
         }
         else if (item.ItemData.ItemType.Equals("SupportGem"))
         {
             isInSupportGem.RemoveAt(0);
+            SkillManager.instance.RemoveSkillComponent(gemSetIndex, item.ItemData.Key);
         }
 
         return true;
@@ -117,6 +124,14 @@ public class GemSet : MonoBehaviour
                 {
                     targetSet.isInMainGem = true;
                     isInMainGem = false;
+                    
+                    SkillManager.instance.isInSkill[gemSetIndex] = false;
+                    SkillManager.instance.isInSkill[targetSet.gemSetIndex] = true;
+
+                    SkillManager.instance.RemovePool(gemSetIndex);
+
+                    string[] tokens = item.ItemData.Parameter.Split('_');
+                    SkillManager.instance.MakePool(targetSet.gemSetIndex, int.Parse(tokens[1]));
                 }
             }
         }

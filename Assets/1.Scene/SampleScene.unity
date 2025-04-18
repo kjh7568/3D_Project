@@ -3420,6 +3420,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00cd197cf2ca5bc44b115ba60094160c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dragSlot: {fileID: 327753526}
   inventoryTab: {fileID: 215469140}
   gemTab: {fileID: 1059893045}
 --- !u!4 &118756276
@@ -13118,6 +13119,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInMainGem: 0
   isInSupportGem: 
+  gemSetIndex: 2
+  mainGemKey: 0
 --- !u!1001 &433275692
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25597,6 +25600,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillPrefabs:
   - {fileID: 997538379474443715, guid: 87cae439dfeb5e44ea4496c95e59d260, type: 3}
+  isInSkill: 000000
   poolParents:
   - {fileID: 1274497498}
   - {fileID: 680237970}
@@ -32625,6 +32629,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInMainGem: 0
   isInSupportGem: 
+  gemSetIndex: 0
+  mainGemKey: 0
 --- !u!1 &1173538713 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 192550, guid: 3bf01e09059dad54b985779213d8dca8,
@@ -69146,6 +69152,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInMainGem: 0
   isInSupportGem: 
+  gemSetIndex: 1
+  mainGemKey: 0
 --- !u!1001 &1820332197
 PrefabInstance:
   m_ObjectHideFlags: 0
