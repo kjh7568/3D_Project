@@ -18,4 +18,10 @@ public class ItemData
     /// 특수한 문자열로 아이템의 기능 매개변수를 넣는다 --> 쓸 일이 있을까
     /// </summary>
     public string Parameter { get; set; }
+    
+    // 아이템요구 능력치
+    public int RequiredStrength { get; set; }
+    public int RequiredDexterity { get; set; }
+    public int RequiredIntelligence { get; set; }
+    public int RequiredLevel { get; set; }
 }

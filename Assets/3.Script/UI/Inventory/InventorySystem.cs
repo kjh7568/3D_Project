@@ -52,8 +52,6 @@ public class InventorySystem : MonoBehaviour
     //Drag가 끝날때의 이벤트 데이터를 사용해서 어느 인벤토리인지, 어느슬롯인지 판별
     public void EndDrag(PointerEventData eventData)
     {
-        dragSlot.ClearSlot();
-
         var results = new List<RaycastResult>();
         raycaster.Raycast(eventData, results);
 
@@ -65,24 +63,78 @@ public class InventorySystem : MonoBehaviour
                 Inventory from = FindInventory(SourceSlot);
                 Inventory to = FindInventory(targetSlot);
 
-                var gemSet = targetSlot.gameObject.GetComponentInParent<GemSet>();
 
                 if (from.Equals(to)) //아이템 위치만 변경
                 {
-                }
-                else //아이템 장착과 삽입
-                {
-                    if (from.Equals(gemTab))
+                    if (from.Equals(gemTab)) //젬 이동
                     {
-                    }
-                    else
-                    {
-                    }
-                }
+                        //소켓 타입 계산은 여기서
+                        if (SourceSlot.Item.ItemData.ItemType.Equals(targetSlot.gameObject.name))
+                        {
+                            var myGemSet = SourceSlot.gameObject.GetComponentInParent<GemSet>();
+                            var targetGemSet = targetSlot.gameObject.GetComponentInParent<GemSet>();
 
-                SwapItem(SourceSlot, targetSlot);
+                            if (myGemSet.MoveGem(dragSlot.Item, targetGemSet))
+                            {
+                                SwapItem(SourceSlot, targetSlot);
+                            }
+                        }
+                        else
+                        {
+                            Debug.Log("Item Type이 맞지 않습니다!");
+                        }
+                    }
+                    else //인벤 아이템 이동
+                    {
+                        SwapItem(SourceSlot, targetSlot);
+                    }
+                }
+                else //아이템 장착과 해제
+                {
+                    if (from.Equals(inventoryTab) && to.Equals(gemTab)) // 인벤 탭에서 젬 탭으로 -> 장착
+                    {
+                        if (targetSlot.Item == null)
+                        {
+                            if (SourceSlot.Item.ItemData.ItemType.Equals(targetSlot.gameObject.name))
+                            {
+                                var gemSet = targetSlot.gameObject.GetComponentInParent<GemSet>();
+
+                                if (gemSet.AddGem(dragSlot.Item))
+                                {
+                                    SwapItem(SourceSlot, targetSlot);
+                                }
+                            }
+                            else
+                            {
+                                Debug.Log("Item Type이 맞지 않습니다!");
+                            }
+                        }
+                        else
+                        {
+                            Debug.Log("이미 해당 위치에 이미 스킬 젬이 존재합니다!");
+                        }
+                    }
+                    else // 젬 탭에서 인벤 탭으로 -> 해제
+                    {
+                        if (targetSlot.Item == null)
+                        {
+                            var gemSet = SourceSlot.gameObject.GetComponentInParent<GemSet>();
+
+                            if (gemSet.RemoveGem(dragSlot.Item))
+                            {
+                                SwapItem(SourceSlot, targetSlot);
+                            }
+                        }
+                        else
+                        {
+                            Debug.Log("이미 해당 위치에 아이템이 존재합니다!");
+                        }
+                    }
+                }
             }
         }
+
+        dragSlot.ClearSlot();
     }
 
     private void SwapItem(InventorySlot a, InventorySlot b)

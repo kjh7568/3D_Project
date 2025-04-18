@@ -1,4 +1,7 @@
-Key,Name,Parameter,ItemType
-100,Fireball,FireBall,MainGem
-200,Fasterprojectiles,FasterProjectiles,SupportGem
-201,Proliferation,proliferation,SupportGem
+Key,Name,Parameter,ItemType,RequiredStrength,RequiredDexterity,RequiredIntelligence,RequiredLevel
+100,Fireball,FireBall,MainGem,0,0,5,1
+200,Fasterprojectiles,FasterProjectiles,SupportGem,0,3,3,1
+201,Proliferation,proliferation,SupportGem,0,0,6,1
+101,Freezingpulse,FreezingPulse,MainGem,0,0,5,1
+200,Fasterprojectiles,FasterProjectiles,SupportGem,0,3,3,1
+201,Proliferation,proliferation,SupportGem,0,0,6,1
