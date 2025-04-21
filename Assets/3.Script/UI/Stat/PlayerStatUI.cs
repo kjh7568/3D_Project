@@ -32,8 +32,8 @@ public class PlayerStatUI : MonoBehaviour
     {
         PlayerStat temp = Player.LocalPlayer.Stat;
         
-        HpText.text = $"{temp.Hp} / {temp.MaxHp}";
-        MpText.text = $"{temp.Mp} / {temp.MaxMp}";
-        ExpText.text = $"{temp.Exp} / {temp.MaxExp}";
+        HpText.text = $"{(int)temp.Hp} / {temp.MaxHp}";
+        MpText.text = $"{(int)temp.Mp} / {temp.MaxMp}";
+        ExpText.text = $"{(int)temp.Exp} / {temp.MaxExp}";
     }
 }

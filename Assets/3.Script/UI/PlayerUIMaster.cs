@@ -5,44 +5,44 @@ using UnityEngine.UI;
 
 public class PlayerUIMaster : MonoBehaviour
 {
-    [SerializeField] private Image dragSlot;
-    [SerializeField] private Image inventoryTab;
-    [SerializeField] private Image gemTab;
+    [SerializeField] private GameObject dragSlot;
+    [SerializeField] private GameObject inventoryTab;
+    [SerializeField] private GameObject gemTab;
 
     private IEnumerator Start()
     {
         yield return null;
         
-        inventoryTab.gameObject.SetActive(false);
-        gemTab.gameObject.SetActive(false);
+        inventoryTab.SetActive(false);
+        gemTab.SetActive(false);
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            if (inventoryTab.gameObject.activeSelf)
+            if (inventoryTab.activeSelf)
             {
-                inventoryTab.gameObject.SetActive(false);
+                inventoryTab.SetActive(false);
             }
             else
             {
-                inventoryTab.gameObject.SetActive(true);
+                inventoryTab.SetActive(true);
             }
         }
         else if (Input.GetKeyDown(KeyCode.G))
         {
-            if (gemTab.gameObject.activeSelf)
+            if (gemTab.activeSelf)
             {
-                inventoryTab.gameObject.SetActive(false);
-                dragSlot.gameObject.SetActive(false);
-                gemTab.gameObject.SetActive(false);
+                dragSlot.SetActive(false);
+                inventoryTab.SetActive(false);
+                gemTab.SetActive(false);
             }
             else
             {
-                inventoryTab.gameObject.SetActive(true);
-                dragSlot.gameObject.SetActive(true);
-                gemTab.gameObject.SetActive(true);
+                dragSlot.SetActive(true);
+                inventoryTab.SetActive(true);
+                gemTab.SetActive(true);
             }
         }
     }

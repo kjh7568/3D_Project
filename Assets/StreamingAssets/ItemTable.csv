@@ -1,4 +1,5 @@
 Key,Name,Parameter,ItemType,RequiredStrength,RequiredDexterity,RequiredIntelligence,RequiredLevel
+0,PlateVest,,BodyArmour,1,0,0,1
 100,Fireball,FireBall_0,MainGem,0,0,5,1
 200,Fasterprojectiles,,SupportGem,0,3,3,1
 201,Proliferation,,SupportGem,0,0,6,1

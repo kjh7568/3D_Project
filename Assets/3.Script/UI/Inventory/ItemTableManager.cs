@@ -9,9 +9,9 @@ using UnityEngine;
 public class ItemTableManager : MonoBehaviour
 {
     public static ItemTableManager instance;
-    
+
     [SerializeField] private TableSAO spriteTable;
-    
+
     private List<Item> itemTable = new List<Item>();
 
     public void LoadItemTable()
@@ -27,9 +27,23 @@ public class ItemTableManager : MonoBehaviour
                 Item item = new Item
                 {
                     ItemData = data,
-                    Sprite = spriteTable.GetItemSprite(data.Key).sprite
+                    Sprite = spriteTable.GetItemSprite(data.Key).sprite,
+                    DragSize = spriteTable.GetItemSprite(data.Key).dragSize
                 };
-                
+
+                if (item.ItemData.Key < 33)
+                {
+                    
+                }
+                else if(item.ItemData.Key < 66)
+                {
+                    
+                }
+                else if (item.ItemData.Key < 100)
+                {
+                    
+                }
+
                 itemTable.Add(item);
             }
         }

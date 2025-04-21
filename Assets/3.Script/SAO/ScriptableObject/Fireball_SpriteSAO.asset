@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   key: 100
   sprite: {fileID: 21300000, guid: 599c04611be1e644fbf1ec77ebbc1463, type: 3}
+  dragSize: {x: 90, y: 90}
