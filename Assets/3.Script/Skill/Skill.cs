@@ -12,6 +12,7 @@ public abstract class Skill : MonoBehaviour
         public int maxDamage;
         public float moveSpeed;
         public float castSpeed;
+        public float costMana;
     }
 
     public SkillData data;

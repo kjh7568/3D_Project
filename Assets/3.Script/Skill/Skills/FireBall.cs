@@ -33,6 +33,8 @@ public class FireBall : Skill
 
     public override void Cast()
     {
+        
+        
         if (tags.Count == 0)
         {
             Debug.Log("No tags found");

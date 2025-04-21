@@ -3,23 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class Goblin : MonoBehaviour, IDamageAble
+public class Goblin : MonoBehaviour, IMonster
 {
     public Collider MainCollider => monsterCollider;
     public GameObject GameObject => gameObject;
-    
-    [System.Serializable]
-    public class MonsterStat
-    {
-        public string name;
-        public float hp;
-        public float maxHp;
-        public float range;
-        public float speed;
-    }
+    public Collider AttackCollider => attackCollider;
+    public MonsterStat MonsterStat => monsterStat;
 
     [SerializeField] private MonsterStat monsterStat;
     [SerializeField] private Collider monsterCollider;
+    [SerializeField] private Collider attackCollider;
     
     private MonsterController monster;
     
@@ -33,7 +26,7 @@ public class Goblin : MonoBehaviour, IDamageAble
     public void TakeDamage(CombatEvent combatEvent)
     {
         monsterStat.hp -= combatEvent.Damage;
-
+        
         Debug.Log($"현재 {monsterStat.name} 체력: {monsterStat.hp}/{monsterStat.maxHp}");
         
         if (monsterStat.hp <= 0)
@@ -42,10 +35,15 @@ public class Goblin : MonoBehaviour, IDamageAble
         }
     }
 
+    public MonsterStat GetStat() => monsterStat;
+
     private void OnDead()
     {
-        //todo 사망 판정 만들기
         monsterCollider.enabled = false;
+        AttackCollider.enabled = false;
+
+        Player.LocalPlayer.Stat.Exp += monsterStat.rewardExp;
+        
         monster.PlayDead();
     }
 }

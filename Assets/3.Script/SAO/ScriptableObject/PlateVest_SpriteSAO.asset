@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8bb7a1b2c1463b04685cb57dbbfac54f, type: 3}
-  m_Name: Proliferation_SpriteSAO
+  m_Name: PlateVest_SpriteSAO
   m_EditorClassIdentifier: 
-  key: 201
-  sprite: {fileID: 21300000, guid: 021fcce6fdeed1f479e64b219fb0ec78, type: 3}
-  dragSize: {x: 90, y: 90}
+  key: 0
+  sprite: {fileID: 21300000, guid: da6479d966dd78b4aaaf46f0d2736521, type: 3}
+  dragSize: {x: 180, y: 270}

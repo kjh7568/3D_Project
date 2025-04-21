@@ -7,4 +7,5 @@ public class ItemSpriteSAO : ScriptableObject
 {
     public int key;
     public Sprite sprite;
+    public Vector2 dragSize;
 }

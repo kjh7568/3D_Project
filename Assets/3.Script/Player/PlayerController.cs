@@ -48,11 +48,12 @@ public class PlayerController : MonoBehaviour
 
     private void MovePlayer()
     {
-        if (animInfo.IsName("Attack01") || animInfo.IsName("Spell01 - Start") || animInfo.IsName("Spell01 - Casting") || animInfo.IsName("Spell01 - Release"))
+        if (animInfo.IsName("Attack01") || animInfo.IsName("Spell01 - Start") || animInfo.IsName("Spell01 - Casting") ||
+            animInfo.IsName("Spell01 - Release"))
         {
             return;
         }
-        
+
         Vector3 getAxis = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
 
         Vector3 camForward = mainCam.transform.forward;
@@ -85,7 +86,7 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        
+
         Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
         Plane groundPlane = new Plane(Vector3.up, transform.position);
 
@@ -105,11 +106,12 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateCombatInput()
     {
-        if (animInfo.IsName("Attack01") || animInfo.IsName("Spell01 - Start") || animInfo.IsName("Spell01 - Casting") || animInfo.IsName("Spell01 - Release"))
+        if (animInfo.IsName("Attack01") || animInfo.IsName("Spell01 - Start") || animInfo.IsName("Spell01 - Casting") ||
+            animInfo.IsName("Spell01 - Release"))
         {
             return;
         }
-        
+
         if (Input.GetMouseButtonDown(0))
         {
             Attack();
@@ -152,8 +154,24 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            animator.ResetTrigger(Skill1);
-            animator.SetTrigger(Skill1);
+            var temp = SkillManager.instance.skillPool[idx].Dequeue();
+            if (temp.TryGetComponent(out Skill skill))
+            {
+                if (Player.LocalPlayer.Stat.Mp >= skill.data.costMana)
+                {
+                    Player.LocalPlayer.Stat.Mp -= skill.data.costMana;
+                    
+                    SkillManager.instance.skillPool[idx].Enqueue(temp);
+
+                    animator.ResetTrigger(Skill1);
+                    animator.SetTrigger(Skill1);
+                }
+                else
+                {
+                    SkillManager.instance.skillPool[idx].Enqueue(temp);
+                    Debug.Log("마나가 부족합니다.");
+                }
+            }
         }
     }
 }
