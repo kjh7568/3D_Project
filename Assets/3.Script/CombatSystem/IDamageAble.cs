@@ -9,3 +9,9 @@ public interface IDamageAble
 
     public void TakeDamage(CombatEvent combatEvent);
 }
+
+public interface IMonster : IDamageAble
+{
+    MonsterStat GetStat();
+    public Collider AttackCollider { get; }
+}

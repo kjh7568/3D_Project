@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class LocalPlayer  : Player, IDamageAble
 {
@@ -20,9 +22,10 @@ public class LocalPlayer  : Player, IDamageAble
         Stat = new PlayerStat();
         Stat.Initialize();
     }
-    
+
     public void TakeDamage(CombatEvent combatEvent)
     {
-        throw new System.NotImplementedException();
+        Stat.Hp -= combatEvent.Damage;
+        Debug.Log($"{combatEvent.Damage}의 데미지를 받음");
     }
 }
