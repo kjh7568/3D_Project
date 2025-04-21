@@ -4941,6 +4941,7 @@ MonoBehaviour:
     maxDamage: 4
     moveSpeed: 10
     castSpeed: 1
+    costMana: 5
   tags:
   - Spell
   - Projectile
