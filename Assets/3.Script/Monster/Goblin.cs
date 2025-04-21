@@ -8,6 +8,7 @@ public class Goblin : MonoBehaviour, IMonster
     public Collider MainCollider => monsterCollider;
     public GameObject GameObject => gameObject;
     public Collider AttackCollider => attackCollider;
+    public MonsterStat MonsterStat => monsterStat;
 
     [SerializeField] private MonsterStat monsterStat;
     [SerializeField] private Collider monsterCollider;

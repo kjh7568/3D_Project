@@ -14,4 +14,5 @@ public interface IMonster : IDamageAble
 {
     MonsterStat GetStat();
     public Collider AttackCollider { get; }
+    public MonsterStat MonsterStat { get; }
 }
