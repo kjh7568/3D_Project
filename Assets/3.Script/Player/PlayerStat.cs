@@ -12,7 +12,7 @@ public class PlayerStat
     public float Exp { get; set; }
     public float MaxExp { get; set; }
 
-    public float Armor { get; set; }
+    public float Armour { get; set; }
     public float Evasion { get; set; }
 
     public int Strength { get; set; }
@@ -37,7 +37,7 @@ public class PlayerStat
         Dexterity = 5;
         Intelligence = 5;
 
-        Armor = 0;
+        Armour = 0;
         Evasion = 0;
     }
 

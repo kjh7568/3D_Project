@@ -31,19 +31,6 @@ public class ItemTableManager : MonoBehaviour
                     DragSize = spriteTable.GetItemSprite(data.Key).dragSize
                 };
 
-                if (item.ItemData.Key < 33)
-                {
-                    
-                }
-                else if(item.ItemData.Key < 66)
-                {
-                    
-                }
-                else if (item.ItemData.Key < 100)
-                {
-                    
-                }
-
                 itemTable.Add(item);
             }
         }

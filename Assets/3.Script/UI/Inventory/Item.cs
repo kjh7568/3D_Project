@@ -8,7 +8,6 @@ public class Item
     public Vector2 DragSize { get; set; }
     
     public ItemData ItemData { get; set; }
-    public Equipment Equipment { get; set; }
 }
 
 public class ItemData
