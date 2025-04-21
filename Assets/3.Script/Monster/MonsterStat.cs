@@ -1,3 +1,5 @@
+using UnityEngine.Serialization;
+
 [System.Serializable]
 public class MonsterStat
 {
@@ -8,4 +10,5 @@ public class MonsterStat
     public float speed;
     public int minDamage;
     public int maxDamage;
+    public int rewardExp;
 }

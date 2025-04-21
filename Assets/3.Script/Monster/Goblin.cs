@@ -26,7 +26,7 @@ public class Goblin : MonoBehaviour, IMonster
     public void TakeDamage(CombatEvent combatEvent)
     {
         monsterStat.hp -= combatEvent.Damage;
-
+        
         Debug.Log($"현재 {monsterStat.name} 체력: {monsterStat.hp}/{monsterStat.maxHp}");
         
         if (monsterStat.hp <= 0)
@@ -41,6 +41,8 @@ public class Goblin : MonoBehaviour, IMonster
     {
         monsterCollider.enabled = false;
         AttackCollider.enabled = false;
+
+        Player.LocalPlayer.Stat.Exp += monsterStat.rewardExp;
         
         monster.PlayDead();
     }

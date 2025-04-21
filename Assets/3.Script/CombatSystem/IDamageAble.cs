@@ -12,7 +12,7 @@ public interface IDamageAble
 
 public interface IMonster : IDamageAble
 {
-    MonsterStat GetStat();
+    public MonsterStat GetStat();
     public Collider AttackCollider { get; }
     public MonsterStat MonsterStat { get; }
 }
