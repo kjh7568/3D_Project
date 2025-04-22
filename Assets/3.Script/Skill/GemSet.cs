@@ -13,7 +13,7 @@ public class GemSet : MonoBehaviour
     [SerializeField] private int mainGemKey;
     private bool CheckRequiredAttributes(Item item)
     {
-        var currentStat = Player.LocalPlayer.Stat;
+        var currentStat = Player.LocalPlayer.RealStat;
 
         if (currentStat.Strength < item.ItemData.RequiredStrength)
         {
