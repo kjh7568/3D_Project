@@ -193,7 +193,7 @@ public class InventorySystem : MonoBehaviour
             return;
         }
 
-        Debug.Log("장비를 장착합니다.");
+        Debug.Log($"{SourceSlot.Item.ItemData.Name}을/를 장착합니다.");
         EquipmentManager.Instance.EquipEquipment(SourceSlot.Item);
         Debug.Log($"{Player.LocalPlayer.RealStat.MaxHp}");
         

@@ -20,15 +20,8 @@ public class RewardManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.L))
         {
-            for (int i = 0; i < itemTableManager.ItemTable.Count; i++)
-            {
-                if (itemTableManager.ItemTable[i].ItemData.Key == 0)
-                {
-                    Item item = MakeEquipment(itemTableManager.ItemTable[i]);
-                    inventoryTab.AddItem(item);
-                    break;
-                }
-            }
+            Item item = MakeEquipment(itemTableManager.ItemTable[Random.Range(0, 4)]);
+            inventoryTab.AddItem(item);
         }
     }
 
