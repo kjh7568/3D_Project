@@ -183,7 +183,7 @@ public class InventorySystem : MonoBehaviour
     {
         if (targetSlot.Item != null)
         {
-            Debug.Log("이미 해당 위치에 장비를 착용중입니다!");
+            Debug.Log("이미 해당 위치에 장비를 착용중입니다!"); 
             return;
         }
 
@@ -193,9 +193,7 @@ public class InventorySystem : MonoBehaviour
             return;
         }
 
-        Debug.Log($"{SourceSlot.Item.ItemData.Name}을/를 장착합니다.");
         EquipmentManager.Instance.EquipEquipment(SourceSlot.Item);
-        Debug.Log($"{Player.LocalPlayer.RealStat.MaxHp}");
         
         SwapItem(SourceSlot, targetSlot);
     }

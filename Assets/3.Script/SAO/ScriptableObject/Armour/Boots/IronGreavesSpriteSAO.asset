@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bb7a1b2c1463b04685cb57dbbfac54f, type: 3}
   m_Name: IronGreavesSpriteSAO
   m_EditorClassIdentifier: 
-  key: 0
-  sprite: {fileID: 0}
-  dragSize: {x: 0, y: 0}
+  key: 75
+  sprite: {fileID: 21300000, guid: 121ed188257cb214599a83a0484f5a21, type: 3}
+  dragSize: {x: 180, y: 180}

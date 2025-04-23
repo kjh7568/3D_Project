@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSpriteTable:
   - {fileID: 11400000, guid: 0a0bf5babebb139489164d94253b3e1d, type: 2}
+  - {fileID: 11400000, guid: 18bb6ab87c1af904286a6d483c4513d1, type: 2}
+  - {fileID: 11400000, guid: 76b61650a441af941a97ee94ff93f9b6, type: 2}
+  - {fileID: 11400000, guid: e74a9e82f0cade643bfadc2c3a2f53cb, type: 2}
   - {fileID: 11400000, guid: 8600c6cf72637a84aa11df709b4fedcc, type: 2}
   - {fileID: 11400000, guid: f078ff7830f69034bbd8f8156e9cb9a0, type: 2}
   - {fileID: 11400000, guid: 562208ac88516ed4abb8a905a2fcfe79, type: 2}
