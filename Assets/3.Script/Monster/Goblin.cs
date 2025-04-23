@@ -42,7 +42,7 @@ public class Goblin : MonoBehaviour, IMonster
         monsterCollider.enabled = false;
         AttackCollider.enabled = false;
 
-        Player.LocalPlayer.Stat.Exp += monsterStat.rewardExp;
+        Player.LocalPlayer.RealStat.Exp += monsterStat.rewardExp;
         
         monster.PlayDead();
     }

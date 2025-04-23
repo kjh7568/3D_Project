@@ -32,8 +32,8 @@ public class InventorySystem : MonoBehaviour
 
     private void Start()
     {
-        itemTableManager.LoadItemTable();
-        inventoryTab.Initialize(itemTableManager.GetItemTable());
+        // inventoryTab.Initialize(itemTableManager.GetItemTable());
+        inventoryTab.Initialize(null);
         equipmentTab.Initialize(null);
         gemTab.Initialize(null);
     }
@@ -194,6 +194,9 @@ public class InventorySystem : MonoBehaviour
         }
 
         Debug.Log("장비를 장착합니다.");
+        EquipmentManager.Instance.EquipEquipment(SourceSlot.Item);
+        Debug.Log($"{Player.LocalPlayer.RealStat.MaxHp}");
+        
         SwapItem(SourceSlot, targetSlot);
     }
 
@@ -206,6 +209,7 @@ public class InventorySystem : MonoBehaviour
         }
         
         Debug.Log("장비를 해제합니다.");
+        EquipmentManager.Instance.UnEquipEquipment(SourceSlot.Item);
         SwapItem(SourceSlot, targetSlot);
     }
     
