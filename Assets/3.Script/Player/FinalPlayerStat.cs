@@ -62,6 +62,10 @@ public class FinalPlayerStats
 
         // 마나
         MaxMp = (pStat.Mp + eStat.Mp) * eStat.IncreaseMp;
+        if (Mp > MaxMp)
+        {
+            Mp = MaxMp;
+        }
         MpRegenRate = (pStat.MpRegenRate + eStat.MpRegenRate) * eStat.IncreaseMpRegenRate;
 
         // 방어/회피

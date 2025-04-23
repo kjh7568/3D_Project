@@ -18,11 +18,16 @@ public class InventorySystem : MonoBehaviour
     [SerializeField] private InventorySlot dragSlot;
 
     private GraphicRaycaster raycaster;
+    [SerializeField] private EventSystem eventSystem;
 
     [SerializeField] private ItemTableManager itemTableManager;
     [SerializeField] private Inventory gemTab;
     [SerializeField] private Inventory inventoryTab;
     [SerializeField] private Inventory equipmentTab;
+
+    [SerializeField] private Canvas canvas;
+    [SerializeField] private RectTransform floatingUIPosition;
+    [SerializeField] private FloatingInfomationUI floatingUI;
 
     private void Awake()
     {
@@ -36,6 +41,11 @@ public class InventorySystem : MonoBehaviour
         inventoryTab.Initialize(null);
         equipmentTab.Initialize(null);
         gemTab.Initialize(null);
+    }
+
+    private void Update()
+    {
+        UpdateFloatingInfoUI();
     }
 
     public void StartDrag(InventorySlot source)
@@ -96,7 +106,6 @@ public class InventorySystem : MonoBehaviour
         }
         else if (from.Equals(equipmentTab))
         {
-            
         }
         else
         {
@@ -193,10 +202,8 @@ public class InventorySystem : MonoBehaviour
             return;
         }
 
-        Debug.Log("장비를 장착합니다.");
         EquipmentManager.Instance.EquipEquipment(SourceSlot.Item);
-        Debug.Log($"{Player.LocalPlayer.RealStat.MaxHp}");
-        
+
         SwapItem(SourceSlot, targetSlot);
     }
 
@@ -207,12 +214,12 @@ public class InventorySystem : MonoBehaviour
             Debug.Log("이미 해당 위치에 아이템이 존재합니다!");
             return;
         }
-        
+
         Debug.Log("장비를 해제합니다.");
         EquipmentManager.Instance.UnEquipEquipment(SourceSlot.Item);
         SwapItem(SourceSlot, targetSlot);
     }
-    
+
     private void SwapItem(InventorySlot a, InventorySlot b)
     {
         var temp = a.Item;
@@ -237,4 +244,74 @@ public class InventorySystem : MonoBehaviour
 
         return null;
     }
+    
+    private void UpdateFloatingInfoUI()
+    {
+        if (!inventoryTab.gameObject.activeSelf) return;
+
+        UpdateFloatingUIPosition();
+        HandleSlotHover();
+    }
+
+    private void UpdateFloatingUIPosition()
+    {
+        PointerEventData pointerData = new PointerEventData(eventSystem)
+        {
+            position = Input.mousePosition
+        };
+
+        Vector2 anchoredPos;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            floatingUIPosition.parent as RectTransform,
+            Input.mousePosition,
+            canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera,
+            out anchoredPos
+        );
+
+        floatingUIPosition.anchoredPosition = anchoredPos + new Vector2(-470f, 320f);
+    }
+
+    private void HandleSlotHover()
+    {
+        PointerEventData pointerData = new PointerEventData(eventSystem)
+        {
+            position = Input.mousePosition
+        };
+
+        List<RaycastResult> results = new List<RaycastResult>();
+        raycaster.Raycast(pointerData, results);
+
+        foreach (RaycastResult result in results)
+        {
+            GameObject hitUI = result.gameObject;
+
+            if (hitUI.name.Equals("CloseImage"))
+            {
+                floatingUI.gameObject.SetActive(false);
+            }
+            
+            if (hitUI.TryGetComponent(out InventorySlot slot))
+            {
+                UpdateFloatingInfoVisibility(slot);
+                break; // 가장 먼저 맞은 슬롯 하나만 처리
+            }
+        }
+    }
+
+    private void UpdateFloatingInfoVisibility(InventorySlot slot)
+    {
+        if (slot.Item != null)
+        {
+            if (!floatingUI.gameObject.activeSelf)
+                floatingUI.gameObject.SetActive(true);
+
+            floatingUI.SetItemBaseInfo(slot.Item);
+        }
+        else
+        {
+            if (floatingUI.gameObject.activeSelf)
+                floatingUI.gameObject.SetActive(false);
+        }
+    }
+
 }
