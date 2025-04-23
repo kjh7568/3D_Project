@@ -13,9 +13,8 @@ public class EquipmentManager : MonoBehaviour
 
     private class OptionMeta
     {
-        public string StatName;
-        public Action<IEquipment, EquipmentStst, float> Apply;
-        public Action<IEquipment, EquipmentStst, float> Remove;
+        public Action<EquipmentStst, float> Apply;
+        public Action<EquipmentStst, float> Remove;
     }
 
     private Dictionary<int, OptionMeta> optionTable = new();
@@ -32,175 +31,152 @@ public class EquipmentManager : MonoBehaviour
     }
 
     private void InitOptionTable()
+{
+    optionTable[0] = new OptionMeta
     {
-        optionTable[0] = new OptionMeta
-        {
-            StatName = "최대 생명력",
-            Apply = (item, s, v) => { s.Hp += v; item.DescriptionDic[0] = $"최대 생명력 +{v} 증가"; },
-            Remove = (item, s, v) => { s.Hp -= v; item.DescriptionDic.Remove(0); }
-        };
+        Apply = (s, v) => { s.Hp += v; },
+        Remove = (s, v) => { s.Hp -= v; }
+    };
 
-        optionTable[1] = new OptionMeta
-        {
-            StatName = "최대 생명력%",
-            Apply = (item, s, v) => { s.IncreaseHp += v / 100f; item.DescriptionDic[1] = $"최대 생명력 +{v}% 증가"; },
-            Remove = (item, s, v) => { s.IncreaseHp -= v / 100f; item.DescriptionDic.Remove(1); }
-        };
+    optionTable[1] = new OptionMeta
+    {
+        Apply = (s, v) => { s.IncreaseHp += v / 100f; },
+        Remove = (s, v) => { s.IncreaseHp -= v / 100f; }
+    };
 
-        optionTable[2] = new OptionMeta
-        {
-            StatName = "생명력 재생 속도",
-            Apply = (item, s, v) => { s.HpRegenRate += v; item.DescriptionDic[2] = $"생명력 재생 속도 +{v} 증가"; },
-            Remove = (item, s, v) => { s.HpRegenRate -= v; item.DescriptionDic.Remove(2); }
-        };
+    optionTable[2] = new OptionMeta
+    {
+        Apply = (s, v) => { s.HpRegenRate += v; },
+        Remove = (s, v) => { s.HpRegenRate -= v; }
+    };
 
-        optionTable[3] = new OptionMeta
-        {
-            StatName = "생명력 재생 속도%",
-            Apply = (item, s, v) => { s.IncreaseHpRegenRate += v / 100f; item.DescriptionDic[3] = $"생명력 재생 속도 +{v}% 증가"; },
-            Remove = (item, s, v) => { s.IncreaseHpRegenRate -= v / 100f; item.DescriptionDic.Remove(3); }
-        };
+    optionTable[3] = new OptionMeta
+    {
+        Apply = (s, v) => { s.IncreaseHpRegenRate += v / 100f; },
+        Remove = (s, v) => { s.IncreaseHpRegenRate -= v / 100f; }
+    };
 
-        optionTable[4] = new OptionMeta
-        {
-            StatName = "최대 마나",
-            Apply = (item, s, v) => { s.Mp += v; item.DescriptionDic[4] = $"최대 마나 +{v} 증가"; },
-            Remove = (item, s, v) => { s.Mp -= v; item.DescriptionDic.Remove(4); }
-        };
+    optionTable[4] = new OptionMeta
+    {
+        Apply = (s, v) => { s.Mp += v; },
+        Remove = (s, v) => { s.Mp -= v; }
+    };
 
-        optionTable[5] = new OptionMeta
-        {
-            StatName = "최대 마나%",
-            Apply = (item, s, v) => { s.IncreaseMp += v / 100f; item.DescriptionDic[5] = $"최대 마나 +{v}% 증가"; },
-            Remove = (item, s, v) => { s.IncreaseMp -= v / 100f; item.DescriptionDic.Remove(5); }
-        };
+    optionTable[5] = new OptionMeta
+    {
+        Apply = (s, v) => { s.IncreaseMp += v / 100f; },
+        Remove = (s, v) => { s.IncreaseMp -= v / 100f; }
+    };
 
-        optionTable[6] = new OptionMeta
-        {
-            StatName = "마나 재생 속도",
-            Apply = (item, s, v) => { s.MpRegenRate += v; item.DescriptionDic[6] = $"마나 재생 속도 +{v} 증가"; },
-            Remove = (item, s, v) => { s.MpRegenRate -= v; item.DescriptionDic.Remove(6); }
-        };
+    optionTable[6] = new OptionMeta
+    {
+        Apply = (s, v) => { s.MpRegenRate += v; },
+        Remove = (s, v) => { s.MpRegenRate -= v; }
+    };
 
-        optionTable[7] = new OptionMeta
-        {
-            StatName = "마나 재생 속도%",
-            Apply = (item, s, v) => { s.IncreaseMpRegenRate += v / 100f; item.DescriptionDic[7] = $"마나 재생 속도 +{v}% 증가"; },
-            Remove = (item, s, v) => { s.IncreaseMpRegenRate -= v / 100f; item.DescriptionDic.Remove(7); }
-        };
+    optionTable[7] = new OptionMeta
+    {
+        Apply = (s, v) => { s.IncreaseMpRegenRate += v / 100f; },
+        Remove = (s, v) => { s.IncreaseMpRegenRate -= v / 100f; }
+    };
 
-        optionTable[8] = new OptionMeta
-        {
-            StatName = "방어력",
-            Apply = (item, s, v) => { s.Armour += v; item.DescriptionDic[8] = $"방어력 +{v} 증가"; },
-            Remove = (item, s, v) => { s.Armour -= v; item.DescriptionDic.Remove(8); }
-        };
+    optionTable[8] = new OptionMeta
+    {
+        Apply = (s, v) => { s.Armour += v; },
+        Remove = (s, v) => { s.Armour -= v; }
+    };
 
-        optionTable[9] = new OptionMeta
-        {
-            StatName = "방어력%",
-            Apply = (item, s, v) => { s.IncreaseArmour += v / 100f; item.DescriptionDic[9] = $"방어력 +{v}% 증가"; },
-            Remove = (item, s, v) => { s.IncreaseArmour -= v / 100f; item.DescriptionDic.Remove(9); }
-        };
+    optionTable[9] = new OptionMeta
+    {
+        Apply = (s, v) => { s.IncreaseArmour += v / 100f; },
+        Remove = (s, v) => { s.IncreaseArmour -= v / 100f; }
+    };
 
-        optionTable[10] = new OptionMeta
-        {
-            StatName = "회피",
-            Apply = (item, s, v) => { s.Evasion += v; item.DescriptionDic[10] = $"회피 +{v} 증가"; },
-            Remove = (item, s, v) => { s.Evasion -= v; item.DescriptionDic.Remove(10); }
-        };
+    optionTable[10] = new OptionMeta
+    {
+        Apply = (s, v) => { s.Evasion += v; },
+        Remove = (s, v) => { s.Evasion -= v; }
+    };
 
-        optionTable[11] = new OptionMeta
-        {
-            StatName = "회피%",
-            Apply = (item, s, v) => { s.IncreaseEvasion += v / 100f; item.DescriptionDic[11] = $"회피 +{v}% 증가"; },
-            Remove = (item, s, v) => { s.IncreaseEvasion -= v / 100f; item.DescriptionDic.Remove(11); }
-        };
+    optionTable[11] = new OptionMeta
+    {
+        Apply = (s, v) => { s.IncreaseEvasion += v / 100f; },
+        Remove = (s, v) => { s.IncreaseEvasion -= v / 100f; }
+    };
 
-        optionTable[12] = new OptionMeta
-        {
-            StatName = "힘",
-            Apply = (item, s, v) => { s.Strength += (int)v; item.DescriptionDic[12] = $"힘 +{(int)v}"; },
-            Remove = (item, s, v) => { s.Strength -= (int)v; item.DescriptionDic.Remove(12); }
-        };
+    optionTable[12] = new OptionMeta
+    {
+        Apply = (s, v) => { s.Strength += (int)v; },
+        Remove = (s, v) => { s.Strength -= (int)v; }
+    };
 
-        optionTable[13] = new OptionMeta
-        {
-            StatName = "민첩",
-            Apply = (item, s, v) => { s.Dexterity += (int)v; item.DescriptionDic[13] = $"민첩 +{(int)v}"; },
-            Remove = (item, s, v) => { s.Dexterity -= (int)v; item.DescriptionDic.Remove(13); }
-        };
+    optionTable[13] = new OptionMeta
+    {
+        Apply = (s, v) => { s.Dexterity += (int)v; },
+        Remove = (s, v) => { s.Dexterity -= (int)v; }
+    };
 
-        optionTable[14] = new OptionMeta
-        {
-            StatName = "지능",
-            Apply = (item, s, v) => { s.Intelligence += (int)v; item.DescriptionDic[14] = $"지능 +{(int)v}"; },
-            Remove = (item, s, v) => { s.Intelligence -= (int)v; item.DescriptionDic.Remove(14); }
-        };
+    optionTable[14] = new OptionMeta
+    {
+        Apply = (s, v) => { s.Intelligence += (int)v; },
+        Remove = (s, v) => { s.Intelligence -= (int)v; }
+    };
 
-        optionTable[15] = new OptionMeta
-        {
-            StatName = "이동속도%",
-            Apply = (item, s, v) => { s.IncreaseMovementSpeed += v / 100f; item.DescriptionDic[15] = $"이동속도 +{v}% 증가"; },
-            Remove = (item, s, v) => { s.IncreaseMovementSpeed -= v / 100f; item.DescriptionDic.Remove(15); }
-        };
+    optionTable[15] = new OptionMeta
+    {
+        Apply = (s, v) => { s.IncreaseMovementSpeed += v / 100f; },
+        Remove = (s, v) => { s.IncreaseMovementSpeed -= v / 100f; }
+    };
 
-        optionTable[16] = new OptionMeta
-        {
-            StatName = "공격속도%",
-            Apply = (item, s, v) => { s.IncreaseAttackSpeed += v / 100f; item.DescriptionDic[16] = $"공격속도 +{v}% 증가"; },
-            Remove = (item, s, v) => { s.IncreaseAttackSpeed -= v / 100f; item.DescriptionDic.Remove(16); }
-        };
+    optionTable[16] = new OptionMeta
+    {
+        Apply = (s, v) => { s.IncreaseAttackSpeed += v / 100f; },
+        Remove = (s, v) => { s.IncreaseAttackSpeed -= v / 100f; }
+    };
 
-        optionTable[17] = new OptionMeta
-        {
-            StatName = "시전속도%",
-            Apply = (item, s, v) => { s.IncreaseCastSpeed += v / 100f; item.DescriptionDic[17] = $"시전속도 +{v}% 증가"; },
-            Remove = (item, s, v) => { s.IncreaseCastSpeed -= v / 100f; item.DescriptionDic.Remove(17); }
-        };
+    optionTable[17] = new OptionMeta
+    {
+        Apply = (s, v) => { s.IncreaseCastSpeed += v / 100f; },
+        Remove = (s, v) => { s.IncreaseCastSpeed -= v / 100f; }
+    };
 
-        optionTable[18] = new OptionMeta
-        {
-            StatName = "치명타 확률%",
-            Apply = (item, s, v) => { s.CriticalChance += v / 100f; item.DescriptionDic[18] = $"치명타 확률 +{v}% 증가"; },
-            Remove = (item, s, v) => { s.CriticalChance -= v / 100f; item.DescriptionDic.Remove(18); }
-        };
+    optionTable[18] = new OptionMeta
+    {
+        Apply = (s, v) => { s.CriticalChance += v / 100f; },
+        Remove = (s, v) => { s.CriticalChance -= v / 100f; }
+    };
 
-        optionTable[19] = new OptionMeta
-        {
-            StatName = "치명타 피해%",
-            Apply = (item, s, v) => { s.CriticalDamage += v / 100f; item.DescriptionDic[19] = $"치명타 피해 +{v}% 증가"; },
-            Remove = (item, s, v) => { s.CriticalDamage -= v / 100f; item.DescriptionDic.Remove(19); }
-        };
+    optionTable[19] = new OptionMeta
+    {
+        Apply = (s, v) => { s.CriticalDamage += v / 100f; },
+        Remove = (s, v) => { s.CriticalDamage -= v / 100f; }
+    };
 
-        optionTable[20] = new OptionMeta
-        {
-            StatName = "공격력 최소값",
-            Apply = (item, s, v) => { s.MinAttackDamage += (int)v; item.DescriptionDic[20] = $"공격력 +{(int)v}"; },
-            Remove = (item, s, v) => { s.MinAttackDamage -= (int)v; item.DescriptionDic.Remove(20); }
-        };
+    optionTable[20] = new OptionMeta
+    {
+        Apply = (s, v) => { s.MinAttackDamage += (int)v; },
+        Remove = (s, v) => { s.MinAttackDamage -= (int)v; }
+    };
 
-        optionTable[21] = new OptionMeta
-        {
-            StatName = "공격력%",
-            Apply = (item, s, v) => { s.IncreaseAttackDamage += v / 100f; item.DescriptionDic[21] = $"공격력 +{v}% 증가"; },
-            Remove = (item, s, v) => { s.IncreaseAttackDamage -= v / 100f; item.DescriptionDic.Remove(21); }
-        };
+    optionTable[21] = new OptionMeta
+    {
+        Apply = (s, v) => { s.IncreaseAttackDamage += v / 100f; },
+        Remove = (s, v) => { s.IncreaseAttackDamage -= v / 100f; }
+    };
 
-        optionTable[22] = new OptionMeta
-        {
-            StatName = "주문력 최소값",
-            Apply = (item, s, v) => { s.MinSpellDamage += (int)v; item.DescriptionDic[22] = $"주문력 +{(int)v}"; },
-            Remove = (item, s, v) => { s.MinSpellDamage -= (int)v; item.DescriptionDic.Remove(22); }
-        };
+    optionTable[22] = new OptionMeta
+    {
+        Apply = (s, v) => { s.MinSpellDamage += (int)v; },
+        Remove = (s, v) => { s.MinSpellDamage -= (int)v; }
+    };
 
-        optionTable[23] = new OptionMeta
-        {
-            StatName = "주문력%",
-            Apply = (item, s, v) => { s.IncreaseSpellDamage += v / 100f; item.DescriptionDic[23] = $"주문력 +{v}% 증가"; },
-            Remove = (item, s, v) => { s.IncreaseSpellDamage -= v / 100f; item.DescriptionDic.Remove(23); }
-        };
-    }
+    optionTable[23] = new OptionMeta
+    {
+        Apply = (s, v) => { s.IncreaseSpellDamage += v / 100f; },
+        Remove = (s, v) => { s.IncreaseSpellDamage -= v / 100f; }
+    };
+}
+
 
     public void EquipEquipment(Item item)
     {
@@ -215,7 +191,7 @@ public class EquipmentManager : MonoBehaviour
         {
             if (optionTable.TryGetValue(kv.Key, out var meta))
             {
-                meta.Apply(equip, EquipmentStat, kv.Value);
+                meta.Apply(EquipmentStat, kv.Value);
                 str += $"{equip.DescriptionDic[kv.Key]}\n";
                 //액션에서 추가하는 디스크립션이랑 여기랑 달라서 null이 뜸
             }
@@ -233,7 +209,7 @@ public class EquipmentManager : MonoBehaviour
         {
             if (optionTable.TryGetValue(kv.Key, out var meta))
             {
-                meta.Remove(equip, EquipmentStat, kv.Value);
+                meta.Remove(EquipmentStat, kv.Value);
             }
         }
 
