@@ -18,6 +18,10 @@ public class PlayerStat
     public int Strength { get; set; }
     public int Dexterity { get; set; }
     public int Intelligence { get; set; }
+    
+    public float MovementSpeed { get; set; }
+    public float AttackSpeed { get; set; }
+    public float CastSpeed { get; set; }
 
     public void Initialize()
     {
@@ -39,6 +43,10 @@ public class PlayerStat
 
         Armour = 0;
         Evasion = 0;
+
+        MovementSpeed = 7;
+        AttackSpeed = 1;
+        CastSpeed = 1;
     }
 
     public void UpdateMaxExp()

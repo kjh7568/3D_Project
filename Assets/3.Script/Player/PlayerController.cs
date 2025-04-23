@@ -157,9 +157,9 @@ public class PlayerController : MonoBehaviour
             var temp = SkillManager.instance.skillPool[idx].Dequeue();
             if (temp.TryGetComponent(out Skill skill))
             {
-                if (Player.LocalPlayer.Stat.Mp >= skill.data.costMana)
+                if (Player.LocalPlayer.RealStat.Mp >= skill.data.costMana)
                 {
-                    Player.LocalPlayer.Stat.Mp -= skill.data.costMana;
+                    Player.LocalPlayer.RealStat.Mp -= skill.data.costMana;
                     
                     SkillManager.instance.skillPool[idx].Enqueue(temp);
 

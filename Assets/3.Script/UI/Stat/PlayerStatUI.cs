@@ -21,7 +21,7 @@ public class PlayerStatUI : MonoBehaviour
 
     private void UpdateBarsUI()
     {
-        PlayerStat temp = Player.LocalPlayer.Stat;
+        FinalPlayerStats temp = Player.LocalPlayer.RealStat;
         
         HpBar.fillAmount = temp.Hp / temp.MaxHp;
         MpBar.fillAmount = temp.Mp / temp.MaxMp;
@@ -30,7 +30,7 @@ public class PlayerStatUI : MonoBehaviour
 
     private void UpdateTextUI()
     {
-        PlayerStat temp = Player.LocalPlayer.Stat;
+        FinalPlayerStats temp = Player.LocalPlayer.RealStat;
         
         HpText.text = $"{(int)temp.Hp} / {temp.MaxHp}";
         MpText.text = $"{(int)temp.Mp} / {temp.MaxMp}";

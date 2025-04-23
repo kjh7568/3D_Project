@@ -12,15 +12,20 @@ public class LocalPlayer : Player, IDamageAble
 
     public Weapon currentWeapon;
     public PlayerStat Stat { get; private set; }
+    public FinalPlayerStats RealStat { get; private set; }
 
     [SerializeField] private Collider playerCollider;
 
-    private void Awake()
+    private void Start()
     {
         Player.LocalPlayer = this;
 
         Stat = new PlayerStat();
         Stat.Initialize();
+        
+        RealStat= new FinalPlayerStats();
+        RealStat.UpdateStat();
+        RealStat.Initialize();
     }
 
     private void Update()
@@ -30,20 +35,20 @@ public class LocalPlayer : Player, IDamageAble
 
     public void TakeDamage(CombatEvent combatEvent)
     {
-        Stat.Hp -= combatEvent.Damage;
+        RealStat.Hp -= combatEvent.Damage;
         Debug.Log($"{combatEvent.Damage}의 데미지를 받음");
     }
 
     private void RegenerateResources()
     {
-        if (Stat.Hp < Stat.MaxHp)
+        if (RealStat.Hp < RealStat.MaxHp)
         {
-            Stat.Hp += Stat.HpRegenRate * Time.deltaTime;
+            RealStat.Hp += RealStat.HpRegenRate * Time.deltaTime;
         }
 
-        if(Stat.Mp < Stat.MaxMp)
+        if(RealStat.Mp < RealStat.MaxMp)
         {
-            Stat.Mp += Stat.MpRegenRate * Time.deltaTime;
+            RealStat.Mp += RealStat.MpRegenRate * Time.deltaTime;
         }
     }
 }

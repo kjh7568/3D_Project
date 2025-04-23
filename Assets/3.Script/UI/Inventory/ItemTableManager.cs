@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
@@ -8,11 +9,14 @@ using UnityEngine;
 
 public class ItemTableManager : MonoBehaviour
 {
-    public static ItemTableManager instance;
-
     [SerializeField] private TableSAO spriteTable;
 
-    private List<Item> itemTable = new List<Item>();
+    public List<Item> ItemTable { get; private set; } = new List<Item>();
+
+    private void Start()
+    {
+        LoadItemTable();
+    }
 
     public void LoadItemTable()
     {
@@ -20,7 +24,7 @@ public class ItemTableManager : MonoBehaviour
         using (CsvReader cr = new CsvReader(sr, CultureInfo.CurrentCulture))
         {
             var itemDatas = cr.GetRecords<ItemData>().ToList();
-            itemTable.Clear();
+            ItemTable.Clear();
 
             foreach (var data in itemDatas)
             {
@@ -31,13 +35,13 @@ public class ItemTableManager : MonoBehaviour
                     DragSize = spriteTable.GetItemSprite(data.Key).dragSize
                 };
 
-                itemTable.Add(item);
+                ItemTable.Add(item);
             }
         }
     }
 
     public List<Item> GetItemTable()
     {
-        return itemTable;
+        return ItemTable;
     }
 }
