@@ -14,7 +14,7 @@ public class MonsterController : MonoBehaviour
 
     private const float ATTACK_RANGE = 2f;
 
-    [Header("Navigation Move")] [SerializeField]
+    [Header("Navigation Move")] 
     private Transform player;
 
     [Tooltip("몬스터가 플레이어를 인지하는 사정거리")] [SerializeField]
@@ -32,6 +32,7 @@ public class MonsterController : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        player = GameObject.Find("Player").transform;
     }
 
     private void Start()

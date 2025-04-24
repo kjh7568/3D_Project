@@ -85,13 +85,8 @@ public class InventorySystem : MonoBehaviour
             
             InventorySlot targetSlot = result.gameObject.GetComponent<InventorySlot>();
             
-            Debug.Log($"결과: {result}");
-            Debug.Log($"소스: {SourceSlot}");
-            Debug.Log($"타겟: {targetSlot}");
-            
             if (!IsValidTarget(targetSlot) && !result.gameObject.name.Equals("CloseImage")) continue;
 
-            Debug.Log("진입");
             if (targetSlot == null && SourceSlot.Item != null)
             {
                 DropItem(SourceSlot.Item);
@@ -99,7 +94,6 @@ public class InventorySystem : MonoBehaviour
             }
             else if (SourceSlot.gameObject.name.Equals("ItemNameBackground(Clone)"))
             {
-                Debug.Log("아이템 줍기!");
                 PickUpItem(targetSlot);
                 break;
             }
