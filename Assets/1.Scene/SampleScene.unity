@@ -18330,6 +18330,37 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1503478989}
   m_SourcePrefab: {fileID: 100100000, guid: 9830f561f80768b4f92139c1c15bc835, type: 3}
+--- !u!1 &603692679
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 603692680}
+  m_Layer: 0
+  m_Name: Golds
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &603692680
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 603692679}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &612269880 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 176122, guid: 939f27c57ef13654eafcf37ff873a454,
@@ -23700,6 +23731,12 @@ MonoBehaviour:
   dropedItemUI: {fileID: 5705771146456340496, guid: bfeab560575092544b4f978ff378855c,
     type: 3}
   dropedItemUIParent: {fileID: 341165813}
+  dropedGold: {fileID: 8360545952989044907, guid: 2a2bf2a8aee4386479cfcc6d708f13a4,
+    type: 3}
+  dropedGoldParent: {fileID: 603692680}
+  dropedGoldUI: {fileID: 4724238900949158764, guid: 86705410514c93240bdae6789dc17517,
+    type: 3}
+  dropedGoldUIParent: {fileID: 341165813}
 --- !u!4 &804387122
 Transform:
   m_ObjectHideFlags: 0
@@ -79071,7 +79108,7 @@ GameObject:
   - component: {fileID: 5043727500662174583}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -79852,6 +79889,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentWeapon: {fileID: 64136518082116146}
+  gold: 0
   playerCollider: {fileID: 5043727500662174582}
 --- !u!4 &5043727500662182300
 Transform:
@@ -80513,5 +80551,6 @@ SceneRoots:
   - {fileID: 5043727500662174580}
   - {fileID: 2130143665}
   - {fileID: 1799305102}
+  - {fileID: 603692680}
   - {fileID: 728602788}
   - {fileID: 562315932}

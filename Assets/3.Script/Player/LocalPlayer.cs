@@ -12,6 +12,7 @@ public class LocalPlayer : Player, IDamageAble
 
     public Weapon currentWeapon;
     public PlayerStat Stat { get; private set; }
+    public int gold;
     public FinalPlayerStats RealStat { get; private set; }
 
     [SerializeField] private Collider playerCollider;

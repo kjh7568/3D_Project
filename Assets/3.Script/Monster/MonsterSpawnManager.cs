@@ -33,6 +33,7 @@ public class MonsterSpawnManager : MonoBehaviour
                 continue;
             }
 
+            spawnPointsArray[idx].gameObject.SetActive(true);
             spawnPoints.Add(spawnPointsArray[idx]);
         }
     }
@@ -41,9 +42,18 @@ public class MonsterSpawnManager : MonoBehaviour
     {
         int monsterIndex = Random.Range(0, monsterPrefabs.Length);
 
-        foreach (var point in spawnPoints)
+        foreach (var center in spawnPoints)
         {
-            Instantiate(monsterPrefabs[monsterIndex], point.position, Quaternion.identity, monsterParent);
+            int spawnCount = Random.Range(3, 6); // 3~5마리
+
+            for (int i = 0; i < spawnCount; i++)
+            {
+                // 원형 범위 내 랜덤 위치 계산 (직경 5 → 반지름 2.5)
+                Vector2 randomCircle = UnityEngine.Random.insideUnitCircle * 2.5f;
+                Vector3 spawnPosition = center.position + new Vector3(randomCircle.x, 0f, randomCircle.y);
+
+                Instantiate(monsterPrefabs[monsterIndex], spawnPosition, Quaternion.identity, monsterParent);
+            }
         }
     }
 }

@@ -19,10 +19,16 @@ public class RewardManager : MonoBehaviour
     public ItemTableManager itemTableManager;
     
     [SerializeField] private Inventory inventoryTab;
+    
     [SerializeField] private GameObject dropedItem;
     [SerializeField] private Transform dropedItemParent;
     [SerializeField] private GameObject dropedItemUI;
     [SerializeField] private RectTransform dropedItemUIParent;
+    
+    [SerializeField] private GameObject dropedGold;
+    [SerializeField] private Transform dropedGoldParent;
+    [SerializeField] private GameObject dropedGoldUI;
+    [SerializeField] private RectTransform dropedGoldUIParent;
     
     private void Awake()
     {
@@ -45,8 +51,28 @@ public class RewardManager : MonoBehaviour
         dropItemSlot.SetSlot(item);
         DropItemUI.Instance.SetUIText(dropItemText, item);
         DropItemUI.Instance.RegisterDrop(dropItem, dropItemRect); // ✅ 추가됨
+    }
+
+    public void DropGold(int min, int max)
+    {
+        var pos = Player.LocalPlayer.transform.position;
+
+        var dropGold = Instantiate(dropedGold, pos + new Vector3(0, 0.5f, 0), Quaternion.identity, dropedGoldParent);
+        var dropGoldUI = Instantiate(dropedGoldUI, dropedGoldUIParent);
+
+        var dropGoldRect = dropGoldUI.GetComponent<RectTransform>();
+        var dropGoldText = dropGoldUI.GetComponentInChildren<Text>();
+
+        int goldAmount = Random.Range(min, max);
         
-        // SourceSlot.SetSlot(null);
+        dropGoldText.text = $"{goldAmount} gold";
+
+        DropItemUI.Instance.RegisterGoldDrop(dropGold, dropGoldRect);
+
+        if (dropGold.TryGetComponent(out DropGoldTrigger trigger))
+        {
+            trigger.Setup(dropGoldRect, goldAmount);
+        }
     }
     
     public Item MakeEquipment(Item baseItem)

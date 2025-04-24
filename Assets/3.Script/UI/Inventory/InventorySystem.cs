@@ -92,7 +92,7 @@ public class InventorySystem : MonoBehaviour
                 DropItem(SourceSlot.Item);
                 break;
             }
-            else if (SourceSlot.gameObject.name.Equals("ItemNameBackground(Clone)"))
+            else if (SourceSlot.gameObject.name.Equals("DropedItemUI(Clone)"))
             {
                 PickUpItem(targetSlot);
                 break;

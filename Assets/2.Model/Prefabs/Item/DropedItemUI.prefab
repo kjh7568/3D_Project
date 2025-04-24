@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 1085762502981733049}
   - component: {fileID: 7566019508812982425}
   m_Layer: 0
-  m_Name: ItemNameBackground
+  m_Name: DropedItemUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

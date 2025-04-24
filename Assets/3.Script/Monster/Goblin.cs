@@ -13,20 +13,23 @@ public class Goblin : MonoBehaviour, IMonster
     [SerializeField] private MonsterStat monsterStat;
     [SerializeField] private Collider monsterCollider;
     [SerializeField] private Collider attackCollider;
-    
+
     private MonsterController monster;
-    
+    private int dropGoldMinAmount = 5;
+
+    private int dropGoldMaxAmount = 16;
+
     // Start is called before the first frame update
     void Start()
     {
         CombatSystem.Instance.RegisterMonster(this);
         monster = GetComponent<MonsterController>();
     }
-    
+
     public void TakeDamage(CombatEvent combatEvent)
     {
         monsterStat.hp -= combatEvent.Damage;
-        
+
         if (monsterStat.hp <= 0)
         {
             OnDead();
@@ -43,7 +46,7 @@ public class Goblin : MonoBehaviour, IMonster
         Player.LocalPlayer.RealStat.Exp += monsterStat.rewardExp;
 
         TryGenerateItem();
-        
+
         monster.PlayDead();
     }
 
@@ -55,6 +58,13 @@ public class Goblin : MonoBehaviour, IMonster
         {
             Debug.Log("아이템 드랍!");
             RewardManager.Instance.DropItem();
+        }
+
+        chance = Random.Range(0f, 1f); // 0.0 ~ 1.0 사이
+        if (chance < 0.5f) // 33% 확률
+        {
+            Debug.Log("골드 드랍!");
+            RewardManager.Instance.DropGold(dropGoldMinAmount, dropGoldMaxAmount);
         }
     }
 }

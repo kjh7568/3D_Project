@@ -60,4 +60,23 @@ public class DropItemUI : MonoBehaviour
             Destroy(dropObj); 
         }
     }
+    
+    public void RegisterGoldDrop(GameObject goldObj, RectTransform goldUI)
+    {
+        dropItems.Add(goldObj, goldObj.transform);
+        dropItemsNameUIs.Add(goldUI);
+        uiToDropObjectMap[goldUI] = goldObj;
+    }
+    
+    public void UnregisterGoldDrop(RectTransform goldUI)
+    {
+        if (uiToDropObjectMap.TryGetValue(goldUI, out var goldObj))
+        {
+            dropItems.Remove(goldObj);
+            dropItemsNameUIs.Remove(goldUI);
+            uiToDropObjectMap.Remove(goldUI);
+
+            Destroy(goldUI.gameObject); // UI 오브젝트 제거
+        }
+    }
 }
