@@ -8347,7 +8347,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCam: {fileID: 330585545}
-  dropItems: []
   dropItemsNameUIs: []
 --- !u!1001 &255657900
 PrefabInstance:
@@ -25944,6 +25943,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemTableManager: {fileID: 2115321027}
   inventoryTab: {fileID: 215469139}
+  dropedItem: {fileID: 6191278672553588487, guid: d91d3516317a09c45a2f448f7d0aa3a5,
+    type: 3}
+  dropedItemParent: {fileID: 1799305102}
+  dropedItemUI: {fileID: 5705771146456340496, guid: bfeab560575092544b4f978ff378855c,
+    type: 3}
+  dropedItemUIParent: {fileID: 341165813}
 --- !u!4 &804387122
 Transform:
   m_ObjectHideFlags: 0

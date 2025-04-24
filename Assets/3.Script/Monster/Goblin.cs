@@ -27,8 +27,6 @@ public class Goblin : MonoBehaviour, IMonster
     {
         monsterStat.hp -= combatEvent.Damage;
         
-        Debug.Log($"현재 {monsterStat.name} 체력: {monsterStat.hp}/{monsterStat.maxHp}");
-        
         if (monsterStat.hp <= 0)
         {
             OnDead();
@@ -43,7 +41,20 @@ public class Goblin : MonoBehaviour, IMonster
         AttackCollider.enabled = false;
 
         Player.LocalPlayer.RealStat.Exp += monsterStat.rewardExp;
+
+        TryGenerateItem();
         
         monster.PlayDead();
+    }
+
+    public void TryGenerateItem()
+    {
+        float chance = Random.Range(0f, 1f); // 0.0 ~ 1.0 사이
+
+        if (chance < 0.33f) // 33% 확률
+        {
+            Debug.Log("아이템 드랍!");
+            RewardManager.Instance.DropItem();
+        }
     }
 }
