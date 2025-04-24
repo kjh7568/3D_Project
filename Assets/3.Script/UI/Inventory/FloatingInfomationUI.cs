@@ -23,8 +23,6 @@ public class FloatingInfomationUI : MonoBehaviour
         {
             return;
         }
-
-        Debug.Log("SetItemBaseInfo");
         
         prevItem = item;
         
