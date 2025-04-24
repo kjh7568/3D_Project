@@ -24,8 +24,6 @@ public class FloatingInfomationUI : MonoBehaviour
             return;
         }
 
-        Debug.Log("SetItemBaseInfo");
-        
         prevItem = item;
         
         if (item.DragSize.y < 200f)

@@ -13,6 +13,7 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public void SetSlot(Item item)
     {
         Item = item;
+        
         slotItem.Set(item);
     }
 
@@ -25,6 +26,8 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (Item == null) return;
+        
+        
         InventorySystem.Instance.StartDrag(this);
     }
 
