@@ -156,8 +156,8 @@ public class EquipmentManager : MonoBehaviour
 
     optionTable[20] = new OptionMeta
     {
-        Apply = (s, v) => { s.MinAttackDamage += (int)v; },
-        Remove = (s, v) => { s.MinAttackDamage -= (int)v; }
+        Apply = (s, v) => { s.MinAttackDamage += (int)v; s.MaxAttackDamage += (int)v; },
+        Remove = (s, v) => { s.MinAttackDamage -= (int)v; s.MaxAttackDamage -= (int)v;}
     };
 
     optionTable[21] = new OptionMeta
@@ -168,8 +168,8 @@ public class EquipmentManager : MonoBehaviour
 
     optionTable[22] = new OptionMeta
     {
-        Apply = (s, v) => { s.MinSpellDamage += (int)v; },
-        Remove = (s, v) => { s.MinSpellDamage -= (int)v; }
+        Apply = (s, v) => { s.MinSpellDamage += (int)v; s.MaxSpellDamage += (int)v; },
+        Remove = (s, v) => { s.MinSpellDamage -= (int)v; s.MaxSpellDamage -= (int)v; }
     };
 
     optionTable[23] = new OptionMeta

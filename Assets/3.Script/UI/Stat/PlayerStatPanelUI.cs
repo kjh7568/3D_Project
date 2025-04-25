@@ -34,15 +34,16 @@ public class PlayerStatPanelUI : MonoBehaviour
         playerStats.UpdateStat();
 
         float expPercent = (playerStats.Exp / playerStats.MaxExp) * 100f;
-
+        Debug.Log(expPercent);
+        
         levelText.text = $"레벨: {playerStats.Level} [Exp: {Mathf.FloorToInt(playerStats.Exp)} / {Mathf.FloorToInt(playerStats.MaxExp)} ({expPercent:F1}%)]";
         hpText.text = $"체력: {Mathf.FloorToInt(playerStats.Hp)} / {Mathf.FloorToInt(playerStats.MaxHp)} (+{playerStats.HpRegenRate:F2}/s)";
         mpText.text = $"마나: {Mathf.FloorToInt(playerStats.Mp)} / {Mathf.FloorToInt(playerStats.MaxMp)} (+{playerStats.MpRegenRate:F2}/s)";
         strengthText.text = $"힘: {playerStats.Strength}";
         dexterityText.text = $"민첩: {playerStats.Dexterity}";
         intelligenceText.text = $"지능: {playerStats.Intelligence}";
-        armourText.text = $"방어력: {Mathf.FloorToInt(playerStats.Armour)}";
-        evasionText.text = $"회피: {Mathf.FloorToInt(playerStats.Evasion)}";
+        armourText.text = $"방어력: {Mathf.FloorToInt(playerStats.Armour)} (방어율: {playerStats.DamageReductionRate:F2}%)";
+        evasionText.text = $"회피: {Mathf.FloorToInt(playerStats.Evasion)} (회피율:  {playerStats.EvasionRate:F2}%)";
         attackDamageText.text = $"공격력: {playerStats.MinAttackDamage} ~ {playerStats.MaxAttackDamage} (+{(playerStats.IncreaseAttackDamage * 100f - 100f):F1}%)";
         attackSpeedText.text = $"공격속도: {playerStats.AttackSpeed:F2}";
         spellDamageText.text = $"주문력: {playerStats.MinSpellDamage} ~ {playerStats.MaxSpellDamage} (+{(playerStats.IncreaseSpellDamage * 100f - 100f):F1}%)";
