@@ -22,8 +22,8 @@ public class AttackLogic : StateMachineBehaviour
         
         isPassStartNormalizedTime = false;
         isPassEndNormalizedTime = false;
-        
-        weaponCollider = Player.LocalPlayer.currentWeapon.gameObject.GetComponent<Collider>();
+
+        weaponCollider = Player.LocalPlayer.weaponCollider;
     }
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {

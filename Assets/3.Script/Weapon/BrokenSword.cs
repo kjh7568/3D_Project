@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.LowLevel;
 using Random = UnityEngine.Random;
 
-public class BrokenSword : Weapon
+public class BrokenSword : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {

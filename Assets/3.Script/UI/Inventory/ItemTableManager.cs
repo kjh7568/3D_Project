@@ -18,7 +18,7 @@ public class ItemTableManager : MonoBehaviour
         LoadItemTable();
     }
 
-    public void LoadItemTable()
+    private void LoadItemTable()
     {
         using (StreamReader sr = new StreamReader(Path.Combine(Application.streamingAssetsPath, "ItemTable.csv")))
         using (CsvReader cr = new CsvReader(sr, CultureInfo.CurrentCulture))

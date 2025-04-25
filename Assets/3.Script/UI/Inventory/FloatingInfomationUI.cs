@@ -25,9 +25,9 @@ public class FloatingInfomationUI : MonoBehaviour
         }
 
         Debug.Log("SetItemBaseInfo");
-        
+
         prevItem = item;
-        
+
         if (item.DragSize.y < 200f)
         {
             itemSprite.gameObject.TryGetComponent(out RectTransform rectTransform);
@@ -70,7 +70,13 @@ public class FloatingInfomationUI : MonoBehaviour
 
     private void SetItemBaseStat(IEquipment item)
     {
-        itemBaseStat.text = $"방어력: {item.Armor} | 회피: {item.Evasion}";
+        if (item is IWeapon weapon)
+        {
+        }
+        else if (item is IArmour armor)
+        {
+            itemBaseStat.text = $"방어력: {armor.Armor} | 회피: {armor.Evasion}";
+        }
     }
 
     private void MakeOptionText(IEquipment item)

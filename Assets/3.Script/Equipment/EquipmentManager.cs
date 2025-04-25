@@ -183,23 +183,16 @@ public class EquipmentManager : MonoBehaviour
     public void EquipEquipment(Item item)
     {
         if (item is not IEquipment equip) return;
-
-        string str = $"장비명: {item.ItemData.Name}\n" +
-                     $"방어력: {equip.Armor} | 회피: {equip.Evasion}\n" +
-                     $"등급: {equip.Rarity}\n" +
-                     "================\n";
         
         foreach (var kv in equip.CashingValue)
         {
             if (optionTable.TryGetValue(kv.Key, out var meta))
             {
                 meta.Apply(EquipmentStat, kv.Value);
-                str += $"{equip.DescriptionDic[kv.Key]}\n";
                 //액션에서 추가하는 디스크립션이랑 여기랑 달라서 null이 뜸
             }
         }
 
-        Debug.Log(str);
         playerStatPanelUI.UpdateText();
     }
 

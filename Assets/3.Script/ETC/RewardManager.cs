@@ -12,24 +12,24 @@ using Random = UnityEngine.Random;
 public class RewardManager : MonoBehaviour
 {
     public static RewardManager Instance;
-    
+
     private const int ARMOUR_COUNT = 1;
     private const int OPTION_COUNT = 24;
 
     public ItemTableManager itemTableManager;
-    
+
     [SerializeField] private Inventory inventoryTab;
-    
+
     [SerializeField] private GameObject dropedItem;
     [SerializeField] private Transform dropedItemParent;
     [SerializeField] private GameObject dropedItemUI;
     [SerializeField] private RectTransform dropedItemUIParent;
-    
+
     [SerializeField] private GameObject dropedGold;
     [SerializeField] private Transform dropedGoldParent;
     [SerializeField] private GameObject dropedGoldUI;
     [SerializeField] private RectTransform dropedGoldUIParent;
-    
+
     private void Awake()
     {
         Instance = this;
@@ -37,9 +37,11 @@ public class RewardManager : MonoBehaviour
 
     public void DropItem(Vector3 itemPos)
     {
-        Item item = MakeEquipment(itemTableManager.ItemTable[Random.Range(0, 4)]);
+        var idx = Random.Range(0, 6);
+        Item item = MakeEquipment(itemTableManager.ItemTable[idx]);
 
-        var dropItem = Instantiate(dropedItem, itemPos + new Vector3(0, 0.5f, 0), Quaternion.identity, dropedItemParent);
+        var dropItem = Instantiate(dropedItem, itemPos + new Vector3(0, 0.5f, 0), Quaternion.identity,
+            dropedItemParent);
         var dropItemUI = Instantiate(dropedItemUI, dropedItemUIParent);
 
         var dropItemSlot = dropItemUI.GetComponent<InventorySlot>();
@@ -53,14 +55,15 @@ public class RewardManager : MonoBehaviour
 
     public void DropGold(int min, int max, Vector3 itemPos)
     {
-        var dropGold = Instantiate(dropedGold, itemPos + new Vector3(0, 0.5f, 0), Quaternion.identity, dropedGoldParent);
+        var dropGold = Instantiate(dropedGold, itemPos + new Vector3(0, 0.5f, 0), Quaternion.identity,
+            dropedGoldParent);
         var dropGoldUI = Instantiate(dropedGoldUI, dropedGoldUIParent);
 
         var dropGoldRect = dropGoldUI.GetComponent<RectTransform>();
         var dropGoldText = dropGoldUI.GetComponentInChildren<Text>();
 
         int goldAmount = Random.Range(min, max);
-        
+
         dropGoldText.text = $"{goldAmount} gold";
 
         DropItemUI.Instance.RegisterGoldDrop(dropGold, dropGoldRect);
@@ -70,11 +73,13 @@ public class RewardManager : MonoBehaviour
             trigger.Setup(dropGoldRect, goldAmount);
         }
     }
-    
+
     public Item MakeEquipment(Item baseItem)
     {
         Item newItem = null;
         IEquipment equip = null;
+
+        string[] tokens = baseItem.ItemData.Parameter.Split(',');
 
         switch (baseItem.ItemData.ItemType)
         {
@@ -90,6 +95,16 @@ public class RewardManager : MonoBehaviour
             case "Boots":
                 newItem = new Boots();
                 break;
+            case "Weapon":
+                if (int.Parse(tokens[0]) == 0)
+                {
+                    newItem = new OneHandSword();
+                }
+                else if (int.Parse(tokens[0]) == 1)
+                {
+                    newItem = new Wand();
+                }
+                break;
             default:
                 Debug.LogError($"Unknown ItemType: {baseItem.ItemData.ItemType}");
                 return null;
@@ -102,13 +117,22 @@ public class RewardManager : MonoBehaviour
 
         equip = newItem as IEquipment;
 
-        string[] tokens = newItem.ItemData.Parameter.Split(',');
-
         equip.Rarity = Random.Range(0, 3);
-        equip.Armor = UnityEngine.Random.Range(int.Parse(tokens[0]), int.Parse(tokens[1]));
-        equip.Evasion = UnityEngine.Random.Range(int.Parse(tokens[2]), int.Parse(tokens[3]));
 
-        GenerateRandomOptions(equip);
+        if (equip is IWeapon weapon)
+        {
+            weapon.MinAttackDamage = int.Parse(tokens[1]);
+            weapon.MaxAttackDamage = int.Parse(tokens[2]);
+            weapon.MinSpellDamage = int.Parse(tokens[3]);
+            weapon.MaxSpellDamage = int.Parse(tokens[4]);
+            GenerateRandomOptions(weapon);
+        }
+        else if (equip is IArmour armor)
+        {
+            armor.Armor = Random.Range(int.Parse(tokens[0]), int.Parse(tokens[1]));
+            armor.Evasion = Random.Range(int.Parse(tokens[2]), int.Parse(tokens[3]));
+            GenerateRandomOptions(armor);
+        }
 
         return newItem;
     }

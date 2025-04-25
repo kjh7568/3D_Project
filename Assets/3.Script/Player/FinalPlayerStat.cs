@@ -90,8 +90,10 @@ public class FinalPlayerStats
         CriticalChance = eStat.CriticalChance;
         CriticalDamage = eStat.CriticalDamage;
 
-        MinAttackDamage = eStat.MinAttackDamage;
-        MaxAttackDamage = eStat.MaxAttackDamage;
+        MinAttackDamage = 10;
+        MaxAttackDamage = 15;
+        // MinAttackDamage = eStat.MinAttackDamage;
+        // MaxAttackDamage = eStat.MaxAttackDamage;
         IncreaseAttackDamage = eStat.IncreaseAttackDamage;
 
         MinSpellDamage = eStat.MinSpellDamage;

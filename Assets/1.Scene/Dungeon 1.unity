@@ -34103,7 +34103,7 @@ GameObject:
   - component: {fileID: 1137378416}
   - component: {fileID: 1137378415}
   m_Layer: 5
-  m_Name: Weapon1
+  m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61919,7 +61919,7 @@ GameObject:
   - component: {fileID: 1503698393}
   - component: {fileID: 1503698392}
   m_Layer: 5
-  m_Name: Weapon2
+  m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81923,11 +81923,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 660e12ec5d874af4e9c0fca4eb144066, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data:
-    WeaponName: "\uBD80\uC11C\uC9C4 \uAC80"
-    MinDamage: 10
-    MaxDamage: 11
-    AttackSpeed: 1
 --- !u!137 &5043727500648338322
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -83409,7 +83404,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eabb419334e61334585d8beb871f00f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentWeapon: {fileID: 64136518082116146}
+  weaponCollider: {fileID: 64136518082116145}
   gold: 0
   playerCollider: {fileID: 5043727500662174582}
 --- !u!4 &5043727500662182300

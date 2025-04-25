@@ -44,9 +44,9 @@ public class PlayerStatPanelUI : MonoBehaviour
         intelligenceText.text = $"지능: {playerStats.Intelligence}";
         armourText.text = $"방어력: {Mathf.FloorToInt(playerStats.Armour)} (방어율: {playerStats.DamageReductionRate:F2}%)";
         evasionText.text = $"회피: {Mathf.FloorToInt(playerStats.Evasion)} (회피율:  {playerStats.EvasionRate:F2}%)";
-        attackDamageText.text = $"공격력: {playerStats.MinAttackDamage} ~ {playerStats.MaxAttackDamage} (+{(playerStats.IncreaseAttackDamage * 100f - 100f):F1}%)";
+        attackDamageText.text = $"공격력: {playerStats.MinAttackDamage} ~ {playerStats.MaxAttackDamage - 1}";
         attackSpeedText.text = $"공격속도: {playerStats.AttackSpeed:F2}";
-        spellDamageText.text = $"주문력: {playerStats.MinSpellDamage} ~ {playerStats.MaxSpellDamage} (+{(playerStats.IncreaseSpellDamage * 100f - 100f):F1}%)";
+        spellDamageText.text = $"주문력: {playerStats.MinSpellDamage} ~ {playerStats.MaxSpellDamage - 1}";
         castSpeedText.text = $"시전속도: {playerStats.CastSpeed:F2}";
         criticalRateText.text = $"치명타 확률: {playerStats.CriticalChance * 100f:F1}%";
         criticalDamageText.text = $"치명타 피해: {playerStats.CriticalDamage * 100f:F1}%";
