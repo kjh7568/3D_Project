@@ -35,12 +35,12 @@ public class FinalPlayerStats
     public float CriticalChance { get; set; }
     public float CriticalDamage { get; set; }
 
-    public int MinAttackDamage { get; set; }
-    public int MaxAttackDamage { get; set; }
+    public float MinAttackDamage { get; set; }
+    public float MaxAttackDamage { get; set; }
     public float IncreaseAttackDamage { get; set; }
 
-    public int MinSpellDamage { get; set; }
-    public int MaxSpellDamage { get; set; }
+    public float MinSpellDamage { get; set; }
+    public float MaxSpellDamage { get; set; }
     public float IncreaseSpellDamage { get; set; }
 
     public void Initialize()
@@ -90,10 +90,8 @@ public class FinalPlayerStats
         CriticalChance = eStat.CriticalChance;
         CriticalDamage = eStat.CriticalDamage;
 
-        MinAttackDamage = 10;
-        MaxAttackDamage = 15;
-        // MinAttackDamage = eStat.MinAttackDamage;
-        // MaxAttackDamage = eStat.MaxAttackDamage;
+        MinAttackDamage = eStat.MinAttackDamage;
+        MaxAttackDamage = eStat.MaxAttackDamage;
         IncreaseAttackDamage = eStat.IncreaseAttackDamage;
 
         MinSpellDamage = eStat.MinSpellDamage;

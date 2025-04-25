@@ -30,12 +30,12 @@ public class EquipmentStst
     public float CriticalChance { get; set; }
     public float CriticalDamage { get; set; }
 
-    public int MinAttackDamage { get; set; }
-    public int MaxAttackDamage { get; set; }
+    public float MinAttackDamage { get; set; }
+    public float MaxAttackDamage { get; set; }
     public float IncreaseAttackDamage { get; set; }
 
-    public int MinSpellDamage { get; set; }
-    public int MaxSpellDamage { get; set; }
+    public float MinSpellDamage { get; set; }
+    public float MaxSpellDamage { get; set; }
     public float IncreaseSpellDamage { get; set; }
 
     public void Initialize()

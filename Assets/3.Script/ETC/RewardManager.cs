@@ -117,8 +117,8 @@ public class RewardManager : MonoBehaviour
 
         equip = newItem as IEquipment;
 
-        equip.Rarity = Random.Range(0, 3);
-
+        equip.Rarity = GetItemRarity();
+        
         if (equip is IWeapon weapon)
         {
             weapon.MinAttackDamage = int.Parse(tokens[1]);
@@ -137,6 +137,18 @@ public class RewardManager : MonoBehaviour
         return newItem;
     }
 
+    private int GetItemRarity()
+    {
+        int roll = Random.Range(0, 100);
+
+        if (roll < 50)       // 0등급 확률 50%
+            return 0;
+        else if (roll < 80)  // 1등급 확률 30%
+            return 1;
+        else                  // 2등급 확률 20%
+            return 2;
+    }
+    
     private void GenerateRandomOptions(IEquipment equip)
     {
         equip.OptionIdx.Clear();
@@ -188,27 +200,27 @@ public class RewardManager : MonoBehaviour
         {
             0 => Random.Range(10, 21), // 최대 생명력 +#
             1 => Random.Range(1, 6), // 최대 생명력 +#%
-            2 => Random.Range(1, 4), // 생명력 재생 속도 +#
-            3 => Random.Range(1, 6), // 생명력 재생 속도 +#%
-            4 => Random.Range(5, 16), // 최대 마나 +#
+            2 => Random.Range(1, 3), // 생명력 재생 속도 +#
+            3 => Random.Range(10, 26), // 생명력 재생 속도 +#%
+            4 => Random.Range(10, 21), // 최대 마나 +#
             5 => Random.Range(1, 6), // 최대 마나 +#%
-            6 => Random.Range(1, 4), // 마나 재생 속도 +#
-            7 => Random.Range(1, 6), // 마나 재생 속도 +#%
-            8 => Random.Range(10, 21), // 방어력 +#
-            9 => Random.Range(5, 11), // 방어력 +#%
-            10 => Random.Range(10, 21), // 회피 +#
-            11 => Random.Range(5, 11), // 회피 +#%
-            12 => Random.Range(1, 4), // 힘
-            13 => Random.Range(1, 4), // 민첩
-            14 => Random.Range(1, 4), // 지능
-            15 => Random.Range(5, 11), // 이동속도 +#%
-            16 => Random.Range(5, 11), // 공격속도 +#%
-            17 => Random.Range(5, 11), // 시전속도 +#%
-            18 => Random.Range(5, 11), // 치명타 확률 +#%
-            19 => Random.Range(10, 21), // 치명타 피해 +#%
+            6 => Random.Range(1, 3), // 마나 재생 속도 +#
+            7 => Random.Range(10, 26), // 마나 재생 속도 +#%
+            8 => Random.Range(20, 41), // 방어력 +#
+            9 => Random.Range(10, 41), // 방어력 +#%
+            10 => Random.Range(20, 41), // 회피 +#
+            11 => Random.Range(10, 41), // 회피 +#%
+            12 => Random.Range(1, 6), // 힘
+            13 => Random.Range(1, 6), // 민첩
+            14 => Random.Range(1, 6), // 지능
+            15 => Random.Range(10, 16), // 이동속도 +#%
+            16 => Random.Range(10, 16), // 공격속도 +#%
+            17 => Random.Range(10, 16), // 시전속도 +#%
+            18 => Random.Range(10, 31), // 치명타 확률 +#%
+            19 => Random.Range(1, 51), // 치명타 피해 +#%
             20 => Random.Range(3, 7), // 공격력 추가 +# ~ +#
             21 => Random.Range(5, 11), // 공격력 추가 +#%
-            22 => Random.Range(3, 7), // 주문력 추가 +# ~ +#
+            22 => Random.Range(5, 11), // 주문력 추가 +# ~ +#
             23 => Random.Range(5, 11), // 주문력 추가 +#%
             _ => 0 // 잘못된 인덱스
         };
