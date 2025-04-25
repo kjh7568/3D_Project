@@ -18,7 +18,7 @@ public class AttackLogic : StateMachineBehaviour
     {
         originalSpeed = animator.speed;
 
-        animator.speed = Player.LocalPlayer.currentWeapon.data.AttackSpeed; //todo 나중엔 여기에 플레이어 스탯 곱해서 증가해줄 것
+        animator.speed = Player.LocalPlayer.RealStat.AttackSpeed; //todo 나중엔 여기에 플레이어 스탯 곱해서 증가해줄 것
         
         isPassStartNormalizedTime = false;
         isPassEndNormalizedTime = false;

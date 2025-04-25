@@ -8,7 +8,7 @@ public class PlayerUIMaster : MonoBehaviour
     [SerializeField] private GameObject dragSlot;
     [SerializeField] private GameObject inventoryTab;
     [SerializeField] private GameObject gemTab;
-
+    [SerializeField] private GameObject statusTab;
     private IEnumerator Start()
     {
         yield return null;
@@ -21,14 +21,7 @@ public class PlayerUIMaster : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            if (inventoryTab.activeSelf)
-            {
-                inventoryTab.SetActive(false);
-            }
-            else
-            {
-                inventoryTab.SetActive(true);
-            }
+            inventoryTab.SetActive(!inventoryTab.activeSelf);
         }
         else if (Input.GetKeyDown(KeyCode.G))
         {
@@ -43,7 +36,12 @@ public class PlayerUIMaster : MonoBehaviour
                 dragSlot.SetActive(true);
                 inventoryTab.SetActive(true);
                 gemTab.SetActive(true);
+                statusTab.SetActive(false);
             }
+        }
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            statusTab.SetActive(!statusTab.activeSelf);
         }
     }
     

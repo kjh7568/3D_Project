@@ -35,11 +35,9 @@ public class RewardManager : MonoBehaviour
         Instance = this;
     }
 
-    public void DropItem()
+    public void DropItem(Vector3 itemPos)
     {
         Item item = MakeEquipment(itemTableManager.ItemTable[Random.Range(0, 4)]);
-        
-        var itemPos = Player.LocalPlayer.transform.position;
 
         var dropItem = Instantiate(dropedItem, itemPos + new Vector3(0, 0.5f, 0), Quaternion.identity, dropedItemParent);
         var dropItemUI = Instantiate(dropedItemUI, dropedItemUIParent);
@@ -53,11 +51,9 @@ public class RewardManager : MonoBehaviour
         DropItemUI.Instance.RegisterDrop(dropItem, dropItemRect); // ✅ 추가됨
     }
 
-    public void DropGold(int min, int max)
+    public void DropGold(int min, int max, Vector3 itemPos)
     {
-        var pos = Player.LocalPlayer.transform.position;
-
-        var dropGold = Instantiate(dropedGold, pos + new Vector3(0, 0.5f, 0), Quaternion.identity, dropedGoldParent);
+        var dropGold = Instantiate(dropedGold, itemPos + new Vector3(0, 0.5f, 0), Quaternion.identity, dropedGoldParent);
         var dropGoldUI = Instantiate(dropedGoldUI, dropedGoldUIParent);
 
         var dropGoldRect = dropGoldUI.GetComponent<RectTransform>();

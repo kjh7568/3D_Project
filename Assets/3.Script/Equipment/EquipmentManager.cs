@@ -20,6 +20,8 @@ public class EquipmentManager : MonoBehaviour
     private Dictionary<int, OptionMeta> optionTable = new();
     private Dictionary<int, string> DescriptionDic = new();
 
+    [SerializeField] private PlayerStatPanelUI playerStatPanelUI;
+    
     private void Awake()
     {
         Instance = this;
@@ -198,7 +200,7 @@ public class EquipmentManager : MonoBehaviour
         }
 
         Debug.Log(str);
-        Player.LocalPlayer.RealStat.UpdateStat();
+        playerStatPanelUI.UpdateText();
     }
 
     public void UnEquipEquipment(Item item)
@@ -213,6 +215,6 @@ public class EquipmentManager : MonoBehaviour
             }
         }
 
-        Player.LocalPlayer.RealStat.UpdateStat();
+        playerStatPanelUI.UpdateText();
     }
 }

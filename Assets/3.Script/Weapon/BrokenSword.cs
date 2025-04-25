@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.LowLevel;
 using Random = UnityEngine.Random;
 
 public class BrokenSword : Weapon
@@ -18,7 +19,7 @@ public class BrokenSword : Weapon
             {
                 Sender = Player.LocalPlayer,
                 Receiver = monster,
-                Damage = Random.Range(data.MinDamage, data.MaxDamage),
+                Damage = Random.Range(Player.LocalPlayer.RealStat.MinAttackDamage, Player.LocalPlayer.RealStat.MaxAttackDamage) * Player.LocalPlayer.RealStat.IncreaseAttackDamage,
                 HitPosition = other.ClosestPoint(transform.position),
                 Collider = other
             };

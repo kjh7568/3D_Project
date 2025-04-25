@@ -43,7 +43,7 @@ public class Goblin : MonoBehaviour, IMonster
         monsterCollider.enabled = false;
         AttackCollider.enabled = false;
 
-        Player.LocalPlayer.RealStat.Exp += monsterStat.rewardExp;
+        Player.LocalPlayer.Stat.Exp += monsterStat.rewardExp;
 
         TryGenerateItem();
 
@@ -57,14 +57,14 @@ public class Goblin : MonoBehaviour, IMonster
         if (chance < 0.33f) // 33% 확률
         {
             Debug.Log("아이템 드랍!");
-            RewardManager.Instance.DropItem();
+            RewardManager.Instance.DropItem(transform.position);
         }
 
         chance = Random.Range(0f, 1f); // 0.0 ~ 1.0 사이
         if (chance < 0.5f) // 33% 확률
         {
             Debug.Log("골드 드랍!");
-            RewardManager.Instance.DropGold(dropGoldMinAmount, dropGoldMaxAmount);
+            RewardManager.Instance.DropGold(dropGoldMinAmount, dropGoldMaxAmount, transform.position);
         }
     }
 }
