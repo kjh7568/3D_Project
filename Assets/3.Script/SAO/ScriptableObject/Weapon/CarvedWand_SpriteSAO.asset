@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8bb7a1b2c1463b04685cb57dbbfac54f, type: 3}
-  m_Name: Fireball_SpriteSAO
+  m_Name: CarvedWand_SpriteSAO
   m_EditorClassIdentifier: 
-  key: 100
-  sprite: {fileID: 21300000, guid: 599c04611be1e644fbf1ec77ebbc1463, type: 3}
-  dragSize: {x: 90, y: 90}
+  key: 151
+  sprite: {fileID: 21300000, guid: cf1e852246452ee4eb7b419c812e55b9, type: 3}
+  dragSize: {x: 180, y: 270}

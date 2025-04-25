@@ -19,8 +19,10 @@ public class FinalPlayerStats
     public float MaxExp { get; set; }
 
     public float Armour { get; set; }
+    public float DamageReductionRate { get; set; }
     public float Evasion { get; set; }
-
+    public float EvasionRate { get; set; }
+    
     public int Strength { get; set; }
     public int Dexterity { get; set; }
     public int Intelligence { get; set; }
@@ -33,12 +35,12 @@ public class FinalPlayerStats
     public float CriticalChance { get; set; }
     public float CriticalDamage { get; set; }
 
-    public int MinAttackDamage { get; set; }
-    public int MaxAttackDamage { get; set; }
+    public float MinAttackDamage { get; set; }
+    public float MaxAttackDamage { get; set; }
     public float IncreaseAttackDamage { get; set; }
 
-    public int MinSpellDamage { get; set; }
-    public int MaxSpellDamage { get; set; }
+    public float MinSpellDamage { get; set; }
+    public float MaxSpellDamage { get; set; }
     public float IncreaseSpellDamage { get; set; }
 
     public void Initialize()
@@ -70,8 +72,10 @@ public class FinalPlayerStats
 
         // 방어/회피
         Armour = (pStat.Armour + eStat.Armour) * eStat.IncreaseArmour;
+        DamageReductionRate = CalculateDamageReduction(Armour);
         Evasion = (pStat.Evasion + eStat.Evasion) * eStat.IncreaseEvasion;
-
+        EvasionRate = CalculateEvasionChance(Evasion);
+        
         // 스탯
         Strength = pStat.Strength + eStat.Strength;
         Dexterity = pStat.Dexterity + eStat.Dexterity;
@@ -81,11 +85,6 @@ public class FinalPlayerStats
         MovementSpeed = pStat.MovementSpeed * eStat.IncreaseMovementSpeed;
         AttackSpeed = pStat.AttackSpeed * eStat.IncreaseAttackSpeed;
         CastSpeed = pStat.CastSpeed * eStat.IncreaseCastSpeed;
-
-        // 레벨 & 경험치 (장비 영향 없음)
-        Level = pStat.Level;
-        Exp = pStat.Exp;
-        MaxExp = pStat.MaxExp;
 
         // EquipmentStst만 있는 항목
         CriticalChance = eStat.CriticalChance;
@@ -98,5 +97,17 @@ public class FinalPlayerStats
         MinSpellDamage = eStat.MinSpellDamage;
         MaxSpellDamage = eStat.MaxSpellDamage;
         IncreaseSpellDamage = eStat.IncreaseSpellDamage;
+    }
+    
+    private float CalculateDamageReduction(float armour)
+    {
+        const float k = 233.33f;
+        return armour / (armour + k);
+    }
+    
+    private float CalculateEvasionChance(float evasion)
+    {
+        const float K = 400f;
+        return evasion / (evasion + K);
     }
 }

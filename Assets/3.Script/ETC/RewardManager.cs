@@ -12,36 +12,36 @@ using Random = UnityEngine.Random;
 public class RewardManager : MonoBehaviour
 {
     public static RewardManager Instance;
-    
+
     private const int ARMOUR_COUNT = 1;
     private const int OPTION_COUNT = 24;
 
     public ItemTableManager itemTableManager;
-    
+
     [SerializeField] private Inventory inventoryTab;
-    
+
     [SerializeField] private GameObject dropedItem;
     [SerializeField] private Transform dropedItemParent;
     [SerializeField] private GameObject dropedItemUI;
     [SerializeField] private RectTransform dropedItemUIParent;
-    
+
     [SerializeField] private GameObject dropedGold;
     [SerializeField] private Transform dropedGoldParent;
     [SerializeField] private GameObject dropedGoldUI;
     [SerializeField] private RectTransform dropedGoldUIParent;
-    
+
     private void Awake()
     {
         Instance = this;
     }
 
-    public void DropItem()
+    public void DropItem(Vector3 itemPos)
     {
-        Item item = MakeEquipment(itemTableManager.ItemTable[Random.Range(0, 4)]);
-        
-        var itemPos = Player.LocalPlayer.transform.position;
+        var idx = Random.Range(0, 6);
+        Item item = MakeEquipment(itemTableManager.ItemTable[idx]);
 
-        var dropItem = Instantiate(dropedItem, itemPos + new Vector3(0, 0.5f, 0), Quaternion.identity, dropedItemParent);
+        var dropItem = Instantiate(dropedItem, itemPos + new Vector3(0, 0.5f, 0), Quaternion.identity,
+            dropedItemParent);
         var dropItemUI = Instantiate(dropedItemUI, dropedItemUIParent);
 
         var dropItemSlot = dropItemUI.GetComponent<InventorySlot>();
@@ -53,18 +53,17 @@ public class RewardManager : MonoBehaviour
         DropItemUI.Instance.RegisterDrop(dropItem, dropItemRect); // ✅ 추가됨
     }
 
-    public void DropGold(int min, int max)
+    public void DropGold(int min, int max, Vector3 itemPos)
     {
-        var pos = Player.LocalPlayer.transform.position;
-
-        var dropGold = Instantiate(dropedGold, pos + new Vector3(0, 0.5f, 0), Quaternion.identity, dropedGoldParent);
+        var dropGold = Instantiate(dropedGold, itemPos + new Vector3(0, 0.5f, 0), Quaternion.identity,
+            dropedGoldParent);
         var dropGoldUI = Instantiate(dropedGoldUI, dropedGoldUIParent);
 
         var dropGoldRect = dropGoldUI.GetComponent<RectTransform>();
         var dropGoldText = dropGoldUI.GetComponentInChildren<Text>();
 
         int goldAmount = Random.Range(min, max);
-        
+
         dropGoldText.text = $"{goldAmount} gold";
 
         DropItemUI.Instance.RegisterGoldDrop(dropGold, dropGoldRect);
@@ -74,11 +73,13 @@ public class RewardManager : MonoBehaviour
             trigger.Setup(dropGoldRect, goldAmount);
         }
     }
-    
+
     public Item MakeEquipment(Item baseItem)
     {
         Item newItem = null;
         IEquipment equip = null;
+
+        string[] tokens = baseItem.ItemData.Parameter.Split(',');
 
         switch (baseItem.ItemData.ItemType)
         {
@@ -94,6 +95,16 @@ public class RewardManager : MonoBehaviour
             case "Boots":
                 newItem = new Boots();
                 break;
+            case "Weapon":
+                if (int.Parse(tokens[0]) == 0)
+                {
+                    newItem = new OneHandSword();
+                }
+                else if (int.Parse(tokens[0]) == 1)
+                {
+                    newItem = new Wand();
+                }
+                break;
             default:
                 Debug.LogError($"Unknown ItemType: {baseItem.ItemData.ItemType}");
                 return null;
@@ -106,17 +117,38 @@ public class RewardManager : MonoBehaviour
 
         equip = newItem as IEquipment;
 
-        string[] tokens = newItem.ItemData.Parameter.Split(',');
-
-        equip.Rarity = Random.Range(0, 3);
-        equip.Armor = UnityEngine.Random.Range(int.Parse(tokens[0]), int.Parse(tokens[1]));
-        equip.Evasion = UnityEngine.Random.Range(int.Parse(tokens[2]), int.Parse(tokens[3]));
-
-        GenerateRandomOptions(equip);
+        equip.Rarity = GetItemRarity();
+        
+        if (equip is IWeapon weapon)
+        {
+            weapon.MinAttackDamage = int.Parse(tokens[1]);
+            weapon.MaxAttackDamage = int.Parse(tokens[2]);
+            weapon.MinSpellDamage = int.Parse(tokens[3]);
+            weapon.MaxSpellDamage = int.Parse(tokens[4]);
+            GenerateRandomOptions(weapon);
+        }
+        else if (equip is IArmour armor)
+        {
+            armor.Armor = Random.Range(int.Parse(tokens[0]), int.Parse(tokens[1]));
+            armor.Evasion = Random.Range(int.Parse(tokens[2]), int.Parse(tokens[3]));
+            GenerateRandomOptions(armor);
+        }
 
         return newItem;
     }
 
+    private int GetItemRarity()
+    {
+        int roll = Random.Range(0, 100);
+
+        if (roll < 50)       // 0등급 확률 50%
+            return 0;
+        else if (roll < 80)  // 1등급 확률 30%
+            return 1;
+        else                  // 2등급 확률 20%
+            return 2;
+    }
+    
     private void GenerateRandomOptions(IEquipment equip)
     {
         equip.OptionIdx.Clear();
@@ -168,27 +200,27 @@ public class RewardManager : MonoBehaviour
         {
             0 => Random.Range(10, 21), // 최대 생명력 +#
             1 => Random.Range(1, 6), // 최대 생명력 +#%
-            2 => Random.Range(1, 4), // 생명력 재생 속도 +#
-            3 => Random.Range(1, 6), // 생명력 재생 속도 +#%
-            4 => Random.Range(5, 16), // 최대 마나 +#
+            2 => Random.Range(1, 3), // 생명력 재생 속도 +#
+            3 => Random.Range(10, 26), // 생명력 재생 속도 +#%
+            4 => Random.Range(10, 21), // 최대 마나 +#
             5 => Random.Range(1, 6), // 최대 마나 +#%
-            6 => Random.Range(1, 4), // 마나 재생 속도 +#
-            7 => Random.Range(1, 6), // 마나 재생 속도 +#%
-            8 => Random.Range(10, 21), // 방어력 +#
-            9 => Random.Range(5, 11), // 방어력 +#%
-            10 => Random.Range(10, 21), // 회피 +#
-            11 => Random.Range(5, 11), // 회피 +#%
-            12 => Random.Range(1, 4), // 힘
-            13 => Random.Range(1, 4), // 민첩
-            14 => Random.Range(1, 4), // 지능
-            15 => Random.Range(5, 11), // 이동속도 +#%
-            16 => Random.Range(5, 11), // 공격속도 +#%
-            17 => Random.Range(5, 11), // 시전속도 +#%
-            18 => Random.Range(5, 11), // 치명타 확률 +#%
-            19 => Random.Range(10, 21), // 치명타 피해 +#%
+            6 => Random.Range(1, 3), // 마나 재생 속도 +#
+            7 => Random.Range(10, 26), // 마나 재생 속도 +#%
+            8 => Random.Range(20, 41), // 방어력 +#
+            9 => Random.Range(10, 41), // 방어력 +#%
+            10 => Random.Range(20, 41), // 회피 +#
+            11 => Random.Range(10, 41), // 회피 +#%
+            12 => Random.Range(1, 6), // 힘
+            13 => Random.Range(1, 6), // 민첩
+            14 => Random.Range(1, 6), // 지능
+            15 => Random.Range(10, 16), // 이동속도 +#%
+            16 => Random.Range(10, 16), // 공격속도 +#%
+            17 => Random.Range(10, 16), // 시전속도 +#%
+            18 => Random.Range(10, 31), // 치명타 확률 +#%
+            19 => Random.Range(1, 51), // 치명타 피해 +#%
             20 => Random.Range(3, 7), // 공격력 추가 +# ~ +#
             21 => Random.Range(5, 11), // 공격력 추가 +#%
-            22 => Random.Range(3, 7), // 주문력 추가 +# ~ +#
+            22 => Random.Range(5, 11), // 주문력 추가 +# ~ +#
             23 => Random.Range(5, 11), // 주문력 추가 +#%
             _ => 0 // 잘못된 인덱스
         };

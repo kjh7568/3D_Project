@@ -20,6 +20,8 @@ public class EquipmentManager : MonoBehaviour
     private Dictionary<int, OptionMeta> optionTable = new();
     private Dictionary<int, string> DescriptionDic = new();
 
+    [SerializeField] private PlayerStatPanelUI playerStatPanelUI;
+
     private void Awake()
     {
         Instance = this;
@@ -31,179 +33,214 @@ public class EquipmentManager : MonoBehaviour
     }
 
     private void InitOptionTable()
-{
-    optionTable[0] = new OptionMeta
     {
-        Apply = (s, v) => { s.Hp += v; },
-        Remove = (s, v) => { s.Hp -= v; }
-    };
+        optionTable[0] = new OptionMeta
+        {
+            Apply = (s, v) => { s.Hp += v; },
+            Remove = (s, v) => { s.Hp -= v; }
+        };
 
-    optionTable[1] = new OptionMeta
-    {
-        Apply = (s, v) => { s.IncreaseHp += v / 100f; },
-        Remove = (s, v) => { s.IncreaseHp -= v / 100f; }
-    };
+        optionTable[1] = new OptionMeta
+        {
+            Apply = (s, v) => { s.IncreaseHp += v / 100f; },
+            Remove = (s, v) => { s.IncreaseHp -= v / 100f; }
+        };
 
-    optionTable[2] = new OptionMeta
-    {
-        Apply = (s, v) => { s.HpRegenRate += v; },
-        Remove = (s, v) => { s.HpRegenRate -= v; }
-    };
+        optionTable[2] = new OptionMeta
+        {
+            Apply = (s, v) => { s.HpRegenRate += v; },
+            Remove = (s, v) => { s.HpRegenRate -= v; }
+        };
 
-    optionTable[3] = new OptionMeta
-    {
-        Apply = (s, v) => { s.IncreaseHpRegenRate += v / 100f; },
-        Remove = (s, v) => { s.IncreaseHpRegenRate -= v / 100f; }
-    };
+        optionTable[3] = new OptionMeta
+        {
+            Apply = (s, v) => { s.IncreaseHpRegenRate += v / 100f; },
+            Remove = (s, v) => { s.IncreaseHpRegenRate -= v / 100f; }
+        };
 
-    optionTable[4] = new OptionMeta
-    {
-        Apply = (s, v) => { s.Mp += v; },
-        Remove = (s, v) => { s.Mp -= v; }
-    };
+        optionTable[4] = new OptionMeta
+        {
+            Apply = (s, v) => { s.Mp += v; },
+            Remove = (s, v) => { s.Mp -= v; }
+        };
 
-    optionTable[5] = new OptionMeta
-    {
-        Apply = (s, v) => { s.IncreaseMp += v / 100f; },
-        Remove = (s, v) => { s.IncreaseMp -= v / 100f; }
-    };
+        optionTable[5] = new OptionMeta
+        {
+            Apply = (s, v) => { s.IncreaseMp += v / 100f; },
+            Remove = (s, v) => { s.IncreaseMp -= v / 100f; }
+        };
 
-    optionTable[6] = new OptionMeta
-    {
-        Apply = (s, v) => { s.MpRegenRate += v; },
-        Remove = (s, v) => { s.MpRegenRate -= v; }
-    };
+        optionTable[6] = new OptionMeta
+        {
+            Apply = (s, v) => { s.MpRegenRate += v; },
+            Remove = (s, v) => { s.MpRegenRate -= v; }
+        };
 
-    optionTable[7] = new OptionMeta
-    {
-        Apply = (s, v) => { s.IncreaseMpRegenRate += v / 100f; },
-        Remove = (s, v) => { s.IncreaseMpRegenRate -= v / 100f; }
-    };
+        optionTable[7] = new OptionMeta
+        {
+            Apply = (s, v) => { s.IncreaseMpRegenRate += v / 100f; },
+            Remove = (s, v) => { s.IncreaseMpRegenRate -= v / 100f; }
+        };
 
-    optionTable[8] = new OptionMeta
-    {
-        Apply = (s, v) => { s.Armour += v; },
-        Remove = (s, v) => { s.Armour -= v; }
-    };
+        optionTable[8] = new OptionMeta
+        {
+            Apply = (s, v) => { s.Armour += v; },
+            Remove = (s, v) => { s.Armour -= v; }
+        };
 
-    optionTable[9] = new OptionMeta
-    {
-        Apply = (s, v) => { s.IncreaseArmour += v / 100f; },
-        Remove = (s, v) => { s.IncreaseArmour -= v / 100f; }
-    };
+        optionTable[9] = new OptionMeta
+        {
+            Apply = (s, v) => { s.IncreaseArmour += v / 100f; },
+            Remove = (s, v) => { s.IncreaseArmour -= v / 100f; }
+        };
 
-    optionTable[10] = new OptionMeta
-    {
-        Apply = (s, v) => { s.Evasion += v; },
-        Remove = (s, v) => { s.Evasion -= v; }
-    };
+        optionTable[10] = new OptionMeta
+        {
+            Apply = (s, v) => { s.Evasion += v; },
+            Remove = (s, v) => { s.Evasion -= v; }
+        };
 
-    optionTable[11] = new OptionMeta
-    {
-        Apply = (s, v) => { s.IncreaseEvasion += v / 100f; },
-        Remove = (s, v) => { s.IncreaseEvasion -= v / 100f; }
-    };
+        optionTable[11] = new OptionMeta
+        {
+            Apply = (s, v) => { s.IncreaseEvasion += v / 100f; },
+            Remove = (s, v) => { s.IncreaseEvasion -= v / 100f; }
+        };
 
-    optionTable[12] = new OptionMeta
-    {
-        Apply = (s, v) => { s.Strength += (int)v; },
-        Remove = (s, v) => { s.Strength -= (int)v; }
-    };
+        optionTable[12] = new OptionMeta
+        {
+            Apply = (s, v) => { s.Strength += (int)v; },
+            Remove = (s, v) => { s.Strength -= (int)v; }
+        };
 
-    optionTable[13] = new OptionMeta
-    {
-        Apply = (s, v) => { s.Dexterity += (int)v; },
-        Remove = (s, v) => { s.Dexterity -= (int)v; }
-    };
+        optionTable[13] = new OptionMeta
+        {
+            Apply = (s, v) => { s.Dexterity += (int)v; },
+            Remove = (s, v) => { s.Dexterity -= (int)v; }
+        };
 
-    optionTable[14] = new OptionMeta
-    {
-        Apply = (s, v) => { s.Intelligence += (int)v; },
-        Remove = (s, v) => { s.Intelligence -= (int)v; }
-    };
+        optionTable[14] = new OptionMeta
+        {
+            Apply = (s, v) => { s.Intelligence += (int)v; },
+            Remove = (s, v) => { s.Intelligence -= (int)v; }
+        };
 
-    optionTable[15] = new OptionMeta
-    {
-        Apply = (s, v) => { s.IncreaseMovementSpeed += v / 100f; },
-        Remove = (s, v) => { s.IncreaseMovementSpeed -= v / 100f; }
-    };
+        optionTable[15] = new OptionMeta
+        {
+            Apply = (s, v) => { s.IncreaseMovementSpeed += v / 100f; },
+            Remove = (s, v) => { s.IncreaseMovementSpeed -= v / 100f; }
+        };
 
-    optionTable[16] = new OptionMeta
-    {
-        Apply = (s, v) => { s.IncreaseAttackSpeed += v / 100f; },
-        Remove = (s, v) => { s.IncreaseAttackSpeed -= v / 100f; }
-    };
+        optionTable[16] = new OptionMeta
+        {
+            Apply = (s, v) => { s.IncreaseAttackSpeed += v / 100f; },
+            Remove = (s, v) => { s.IncreaseAttackSpeed -= v / 100f; }
+        };
 
-    optionTable[17] = new OptionMeta
-    {
-        Apply = (s, v) => { s.IncreaseCastSpeed += v / 100f; },
-        Remove = (s, v) => { s.IncreaseCastSpeed -= v / 100f; }
-    };
+        optionTable[17] = new OptionMeta
+        {
+            Apply = (s, v) => { s.IncreaseCastSpeed += v / 100f; },
+            Remove = (s, v) => { s.IncreaseCastSpeed -= v / 100f; }
+        };
 
-    optionTable[18] = new OptionMeta
-    {
-        Apply = (s, v) => { s.CriticalChance += v / 100f; },
-        Remove = (s, v) => { s.CriticalChance -= v / 100f; }
-    };
+        optionTable[18] = new OptionMeta
+        {
+            Apply = (s, v) => { s.CriticalChance += v / 100f; },
+            Remove = (s, v) => { s.CriticalChance -= v / 100f; }
+        };
 
-    optionTable[19] = new OptionMeta
-    {
-        Apply = (s, v) => { s.CriticalDamage += v / 100f; },
-        Remove = (s, v) => { s.CriticalDamage -= v / 100f; }
-    };
+        optionTable[19] = new OptionMeta
+        {
+            Apply = (s, v) => { s.CriticalDamage += v / 100f; },
+            Remove = (s, v) => { s.CriticalDamage -= v / 100f; }
+        };
 
-    optionTable[20] = new OptionMeta
-    {
-        Apply = (s, v) => { s.MinAttackDamage += (int)v; },
-        Remove = (s, v) => { s.MinAttackDamage -= (int)v; }
-    };
+        optionTable[20] = new OptionMeta
+        {
+            Apply = (s, v) =>
+            {
+                s.MinAttackDamage += (int)v;
+                s.MaxAttackDamage += (int)v;
+            },
+            Remove = (s, v) =>
+            {
+                s.MinAttackDamage -= (int)v;
+                s.MaxAttackDamage -= (int)v;
+            }
+        };
 
-    optionTable[21] = new OptionMeta
-    {
-        Apply = (s, v) => { s.IncreaseAttackDamage += v / 100f; },
-        Remove = (s, v) => { s.IncreaseAttackDamage -= v / 100f; }
-    };
+        optionTable[21] = new OptionMeta
+        {
+            Apply = (s, v) => { s.IncreaseAttackDamage += v / 100f; },
+            Remove = (s, v) => { s.IncreaseAttackDamage -= v / 100f; }
+        };
 
-    optionTable[22] = new OptionMeta
-    {
-        Apply = (s, v) => { s.MinSpellDamage += (int)v; },
-        Remove = (s, v) => { s.MinSpellDamage -= (int)v; }
-    };
+        optionTable[22] = new OptionMeta
+        {
+            Apply = (s, v) =>
+            {
+                s.MinSpellDamage += (int)v;
+                s.MaxSpellDamage += (int)v;
+            },
+            Remove = (s, v) =>
+            {
+                s.MinSpellDamage -= (int)v;
+                s.MaxSpellDamage -= (int)v;
+            }
+        };
 
-    optionTable[23] = new OptionMeta
-    {
-        Apply = (s, v) => { s.IncreaseSpellDamage += v / 100f; },
-        Remove = (s, v) => { s.IncreaseSpellDamage -= v / 100f; }
-    };
-}
+        optionTable[23] = new OptionMeta
+        {
+            Apply = (s, v) => { s.IncreaseSpellDamage += v / 100f; },
+            Remove = (s, v) => { s.IncreaseSpellDamage -= v / 100f; }
+        };
+    }
 
 
     public void EquipEquipment(Item item)
     {
         if (item is not IEquipment equip) return;
 
-        string str = $"장비명: {item.ItemData.Name}\n" +
-                     $"방어력: {equip.Armor} | 회피: {equip.Evasion}\n" +
-                     $"등급: {equip.Rarity}\n" +
-                     "================\n";
-        
+        if (equip is IWeapon weapon)
+        {
+            EquipmentStat.MinAttackDamage += weapon.MinAttackDamage;
+            EquipmentStat.MaxAttackDamage += weapon.MaxAttackDamage;
+            EquipmentStat.MinSpellDamage  += weapon.MinSpellDamage;
+            EquipmentStat.MaxSpellDamage  += weapon.MaxSpellDamage;
+        }
+        else if (equip is IArmour armor)
+        {
+            EquipmentStat.Armour  += armor.Armor;
+            EquipmentStat.Evasion += armor.Evasion;
+        }
+
         foreach (var kv in equip.CashingValue)
         {
             if (optionTable.TryGetValue(kv.Key, out var meta))
             {
                 meta.Apply(EquipmentStat, kv.Value);
-                str += $"{equip.DescriptionDic[kv.Key]}\n";
                 //액션에서 추가하는 디스크립션이랑 여기랑 달라서 null이 뜸
             }
         }
 
-        Debug.Log(str);
-        Player.LocalPlayer.RealStat.UpdateStat();
+        playerStatPanelUI.UpdateText();
     }
 
     public void UnEquipEquipment(Item item)
     {
         if (item is not IEquipment equip) return;
+
+        if (equip is IWeapon weapon)
+        {
+            EquipmentStat.MinAttackDamage -= weapon.MinAttackDamage;
+            EquipmentStat.MaxAttackDamage -= weapon.MaxAttackDamage;
+            EquipmentStat.MinSpellDamage  -= weapon.MinSpellDamage;
+            EquipmentStat.MaxSpellDamage  -= weapon.MaxSpellDamage;
+        }
+        else if (equip is IArmour armor)
+        {
+            EquipmentStat.Armour  -= armor.Armor;
+            EquipmentStat.Evasion -= armor.Evasion;
+        }
 
         foreach (var kv in equip.CashingValue)
         {
@@ -213,6 +250,6 @@ public class EquipmentManager : MonoBehaviour
             }
         }
 
-        Player.LocalPlayer.RealStat.UpdateStat();
+        playerStatPanelUI.UpdateText();
     }
 }

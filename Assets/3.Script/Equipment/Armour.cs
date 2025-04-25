@@ -5,24 +5,28 @@ using UnityEngine;
 public interface IEquipment
 {
     int Rarity { get; set; }
-    float Armor { get; set; }
-    float Evasion { get; set; }
     List<int> OptionIdx { get; set; }
     Dictionary<int, int> CashingValue { get; set; }
     Dictionary<int, string> DescriptionDic { get; set; }
 
     int PickRandomOption();
 }
+public interface IArmour : IEquipment
+{
+    float Armor { get; set; }
+    float Evasion { get; set; }
+}
 
-public class BodyArmour : Item, IEquipment
+public class BodyArmour : Item, IArmour
 {
     public int Rarity { get; set; }
-    public float Armor { get; set; }
-    public float Evasion { get; set; }
     public List<int> OptionIdx { get; set; } = new List<int>();
     public Dictionary<int, int> CashingValue { get; set; } = new Dictionary<int, int>(); // 인덱스, 데이터
     public Dictionary<int, string> DescriptionDic { get; set; } = new Dictionary<int, string>();
 
+    public float Armor { get; set; }
+    public float Evasion { get; set; }
+    
     public int PickRandomOption()
     {
         float random = Random.Range(0f, 100f);
@@ -47,7 +51,7 @@ public class BodyArmour : Item, IEquipment
     }
 }
 
-public class Gloves : Item, IEquipment
+public class Gloves : Item, IArmour
 {
     public int Rarity { get; set; }
     public float Armor { get; set; }
@@ -85,7 +89,7 @@ public class Gloves : Item, IEquipment
     }
 }
 
-public class Helmet : Item, IEquipment
+public class Helmet : Item, IArmour
 {
     public int Rarity { get; set; }
     public float Armor { get; set; }
@@ -122,7 +126,7 @@ public class Helmet : Item, IEquipment
     }
 }
 
-public class Boots : Item, IEquipment
+public class Boots : Item, IArmour
 {
     public int Rarity { get; set; }
     public float Armor { get; set; }

@@ -10,7 +10,8 @@ public class LocalPlayer : Player, IDamageAble
     public Collider MainCollider => playerCollider;
     public GameObject GameObject => gameObject;
 
-    public Weapon currentWeapon;
+    //나중에 지팡이도 추가
+    public Collider weaponCollider;
     public PlayerStat Stat { get; private set; }
     public int gold;
     public FinalPlayerStats RealStat { get; private set; }

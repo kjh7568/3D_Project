@@ -7,8 +7,6 @@ using Random = UnityEngine.Random;
 
 public class MonsterSpawnManager : MonoBehaviour
 {
-    private const int MOB_PACK_COUNT = 9;
-
     [SerializeField] private Transform monsterParent;
     [SerializeField] private Transform[] spawnPointsArray;
     [SerializeField] private GameObject[] monsterPrefabs;
@@ -23,7 +21,7 @@ public class MonsterSpawnManager : MonoBehaviour
 
     private void SetSpawnPoints()
     {
-        for (int i = 0; i < MOB_PACK_COUNT; i++)
+        for (int i = 0; i < spawnPointsArray.Length/2; i++)
         {
             int idx = Random.Range(0, spawnPointsArray.Length);
 

@@ -14,8 +14,6 @@ public class PlayerController : MonoBehaviour
     [Header("moving Settings")] [SerializeField]
     private Transform rotatePlayer;
 
-    public float moveSpeed;
-
     [Header("Camera Settings")] [SerializeField]
     private Camera mainCam;
 
@@ -68,7 +66,7 @@ public class PlayerController : MonoBehaviour
         Vector3 direction = getAxis.z * camForward + getAxis.x * camRight;
 
         direction.Normalize();
-        transform.Translate(direction * (moveSpeed * Time.deltaTime), Space.World);
+        transform.Translate(direction * (Player.LocalPlayer.RealStat.MovementSpeed * Time.deltaTime), Space.World);
 
         mainCam.transform.position = transform.position + offSet;
 
