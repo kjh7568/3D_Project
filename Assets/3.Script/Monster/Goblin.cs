@@ -52,16 +52,13 @@ public class Goblin : MonoBehaviour, IMonster
 
     public void TryGenerateItem()
     {
-        float chance = Random.Range(0f, 1f); // 0.0 ~ 1.0 사이
-
-        if (chance < 0.33f) // 33% 확률
+        if (Random.Range(0f, 1f) < 0.33f) // 33% 확률
         {
             Debug.Log("아이템 드랍!");
             RewardManager.Instance.DropItem(transform.position);
         }
 
-        chance = Random.Range(0f, 1f); // 0.0 ~ 1.0 사이
-        if (chance < 0.5f) // 33% 확률
+        if (Random.Range(0f, 1f) < 0.5f) // 33% 확률
         {
             Debug.Log("골드 드랍!");
             RewardManager.Instance.DropGold(dropGoldMinAmount, dropGoldMaxAmount, transform.position);

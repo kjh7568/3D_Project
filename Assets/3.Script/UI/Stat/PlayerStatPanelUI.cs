@@ -33,10 +33,10 @@ public class PlayerStatPanelUI : MonoBehaviour
         FinalPlayerStats playerStats = Player.LocalPlayer.RealStat;
         playerStats.UpdateStat();
 
-        float expPercent = (playerStats.Exp / playerStats.MaxExp) * 100f;
+        float expPercent = (Player.LocalPlayer.Stat.Exp / Player.LocalPlayer.Stat.MaxExp) * 100f;
         Debug.Log(expPercent);
         
-        levelText.text = $"레벨: {playerStats.Level} [Exp: {Mathf.FloorToInt(playerStats.Exp)} / {Mathf.FloorToInt(playerStats.MaxExp)} ({expPercent:F1}%)]";
+        levelText.text = $"레벨: {Player.LocalPlayer.Stat.Level} [Exp: {Mathf.FloorToInt(Player.LocalPlayer.Stat.Exp)} / {Mathf.FloorToInt(Player.LocalPlayer.Stat.MaxExp)} ({expPercent:F1}%)]";
         
         hpText.text = $"체력: {Mathf.FloorToInt(playerStats.Hp)} / {Mathf.FloorToInt(playerStats.MaxHp)} (+{playerStats.HpRegenRate:F2}/s)";
         
