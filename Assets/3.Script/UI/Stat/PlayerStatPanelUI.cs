@@ -34,7 +34,6 @@ public class PlayerStatPanelUI : MonoBehaviour
         playerStats.UpdateStat();
 
         float expPercent = (Player.LocalPlayer.Stat.Exp / Player.LocalPlayer.Stat.MaxExp) * 100f;
-        Debug.Log(expPercent);
         
         levelText.text = $"레벨: {Player.LocalPlayer.Stat.Level} [Exp: {Mathf.FloorToInt(Player.LocalPlayer.Stat.Exp)} / {Mathf.FloorToInt(Player.LocalPlayer.Stat.MaxExp)} ({expPercent:F1}%)]";
         
@@ -49,10 +48,10 @@ public class PlayerStatPanelUI : MonoBehaviour
         armourText.text = $"방어력: {Mathf.FloorToInt(playerStats.Armour)} (방어율: {playerStats.DamageReductionRate:F2}%)";
         evasionText.text = $"회피: {Mathf.FloorToInt(playerStats.Evasion)} (회피율:  {playerStats.EvasionRate:F2}%)";
         
-        attackDamageText.text = $"공격력: {playerStats.MinAttackDamage} ~ {playerStats.MaxAttackDamage - 1}";
+        attackDamageText.text = $"공격력: {playerStats.MinAttackDamage * playerStats.IncreaseAttackDamage} ~ {playerStats.MaxAttackDamage * playerStats.IncreaseAttackDamage - 1}";
         attackSpeedText.text = $"공격속도: {playerStats.AttackSpeed:F2}";
         
-        spellDamageText.text = $"주문력: {playerStats.MinSpellDamage} ~ {playerStats.MaxSpellDamage - 1}";
+        spellDamageText.text = $"주문력: {playerStats.MinSpellDamage * playerStats.IncreaseSpellDamage} ~ {playerStats.MaxSpellDamage * playerStats.IncreaseSpellDamage - 1}";
         castSpeedText.text = $"시전속도: {playerStats.CastSpeed:F2}";
         
         criticalRateText.text = $"치명타 확률: {playerStats.CriticalChance * 100f:F1}%";

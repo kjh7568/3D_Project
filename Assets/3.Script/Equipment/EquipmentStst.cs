@@ -64,7 +64,7 @@ public class EquipmentStst
         IncreaseCastSpeed = 1f;
 
         CriticalChance = 0f;
-        CriticalDamage = 0f;
+        CriticalDamage = 1f;
 
         MinAttackDamage = 0;
         MaxAttackDamage = 0;

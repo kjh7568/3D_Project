@@ -19,12 +19,30 @@ public class BrokenSword : MonoBehaviour
             {
                 Sender = Player.LocalPlayer,
                 Receiver = monster,
-                Damage = Random.Range(Player.LocalPlayer.RealStat.MinAttackDamage, Player.LocalPlayer.RealStat.MaxAttackDamage) * Player.LocalPlayer.RealStat.IncreaseAttackDamage,
+                Damage = CalculateDamage(),
                 HitPosition = other.ClosestPoint(transform.position),
                 Collider = other
             };
 
             CombatSystem.Instance.AddInGameEvent(combatEvent);
+        }
+    }
+    
+    private float CalculateDamage()
+    {
+        var pStat = Player.LocalPlayer.RealStat;
+
+        if (Random.Range(0f, 1f) < pStat.CriticalChance)
+        {
+            Debug.Log("Critical Hit!");
+
+            var temp = Random.Range(pStat.MinAttackDamage, pStat.MaxAttackDamage) * pStat.IncreaseAttackDamage;
+            
+            return temp + (temp * pStat.CriticalDamage);
+        }
+        else
+        {
+            return Random.Range(pStat.MinAttackDamage, pStat.MaxAttackDamage) * pStat.IncreaseAttackDamage;
         }
     }
 }
