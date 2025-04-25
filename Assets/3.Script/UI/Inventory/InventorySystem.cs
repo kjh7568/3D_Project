@@ -5,6 +5,8 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using CsvHelper;
+using Unity.VisualScripting;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
@@ -28,6 +30,11 @@ public class InventorySystem : MonoBehaviour
     [SerializeField] private Canvas canvas;
     [SerializeField] private RectTransform floatingUIPosition;
     [SerializeField] private FloatingInfomationUI floatingUI;
+
+    [SerializeField] private GameObject dropedItem;
+    [SerializeField] private Transform dropedItemParent;
+    [SerializeField] private GameObject dropedItemUI;
+    [SerializeField] private RectTransform dropedItemUIParent;
 
     private void Awake()
     {
@@ -73,13 +80,27 @@ public class InventorySystem : MonoBehaviour
 
         foreach (var result in results)
         {
+            Inventory from;
+            Inventory to;
+            
             InventorySlot targetSlot = result.gameObject.GetComponent<InventorySlot>();
+            
+            if (!IsValidTarget(targetSlot) && !result.gameObject.name.Equals("CloseImage")) continue;
 
-            if (!IsValidTarget(targetSlot)) continue;
-
-            Inventory from = FindInventory(SourceSlot);
-            Inventory to = FindInventory(targetSlot);
-
+            if (targetSlot == null && SourceSlot.Item != null)
+            {
+                DropItem(SourceSlot.Item);
+                break;
+            }
+            else if (SourceSlot.gameObject.name.Equals("DropedItemUI(Clone)"))
+            {
+                PickUpItem(targetSlot);
+                break;
+            }
+            
+            from = FindInventory(SourceSlot);
+            to = FindInventory(targetSlot);
+            
             if (from.Equals(to))
             {
                 HandleSameInventoryMove(from, targetSlot);
@@ -88,6 +109,8 @@ public class InventorySystem : MonoBehaviour
             {
                 HandleDifferentInventoryMove(from, to, targetSlot);
             }
+
+            break;
         }
 
         dragSlot.ClearSlot();
@@ -97,7 +120,7 @@ public class InventorySystem : MonoBehaviour
     {
         return targetSlot != null && targetSlot != SourceSlot && targetSlot != dragSlot;
     }
-
+    
     private void HandleSameInventoryMove(Inventory from, InventorySlot targetSlot)
     {
         if (from.Equals(gemTab))
@@ -215,7 +238,6 @@ public class InventorySystem : MonoBehaviour
             return;
         }
 
-        Debug.Log("장비를 해제합니다.");
         EquipmentManager.Instance.UnEquipEquipment(SourceSlot.Item);
         SwapItem(SourceSlot, targetSlot);
     }
@@ -244,7 +266,7 @@ public class InventorySystem : MonoBehaviour
 
         return null;
     }
-    
+
     private void UpdateFloatingInfoUI()
     {
         if (!inventoryTab.gameObject.activeSelf) return;
@@ -289,7 +311,7 @@ public class InventorySystem : MonoBehaviour
             {
                 floatingUI.gameObject.SetActive(false);
             }
-            
+
             if (hitUI.TryGetComponent(out InventorySlot slot))
             {
                 UpdateFloatingInfoVisibility(slot);
@@ -314,4 +336,31 @@ public class InventorySystem : MonoBehaviour
         }
     }
 
+    private void DropItem(Item item)
+    {
+        var itemPos = Player.LocalPlayer.transform.position;
+
+        var dropItem = Instantiate(dropedItem, itemPos + new Vector3(0, 0.5f, 0), Quaternion.identity, dropedItemParent);
+        var dropItemUI = Instantiate(dropedItemUI, dropedItemUIParent);
+
+        var dropItemSlot = dropItemUI.GetComponent<InventorySlot>();
+        var dropItemRect = dropItemUI.GetComponent<RectTransform>();
+        var dropItemText = dropItemUI.GetComponentInChildren<Text>();
+
+        dropItemSlot.SetSlot(SourceSlot.Item);
+        DropItemUI.Instance.SetUIText(dropItemText, item);
+        DropItemUI.Instance.RegisterDrop(dropItem, dropItemRect); // ✅ 추가됨
+
+        SourceSlot.SetSlot(null);
+    }
+
+    private void PickUpItem(InventorySlot targetSlot)
+    {
+        targetSlot.SetSlot(SourceSlot.Item);
+
+        var dropItemRect = SourceSlot.GetComponent<RectTransform>(); // ✅ UI 기준으로 찾음
+        DropItemUI.Instance.UnregisterDrop(dropItemRect); // ✅ 등록 해제 및 드롭 오브젝트 제거
+
+        Destroy(SourceSlot.gameObject);
+    }
 }

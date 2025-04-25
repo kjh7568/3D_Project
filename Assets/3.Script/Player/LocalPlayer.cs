@@ -12,6 +12,7 @@ public class LocalPlayer : Player, IDamageAble
 
     public Weapon currentWeapon;
     public PlayerStat Stat { get; private set; }
+    public int gold;
     public FinalPlayerStats RealStat { get; private set; }
 
     [SerializeField] private Collider playerCollider;
@@ -36,7 +37,6 @@ public class LocalPlayer : Player, IDamageAble
     public void TakeDamage(CombatEvent combatEvent)
     {
         RealStat.Hp -= combatEvent.Damage;
-        Debug.Log($"{combatEvent.Damage}의 데미지를 받음");
     }
 
     private void RegenerateResources()

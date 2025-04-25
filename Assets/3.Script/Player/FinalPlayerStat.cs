@@ -53,7 +53,7 @@ public class FinalPlayerStats
         EquipmentStst eStat = EquipmentManager.Instance.EquipmentStat;
 
         // 체력
-        MaxHp = (pStat.Hp + eStat.Hp) * eStat.IncreaseHp;
+        MaxHp = Mathf.Round((pStat.Hp + eStat.Hp) * eStat.IncreaseHp);
         if (Hp > MaxHp)
         {
             Hp = MaxHp;
@@ -61,7 +61,7 @@ public class FinalPlayerStats
         HpRegenRate = (pStat.HpRegenRate + eStat.HpRegenRate) * eStat.IncreaseHpRegenRate;
 
         // 마나
-        MaxMp = (pStat.Mp + eStat.Mp) * eStat.IncreaseMp;
+        MaxMp = Mathf.Round((pStat.Mp + eStat.Mp) * eStat.IncreaseMp);
         if (Mp > MaxMp)
         {
             Mp = MaxMp;

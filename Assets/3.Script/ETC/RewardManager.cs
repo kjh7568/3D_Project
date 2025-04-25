@@ -6,25 +6,75 @@ using System.IO;
 using System.Linq;
 using CsvHelper;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class RewardManager : MonoBehaviour
 {
+    public static RewardManager Instance;
+    
     private const int ARMOUR_COUNT = 1;
     private const int OPTION_COUNT = 24;
 
-    [SerializeField] private ItemTableManager itemTableManager;
+    public ItemTableManager itemTableManager;
+    
     [SerializeField] private Inventory inventoryTab;
-
-    void Update()
+    
+    [SerializeField] private GameObject dropedItem;
+    [SerializeField] private Transform dropedItemParent;
+    [SerializeField] private GameObject dropedItemUI;
+    [SerializeField] private RectTransform dropedItemUIParent;
+    
+    [SerializeField] private GameObject dropedGold;
+    [SerializeField] private Transform dropedGoldParent;
+    [SerializeField] private GameObject dropedGoldUI;
+    [SerializeField] private RectTransform dropedGoldUIParent;
+    
+    private void Awake()
     {
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            Item item = MakeEquipment(itemTableManager.ItemTable[Random.Range(0, 4)]);
-            inventoryTab.AddItem(item);
-        }
+        Instance = this;
     }
 
+    public void DropItem()
+    {
+        Item item = MakeEquipment(itemTableManager.ItemTable[Random.Range(0, 4)]);
+        
+        var itemPos = Player.LocalPlayer.transform.position;
+
+        var dropItem = Instantiate(dropedItem, itemPos + new Vector3(0, 0.5f, 0), Quaternion.identity, dropedItemParent);
+        var dropItemUI = Instantiate(dropedItemUI, dropedItemUIParent);
+
+        var dropItemSlot = dropItemUI.GetComponent<InventorySlot>();
+        var dropItemRect = dropItemUI.GetComponent<RectTransform>();
+        var dropItemText = dropItemUI.GetComponentInChildren<Text>();
+
+        dropItemSlot.SetSlot(item);
+        DropItemUI.Instance.SetUIText(dropItemText, item);
+        DropItemUI.Instance.RegisterDrop(dropItem, dropItemRect); // ✅ 추가됨
+    }
+
+    public void DropGold(int min, int max)
+    {
+        var pos = Player.LocalPlayer.transform.position;
+
+        var dropGold = Instantiate(dropedGold, pos + new Vector3(0, 0.5f, 0), Quaternion.identity, dropedGoldParent);
+        var dropGoldUI = Instantiate(dropedGoldUI, dropedGoldUIParent);
+
+        var dropGoldRect = dropGoldUI.GetComponent<RectTransform>();
+        var dropGoldText = dropGoldUI.GetComponentInChildren<Text>();
+
+        int goldAmount = Random.Range(min, max);
+        
+        dropGoldText.text = $"{goldAmount} gold";
+
+        DropItemUI.Instance.RegisterGoldDrop(dropGold, dropGoldRect);
+
+        if (dropGold.TryGetComponent(out DropGoldTrigger trigger))
+        {
+            trigger.Setup(dropGoldRect, goldAmount);
+        }
+    }
+    
     public Item MakeEquipment(Item baseItem)
     {
         Item newItem = null;
