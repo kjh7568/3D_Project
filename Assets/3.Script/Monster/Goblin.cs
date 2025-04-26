@@ -57,7 +57,7 @@ public class Goblin : MonoBehaviour, IMonster
             RewardManager.Instance.DropItem(transform.position);
         }
 
-        if (Random.Range(0f, 1f) < 0.5f) // 33% 확률
+        if (Random.Range(0f, 1f) < 0.5f) // 50% 확률
         {
             RewardManager.Instance.DropGold(dropGoldMinAmount, dropGoldMaxAmount, transform.position);
         }
