@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class NPCEventManager : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class NPCEventManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(1))
         {
             DetectClick();
         }
@@ -81,7 +82,7 @@ public class NPCEventManager : MonoBehaviour
     
     private IEnumerator MoveToPortal(Transform target)
     {
-        while (Vector3.Distance(target.position, Player.LocalPlayer.transform.position) > 2.0f)
+        while (Vector3.Distance(target.position, Player.LocalPlayer.transform.position) > 4.0f)
         {
             Vector3 direction = target.position - Player.LocalPlayer.transform.position;
             direction.y = 0f; // Y축 무시
@@ -94,8 +95,8 @@ public class NPCEventManager : MonoBehaviour
             yield return null; // 한 프레임 쉬고 다시 반복
         }
 
-        inventoryPanel.SetActive(true);
-        shopPanel.SetActive(true);
+        // SceneManager.LoadScene("Dungeon 1");        
+        SceneManager.LoadScene("DungeonTest");        
     }
 
     public bool IsClickingNpc()

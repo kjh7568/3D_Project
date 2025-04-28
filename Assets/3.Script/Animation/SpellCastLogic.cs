@@ -26,7 +26,7 @@ public class SpellCastLogic : StateMachineBehaviour
         // 정확한 타이밍에 시전하도록
         if (!isCast && time >= startNormalizedTime)
         {
-            SkillManager.instance.UseSkill(SkillManager.instance.currentCastingSpellIndex);
+            SkillManager.Instance.UseSkill(SkillManager.Instance.currentCastingSpellIndex);
             isCast = true;
         }
     }

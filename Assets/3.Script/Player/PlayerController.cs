@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     private static readonly int DirZ = Animator.StringToHash("DirZ");
     private static readonly int Attack1 = Animator.StringToHash("Attack");
     private static readonly int Skill1 = Animator.StringToHash("Skill");
+    private static readonly int Recall = Animator.StringToHash("Recall");
 
     [Header("moving Settings")] [SerializeField]
     private Transform rotatePlayer;
@@ -23,6 +24,8 @@ public class PlayerController : MonoBehaviour
     [Header("Animation Settings")] [SerializeField]
     private Animator animator;
 
+    [SerializeField] private GameObject recallPrefab;
+    
     private AnimatorStateInfo animInfo;
     private Vector3 lastPosition;
 
@@ -39,7 +42,8 @@ public class PlayerController : MonoBehaviour
 
         if (!animInfo.IsName("Attack01") && !animInfo.IsName("Attack01 - Start")
                                          && !animInfo.IsName("Attack01 - Casting") &&
-                                         !animInfo.IsName("Attack01 - Release"))
+                                         !animInfo.IsName("Attack01 - Release") &&
+                                         !animInfo.IsName("Recall"))
         {
             RotatePlayer();
             MovePlayer();
@@ -131,37 +135,53 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             Skill(0);
-            SkillManager.instance.currentCastingSpellIndex = 0;
+            SkillManager.Instance.currentCastingSpellIndex = 0;
             return;
         }
 
         if (Input.GetKeyDown(KeyCode.E))
         {
             Skill(1);
-            SkillManager.instance.currentCastingSpellIndex = 1;
+            SkillManager.Instance.currentCastingSpellIndex = 1;
             return;
         }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
             Skill(2);
-            SkillManager.instance.currentCastingSpellIndex = 2;
+            SkillManager.Instance.currentCastingSpellIndex = 2;
             return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            recallPrefab.SetActive(true);
+            animator.ResetTrigger(Recall);
+            animator.SetTrigger(Recall);
         }
     }
 
     private void Attack()
     {
         // UI를 클릭했으면 공격 무시
-        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
-        {
-            return;
-        }
+        // if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+        // {
+        //     Debug.Log("UI클릭!");
+        //     return;
+        // }
 
         // NPC 클릭 상태면 공격 무시
-        if (FindObjectOfType<NPCEventManager>().IsClickingNpc())
+
+        try
         {
-            return;
+            if (FindObjectOfType<NPCEventManager>().IsClickingNpc())
+            {
+                return;
+            }
+        }
+        catch
+        {
+            // ignored
         }
 
         animator.ResetTrigger(Attack1);
@@ -170,27 +190,27 @@ public class PlayerController : MonoBehaviour
 
     private void Skill(int idx)
     {
-        if (!SkillManager.instance.isInSkill[idx])
+        if (!SkillManager.Instance.isInSkill[idx])
         {
             Debug.Log("슬롯에 스킬이 없습니다!");
         }
         else
         {
-            var temp = SkillManager.instance.skillPool[idx].Dequeue();
+            var temp = SkillManager.Instance.skillPool[idx].Dequeue();
             if (temp.TryGetComponent(out Skill skill))
             {
                 if (Player.LocalPlayer.RealStat.Mp >= skill.data.costMana)
                 {
                     Player.LocalPlayer.RealStat.Mp -= skill.data.costMana;
 
-                    SkillManager.instance.skillPool[idx].Enqueue(temp);
+                    SkillManager.Instance.skillPool[idx].Enqueue(temp);
 
                     animator.ResetTrigger(Skill1);
                     animator.SetTrigger(Skill1);
                 }
                 else
                 {
-                    SkillManager.instance.skillPool[idx].Enqueue(temp);
+                    SkillManager.Instance.skillPool[idx].Enqueue(temp);
                     Debug.Log("마나가 부족합니다.");
                 }
             }

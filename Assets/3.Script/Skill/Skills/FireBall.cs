@@ -70,7 +70,7 @@ public class FireBall : Skill
             }
         }
         
-        SkillManager.instance.skillPool[0].Enqueue(gameObject);
+        SkillManager.Instance.skillPool[0].Enqueue(gameObject);
         gameObject.SetActive(false);
     }
 }

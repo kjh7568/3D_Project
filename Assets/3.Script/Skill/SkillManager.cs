@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class SkillManager : MonoBehaviour
 {
-    public static SkillManager instance;
+    public static SkillManager Instance;
 
     private const int MAX_SKILL_COUNT = 3;
     private const int MAX_PREFAB_COUNT = 10;
@@ -24,7 +24,15 @@ public class SkillManager : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Start()
