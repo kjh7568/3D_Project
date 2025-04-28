@@ -1,0 +1,5 @@
+Key,Name,Parameter,ItemType,RequiredStrength,RequiredDexterity,RequiredIntelligence,RequiredLevel
+200,화염구,FireBall_0_대상에게 화염구를 사용할 경우 폭발하여 주변의 적들에게 화염 피해를 줍니다.,MainGem,0,0,5,1
+201,동결 파동,FreezingPulse_1_직선 경로 내 적들을 관통하며 일정 확률로 얼리는 얼음 투사체를 발사합니다.,MainGem,0,0,5,1
+300,투사체 속도 증가 보조,__투사체 스킬의 속도가 증가합니다,SupportGem,0,3,3,1
+301,확산 보조,__투사체 스킬의 피해가 증가합니다,SupportGem,0,0,6,1

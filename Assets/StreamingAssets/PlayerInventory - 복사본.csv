@@ -1,0 +1,5 @@
+Key,Name,Parameter,ItemType,RequiredStrength,RequiredDexterity,RequiredIntelligence,RequiredLevel
+200,화염구,FireBall_0,MainGem,0,0,5,1
+201,동결 파동,FreezingPulse_1,MainGem,0,0,5,1
+300,투사체 속도 증가 보조,,SupportGem,0,3,3,1
+301,확산 보조,,SupportGem,0,0,6,1

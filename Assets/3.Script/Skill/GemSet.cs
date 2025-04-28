@@ -30,7 +30,7 @@ public class GemSet : MonoBehaviour
             Debug.Log("Not enough intelligence");
             return false;
         }
-        else if (currentStat.Level < item.ItemData.RequiredLevel)
+        else if (Player.LocalPlayer.Stat.Level < item.ItemData.RequiredLevel)
         {
             Debug.Log("Not enough level");
             return false;
@@ -53,7 +53,7 @@ public class GemSet : MonoBehaviour
         if (item.ItemData.ItemType.Equals("MainGem"))
         {
             isInMainGem = true;
-            mainGemKey = item.ItemData.Key - 100;
+            mainGemKey = item.ItemData.Key - 200;
             SkillManager.instance.isInSkill[gemSetIndex] = true;
             
             SkillManager.instance.MakePool(gemSetIndex, mainGemKey);

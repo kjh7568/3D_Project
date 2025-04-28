@@ -45,7 +45,7 @@ public class InventorySystem : MonoBehaviour
     private void Start()
     {
         // inventoryTab.Initialize(itemTableManager.GetItemTable());
-        inventoryTab.Initialize(null);
+        inventoryTab.Initialize(itemTableManager.PlayerTable);
         equipmentTab.Initialize(null);
         gemTab.Initialize(null);
     }
@@ -109,7 +109,6 @@ public class InventorySystem : MonoBehaviour
             {
                 HandleDifferentInventoryMove(from, to, targetSlot);
             }
-
             break;
         }
 

@@ -18,8 +18,6 @@ public class RewardManager : MonoBehaviour
 
     public ItemTableManager itemTableManager;
 
-    [SerializeField] private Inventory inventoryTab;
-
     [SerializeField] private GameObject dropedItem;
     [SerializeField] private Transform dropedItemParent;
     [SerializeField] private GameObject dropedItemUI;

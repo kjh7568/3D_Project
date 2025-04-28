@@ -27346,7 +27346,7 @@ GameObject:
   - component: {fileID: 896229496}
   - component: {fileID: 896229495}
   m_Layer: 0
-  m_Name: SkillSystem
+  m_Name: SkillManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

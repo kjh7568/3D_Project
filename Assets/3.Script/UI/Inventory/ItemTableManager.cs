@@ -12,19 +12,28 @@ public class ItemTableManager : MonoBehaviour
     [SerializeField] private TableSAO spriteTable;
 
     public List<Item> ItemTable { get; private set; } = new List<Item>();
+    public List<Item> PlayerTable { get; private set; } = new List<Item>();
 
-    private void Start()
+    private void Awake()
     {
-        LoadItemTable();
+        LoadItemTables();
     }
 
-    private void LoadItemTable()
+    private void LoadItemTables()
     {
-        using (StreamReader sr = new StreamReader(Path.Combine(Application.streamingAssetsPath, "ItemTable.csv")))
+        PlayerTable.Clear();
+        ItemTable.Clear();
+
+        LoadCsvToList("PlayerInventory.csv", PlayerTable);
+        LoadCsvToList("ItemTable.csv", ItemTable);
+    }
+
+    private void LoadCsvToList(string fileName, List<Item> targetList)
+    {
+        using (StreamReader sr = new StreamReader(Path.Combine(Application.streamingAssetsPath, fileName)))
         using (CsvReader cr = new CsvReader(sr, CultureInfo.CurrentCulture))
         {
             var itemDatas = cr.GetRecords<ItemData>().ToList();
-            ItemTable.Clear();
 
             foreach (var data in itemDatas)
             {
@@ -35,13 +44,8 @@ public class ItemTableManager : MonoBehaviour
                     DragSize = spriteTable.GetItemSprite(data.Key).dragSize
                 };
 
-                ItemTable.Add(item);
+                targetList.Add(item);
             }
         }
-    }
-
-    public List<Item> GetItemTable()
-    {
-        return ItemTable;
     }
 }

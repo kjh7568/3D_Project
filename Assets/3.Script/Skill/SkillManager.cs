@@ -108,7 +108,7 @@ public class SkillManager : MonoBehaviour
             var pool = Instantiate(skillPrefabs[prefabsIdx], poolParents[parentsIdx]);
             var tempComponent = pool.GetComponent<Skill>();
 
-            addComponentHandler[componentKey - 200]?.Invoke(tempComponent);
+            addComponentHandler[componentKey - 300]?.Invoke(tempComponent);
 
             pool.SetActive(false);
             skillPool[parentsIdx].Enqueue(pool);
@@ -123,7 +123,7 @@ public class SkillManager : MonoBehaviour
             var pool = skillPool[parentsIdx].Dequeue();
             var tempComponent = pool.GetComponent<Skill>();
 
-            removeComponentHandler[componentKey - 200]?.Invoke(tempComponent);
+            removeComponentHandler[componentKey - 300]?.Invoke(tempComponent);
 
             pool.SetActive(false);
             skillPool[parentsIdx].Enqueue(pool);

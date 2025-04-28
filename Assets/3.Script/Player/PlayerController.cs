@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
@@ -23,11 +24,13 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
 
     private AnimatorStateInfo animInfo;
+    private Vector3 lastPosition;
 
     private void Start()
     {
         if (rotatePlayer == null)
             Debug.LogError("rotatePlayer가 할당되지 않았습니다!");
+        lastPosition = transform.position;
     }
 
     void Update()
@@ -51,33 +54,42 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-
+    
         Vector3 getAxis = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-
+    
         Vector3 camForward = mainCam.transform.forward;
         Vector3 camRight = mainCam.transform.right;
-
+    
         camForward.y = 0;
         camRight.y = 0;
-
+    
         camForward.Normalize();
         camRight.Normalize();
-
+    
         Vector3 direction = getAxis.z * camForward + getAxis.x * camRight;
-
+    
         direction.Normalize();
         transform.Translate(direction * (Player.LocalPlayer.RealStat.MovementSpeed * Time.deltaTime), Space.World);
-
+    
         mainCam.transform.position = transform.position + offSet;
-
+    
         Vector3 localDir = transform.InverseTransformDirection(direction.normalized);
-
-        animator.SetBool(Walk, getAxis != Vector3.zero);
-
+    
+        // (1) 이동량을 통해 실제 움직였는지 판단
+        Vector3 displacement = transform.position - lastPosition;
+        displacement.y = 0;
+    
+        bool isMoving = displacement.sqrMagnitude > 0.0001f; // 이동량이 거의 0보다 크면 이동 중으로 본다
+    
+        animator.SetBool(Walk, isMoving);
+    
         animator.SetFloat(DirX, localDir.x);
         animator.SetFloat(DirZ, localDir.z);
-    }
-
+    
+        // (2) 현재 위치 저장
+        lastPosition = transform.position;
+    }    
+    
     private void RotatePlayer()
     {
         if (animInfo.IsName("Attack01"))
@@ -140,6 +152,13 @@ public class PlayerController : MonoBehaviour
 
     private void Attack()
     {
+        // UI를 클릭했으면 공격 무시
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+        {
+            Debug.Log("UI 클릭 감지, 공격 무시");
+            return;
+        }
+
         animator.ResetTrigger(Attack1);
         animator.SetTrigger(Attack1);
     }
@@ -158,7 +177,7 @@ public class PlayerController : MonoBehaviour
                 if (Player.LocalPlayer.RealStat.Mp >= skill.data.costMana)
                 {
                     Player.LocalPlayer.RealStat.Mp -= skill.data.costMana;
-                    
+
                     SkillManager.instance.skillPool[idx].Enqueue(temp);
 
                     animator.ResetTrigger(Skill1);
