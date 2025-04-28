@@ -155,7 +155,12 @@ public class PlayerController : MonoBehaviour
         // UI를 클릭했으면 공격 무시
         if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
         {
-            Debug.Log("UI 클릭 감지, 공격 무시");
+            return;
+        }
+
+        // NPC 클릭 상태면 공격 무시
+        if (FindObjectOfType<NPCEventManager>().IsClickingNpc())
+        {
             return;
         }
 

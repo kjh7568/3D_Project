@@ -26,6 +26,7 @@ public class InventorySystem : MonoBehaviour
     [SerializeField] private Inventory gemTab;
     [SerializeField] private Inventory inventoryTab;
     [SerializeField] private Inventory equipmentTab;
+    [SerializeField] private Inventory shopTab;
 
     [SerializeField] private Canvas canvas;
     [SerializeField] private RectTransform floatingUIPosition;
@@ -44,11 +45,11 @@ public class InventorySystem : MonoBehaviour
 
     private void Start()
     {
-        // inventoryTab.Initialize(itemTableManager.GetItemTable());
         inventoryTab.Initialize(itemTableManager.PlayerTable);
         equipmentTab.Initialize(null);
         gemTab.Initialize(null);
-    }
+        if(shopTab != null) shopTab.Initialize(null);
+    }   
 
     private void Update()
     {
@@ -170,6 +171,14 @@ public class InventorySystem : MonoBehaviour
         {
             TryUnequipEquipment(targetSlot);
         }
+        else if (from.Equals(shopTab) && to.Equals(inventoryTab)) // 아이템 구매
+        {
+            TrySaleItem(targetSlot);
+        }
+        else if (from.Equals(inventoryTab) && to.Equals(shopTab)) // 아이템 판매
+        {
+            TryUnequipEquipment(targetSlot);
+        }
     }
 
     private void TryEquipGem(InventorySlot targetSlot)
@@ -241,6 +250,65 @@ public class InventorySystem : MonoBehaviour
         SwapItem(SourceSlot, targetSlot);
     }
 
+    private void TrySaleItem(InventorySlot targetSlot)
+    {
+        int sellPrice = CalculatePrice();
+
+        if (Player.LocalPlayer.gold >= sellPrice)
+        {
+            Player.LocalPlayer.gold -= sellPrice;
+            FindObjectOfType<Shopper>().SetGoldText();
+            SwapItem(SourceSlot, targetSlot);
+        }
+        else
+        {
+            Debug.Log($"돈이 부족합니다. {sellPrice}골드 필요");
+        }
+    }
+    private void TryBuyItem(InventorySlot targetSlot)
+    {
+        
+    }
+
+    private int CalculatePrice()
+    {
+        if (SourceSlot.Item == null) return 0;
+
+        int price = 0;
+        
+        if (SourceSlot.Item is IEquipment equipment)
+        {
+            switch (equipment.Rarity)
+            {
+                case 2:
+                    price += 300;
+                    break;
+                case 1:
+                    price += 200;
+                    break;
+                case 0:
+                    price += 100;
+                    break;
+            }
+
+            price += equipment.DescriptionDic.Count * 50;
+
+            return price;
+        }
+        else
+        {
+            if (SourceSlot.Item.ItemData.ItemType.Equals("MainGem"))
+            {
+                return 200;
+            }
+            else if (SourceSlot.Item.ItemData.ItemType.Equals("SupportGem"))
+            {
+                return 400;
+            }
+        }
+        
+        return 0;
+    }
     private void SwapItem(InventorySlot a, InventorySlot b)
     {
         var temp = a.Item;
@@ -262,7 +330,12 @@ public class InventorySystem : MonoBehaviour
         {
             return equipmentTab;
         }
+        else if (shopTab.IsIn(slot))
+        {
+            return shopTab;
+        }
 
+        Debug.Log("IsIn Error 일지도?");
         return null;
     }
 
@@ -281,6 +354,26 @@ public class InventorySystem : MonoBehaviour
             position = Input.mousePosition
         };
 
+        Vector2 offset = new Vector2(-470f, 320f);
+        
+        if (pointerData.position.x + 1000f < 1920f)
+        {
+            offset.x = -offset.x;
+        }
+        else
+        {
+            offset.x = -470f;
+        }
+        
+        if (pointerData.position.y + 600f > 1080f)
+        {   
+            offset.y = -offset.y;
+        }
+        else
+        {
+            offset.y = 320f;
+        }
+        
         Vector2 anchoredPos;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             floatingUIPosition.parent as RectTransform,
@@ -289,7 +382,7 @@ public class InventorySystem : MonoBehaviour
             out anchoredPos
         );
 
-        floatingUIPosition.anchoredPosition = anchoredPos + new Vector2(-470f, 320f);
+        floatingUIPosition.anchoredPosition = anchoredPos + offset;
     }
 
     private void HandleSlotHover()
