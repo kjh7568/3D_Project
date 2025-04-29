@@ -21,7 +21,7 @@ public class Shopper : MonoBehaviour
     
     private void Start()
     {
-        for (int i = 0; i < 10; i++)
+        for (int i = 1; i < 11; i++)
         {
             var randIdx = UnityEngine.Random.Range(0, 6);
             Item item = RewardManager.Instance.MakeEquipment(

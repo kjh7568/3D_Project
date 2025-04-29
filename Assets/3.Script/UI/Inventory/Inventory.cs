@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DungeonArchitect.Flow.Items;
@@ -6,6 +7,8 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
     //보통 게임에선 이 슬롯을 최대값으로 적용시켜놓고 lock을 걸어버리는 방법을 사용
+    public string tabName;
+
     private InventorySlot[] slots;
 
     // Start is called before the first frame update
@@ -31,10 +34,38 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        if (tabName.Equals("Inventory"))
+        {
+            GameDataSync.Instance.inventorySlots = new List<Item>();
+            foreach (var slot in slots)
+            {
+                GameDataSync.Instance.inventorySlots.Add(slot.Item);
+            }
+        }
+        else if (tabName.Equals("Equipment"))
+        {
+            GameDataSync.Instance.equipmentSlots = new List<Item>();
+            foreach (var slot in slots)
+            {
+                GameDataSync.Instance.equipmentSlots.Add(slot.Item);
+            }
+        }
+        else if (tabName.Equals("Gem"))
+        {
+            GameDataSync.Instance.gemSlots = new List<Item>();
+            foreach (var slot in slots)
+            {
+                GameDataSync.Instance.gemSlots.Add(slot.Item);
+            }
+        }
+    }
+
     public void AddItem(Item item)
     {
         BodyArmour armour = item as BodyArmour;
-        
+
         for (int i = 0; i < slots.Length; i++)
         {
             if (slots[i].Item == null)

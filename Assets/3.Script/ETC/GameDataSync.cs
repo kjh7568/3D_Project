@@ -9,6 +9,10 @@ public class GameDataSync : MonoBehaviour
 
     public PlayerStat playerStat = null;
     public EquipmentStst equipmentStat = null;
+
+    public List<Item> inventorySlots = null;
+    public List<Item> equipmentSlots = null;
+    public List<Item> gemSlots = null;
     
     private void Awake()
     {

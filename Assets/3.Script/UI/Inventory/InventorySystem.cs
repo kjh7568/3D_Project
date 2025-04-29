@@ -46,9 +46,9 @@ public class InventorySystem : MonoBehaviour
 
     private void Start()
     {
-        inventoryTab.Initialize(itemTableManager.PlayerTable);
-        equipmentTab.Initialize(null);
-        gemTab.Initialize(null);
+        inventoryTab.Initialize(GameDataSync.Instance.inventorySlots);
+        equipmentTab.Initialize(GameDataSync.Instance.equipmentSlots);
+        gemTab.Initialize(GameDataSync.Instance.gemSlots);
         if (shopTab != null) shopTab.Initialize(null);
     }
 

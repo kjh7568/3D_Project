@@ -6617,6 +6617,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f37e878d7b8611e4dbd474fd7a1328ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tabName: Inventory
 --- !u!114 &215469140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32321,6 +32322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f37e878d7b8611e4dbd474fd7a1328ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tabName: Gem
 --- !u!114 &1059893045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61519,6 +61521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f37e878d7b8611e4dbd474fd7a1328ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tabName: Equipment
 --- !u!114 &1477124294
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -25911,7 +25911,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponCollider: {fileID: 1047872100}
-  gold: 500
+  gold: 5000
   playerCollider: {fileID: 607217842}
 --- !u!114 &607217844
 MonoBehaviour:
@@ -38741,6 +38741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f37e878d7b8611e4dbd474fd7a1328ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tabName: Inventory
 --- !u!1001 &945296728
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38890,6 +38891,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f37e878d7b8611e4dbd474fd7a1328ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tabName: Equipment
 --- !u!114 &948414812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41174,6 +41176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f37e878d7b8611e4dbd474fd7a1328ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tabName: Gem
 --- !u!114 &993671889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49210,6 +49213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f37e878d7b8611e4dbd474fd7a1328ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tabName: 
 --- !u!114 &1184605429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68728,10 +68732,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 964241c080c7cf7489119f8661d71002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryTab: {fileID: 0}
-  gemTab: {fileID: 0}
-  syncEquipmentManager: {fileID: 0}
-  syncSkillManager: {fileID: 0}
+  inventorySlots: []
+  equipmentSlots: []
+  gemSlots: []
 --- !u!1001 &1616313055
 PrefabInstance:
   m_ObjectHideFlags: 0
