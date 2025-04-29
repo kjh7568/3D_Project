@@ -13493,6 +13493,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a2c19585d4381948bf15760e4ffad85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  number: 2
   isInMainGem: 0
   isInSupportGem: 
   gemSetIndex: 2
@@ -35149,6 +35150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a2c19585d4381948bf15760e4ffad85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  number: 0
   isInMainGem: 0
   isInSupportGem: 
   gemSetIndex: 0
@@ -72237,6 +72239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a2c19585d4381948bf15760e4ffad85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  number: 1
   isInMainGem: 0
   isInSupportGem: 
   gemSetIndex: 1

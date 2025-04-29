@@ -16,6 +16,13 @@ public class GameDataSync : MonoBehaviour
 
     public int gold;
     
+    public bool[] isInSkill = new bool[3];
+
+    public bool[] isInMainGem = new bool[3];
+    public List<bool> isInSupportGem1 = new List<bool>();
+    public List<bool> isInSupportGem2 = new List<bool>();
+    public List<bool> isInSupportGem3 = new List<bool>();
+    
     private void Awake()
     {
         if (Instance == null)

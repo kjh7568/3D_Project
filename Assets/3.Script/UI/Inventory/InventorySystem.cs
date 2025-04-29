@@ -459,4 +459,9 @@ public class InventorySystem : MonoBehaviour
 
         Destroy(SourceSlot.gameObject);
     }
+
+    public void MakeSkillPool()
+    {
+        
+    }
 }

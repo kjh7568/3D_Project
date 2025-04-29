@@ -29666,6 +29666,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a2c19585d4381948bf15760e4ffad85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  number: 2
   isInMainGem: 0
   isInSupportGem: 
   gemSetIndex: 2
@@ -36925,7 +36926,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d7232c7f73efd648a06e9c26b51b894, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventorySlot: {fileID: 2085019854}
+  inventorySlot: {fileID: 1219940044}
+  inventorySlot1: {fileID: 582879675}
   itemTableManager: {fileID: 2106220599}
 --- !u!4 &894519689
 Transform:
@@ -42269,6 +42271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a2c19585d4381948bf15760e4ffad85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  number: 1
   isInMainGem: 0
   isInSupportGem: 
   gemSetIndex: 1
@@ -68732,9 +68735,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 964241c080c7cf7489119f8661d71002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventorySlots: []
-  equipmentSlots: []
-  gemSlots: []
+  gold: 0
+  isInSkill: 000000
+  gemset1: {fileID: 0}
+  gemset2: {fileID: 0}
+  gemset3: {fileID: 0}
 --- !u!1001 &1616313055
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -79329,6 +79334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a2c19585d4381948bf15760e4ffad85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  number: 0
   isInMainGem: 0
   isInSupportGem: 
   gemSetIndex: 0

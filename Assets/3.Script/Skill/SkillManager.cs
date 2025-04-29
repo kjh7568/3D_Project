@@ -25,56 +25,41 @@ public class SkillManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+
+        for (int i = 0; i < MAX_SKILL_COUNT; i++)
+        {
+            skillPool[i] = new Queue<GameObject>();
+        }
+        
+        if (GameDataSync.Instance != null)
+        {
+            isInSkill = GameDataSync.Instance.isInSkill;
+        }
+        else
+        {
+            for (int i = 0; i < MAX_SKILL_COUNT; i++)
+            {
+                isInSkill[i] = false;
+            }
+        }
     }
 
     private void Start()
     {
-        for (int i = 0; i < MAX_SKILL_COUNT; i++)
-        {
-            skillPool[i] = new Queue<GameObject>();
-            isInSkill[i] = false;
-        }
-
         InitializeHandler();
     }
 
-    private void Update()
+    private void OnDestroy()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            for (int i = 0; i < MAX_PREFAB_COUNT; i++)
-            {
-                var temp = skillPool[0].Dequeue();
-                var tempComponent = temp.GetComponent<Skill>();
-
-                tempComponent.Add<FasterProjectiles>();
-
-                skillPool[0].Enqueue(temp);
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha9))
-        {
-            for (int i = 0; i < MAX_PREFAB_COUNT; i++)
-            {
-                var temp = skillPool[0].Dequeue();
-                var tempComponent = temp.GetComponent<Skill>();
-
-                tempComponent.Remove<FasterProjectiles>();
-
-                skillPool[0].Enqueue(temp);
-            }
-        }
+        GameDataSync.Instance.isInSkill = isInSkill;
     }
-
+    
     public void InitializeHandler()
     {
         addComponentHandler[0] = (skill) => { skill.Add<FasterProjectiles>(); };
         removeComponentHandler[0] = (skill) => { skill.Remove<FasterProjectiles>(); };
 
-        addComponentHandler[1] = (skill) =>
-        {
-            // skill.Add<Proliferation>();
-        };
+        addComponentHandler[1] = (skill) => { /* skill.Add<Proliferation>(); */};
     }
 
     public void MakePool(int parentsIdx, int prefabsIdx)
