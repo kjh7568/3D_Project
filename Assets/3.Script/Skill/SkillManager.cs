@@ -15,24 +15,16 @@ public class SkillManager : MonoBehaviour
     public Queue<GameObject>[] skillPool = new Queue<GameObject>[MAX_SKILL_COUNT];
     public bool[] isInSkill = new bool[MAX_SKILL_COUNT];
     public int currentCastingSpellIndex;
-    
+
     [SerializeField] private Transform[] poolParents = new Transform[MAX_SKILL_COUNT];
     [SerializeField] private Transform firePoint;
-    
+
     private Action<Skill>[] addComponentHandler = new Action<Skill>[100];
     private Action<Skill>[] removeComponentHandler = new Action<Skill>[100];
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        Instance = this;
     }
 
     private void Start()

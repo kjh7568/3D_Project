@@ -7,11 +7,8 @@ public class GameDataSync : MonoBehaviour
 {
     public static GameDataSync Instance;
 
-    public Inventory inventoryTab;
-    public Inventory gemTab;
-
-    public EquipmentManager syncEquipmentManager;
-    public SkillManager syncSkillManager;
+    public PlayerStat playerStat = null;
+    public EquipmentStst equipmentStat = null;
     
     private void Awake()
     {
