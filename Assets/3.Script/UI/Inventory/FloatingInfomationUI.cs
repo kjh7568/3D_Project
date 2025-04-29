@@ -44,10 +44,17 @@ public class FloatingInfomationUI : MonoBehaviour
         itemSprite.sprite = item.Sprite;
         itemName.text = item.ItemData.Name;
 
-        var equip = item as IEquipment;
-        SetItemRarity(equip);
-        SetItemBaseStat(equip);
-        MakeOptionText(equip);
+        if (item is IEquipment equip)
+        {
+            SetItemRarity(equip);
+            SetItemBaseStat(equip);
+            MakeOptionText(equip);
+        }
+        else
+        {
+            MakeOptionText(item);
+            SetItemBaseStat(item);
+        }
     }
 
     private void SetItemRarity(IEquipment item)
@@ -68,6 +75,8 @@ public class FloatingInfomationUI : MonoBehaviour
 
     private void SetItemBaseStat(IEquipment item)
     {
+        itemBaseStat.gameObject.SetActive(true);
+        
         if (item is IWeapon weapon)
         {
         }
@@ -75,6 +84,11 @@ public class FloatingInfomationUI : MonoBehaviour
         {
             itemBaseStat.text = $"방어력: {armor.Armor} | 회피: {armor.Evasion}";
         }
+    }
+
+    private void SetItemBaseStat(Item item)
+    {
+        itemBaseStat.gameObject.SetActive(false);
     }
 
     private void MakeOptionText(IEquipment item)
@@ -97,5 +111,27 @@ public class FloatingInfomationUI : MonoBehaviour
 
             options.Add(obj);
         }
+    }
+
+    private void MakeOptionText(Item item)
+    {
+        foreach (var obj in options)
+        {
+            Destroy(obj);
+        }
+
+        options.Clear();
+
+        var descriptionText = Instantiate(optionPrefab, optionParents);
+
+        if (descriptionText.TryGetComponent(out Text text) &&
+            descriptionText.TryGetComponent(out RectTransform rectTransform))
+        {
+            string[] token = item.ItemData.Parameter.Split('_');
+            rectTransform.sizeDelta = new Vector2(400, 315);
+            text.text = token[2];
+        }
+
+        options.Add(descriptionText);
     }
 }

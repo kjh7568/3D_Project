@@ -19,6 +19,8 @@ public class MonsterHpBar : MonoBehaviour
         mainCam = Camera.main;
     }
 
+    
+    
     private void Update()
     {
         Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);

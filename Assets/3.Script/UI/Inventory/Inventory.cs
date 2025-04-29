@@ -16,11 +16,11 @@ public class Inventory : MonoBehaviour
 
     public void Initialize(List<Item> items)
     {
-        for (int i = 0; i < slots.Length; i++)
-        {
-            //임시 코드
-            slots[i].SetSlot(null);
-        }
+        // for (int i = 0; i < slots.Length; i++)
+        // {
+        //     //임시 코드
+        //     slots[i].SetSlot(null);
+        // }
 
         if (items == null) return;
 

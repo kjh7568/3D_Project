@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class SkillManager : MonoBehaviour
 {
-    public static SkillManager instance;
+    public static SkillManager Instance;
 
     private const int MAX_SKILL_COUNT = 3;
     private const int MAX_PREFAB_COUNT = 10;
@@ -24,7 +24,15 @@ public class SkillManager : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Start()
@@ -108,7 +116,7 @@ public class SkillManager : MonoBehaviour
             var pool = Instantiate(skillPrefabs[prefabsIdx], poolParents[parentsIdx]);
             var tempComponent = pool.GetComponent<Skill>();
 
-            addComponentHandler[componentKey - 200]?.Invoke(tempComponent);
+            addComponentHandler[componentKey - 300]?.Invoke(tempComponent);
 
             pool.SetActive(false);
             skillPool[parentsIdx].Enqueue(pool);
@@ -123,7 +131,7 @@ public class SkillManager : MonoBehaviour
             var pool = skillPool[parentsIdx].Dequeue();
             var tempComponent = pool.GetComponent<Skill>();
 
-            removeComponentHandler[componentKey - 200]?.Invoke(tempComponent);
+            removeComponentHandler[componentKey - 300]?.Invoke(tempComponent);
 
             pool.SetActive(false);
             skillPool[parentsIdx].Enqueue(pool);

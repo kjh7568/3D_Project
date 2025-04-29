@@ -30,7 +30,7 @@ public class GemSet : MonoBehaviour
             Debug.Log("Not enough intelligence");
             return false;
         }
-        else if (currentStat.Level < item.ItemData.RequiredLevel)
+        else if (Player.LocalPlayer.Stat.Level < item.ItemData.RequiredLevel)
         {
             Debug.Log("Not enough level");
             return false;
@@ -53,17 +53,17 @@ public class GemSet : MonoBehaviour
         if (item.ItemData.ItemType.Equals("MainGem"))
         {
             isInMainGem = true;
-            mainGemKey = item.ItemData.Key - 100;
-            SkillManager.instance.isInSkill[gemSetIndex] = true;
+            mainGemKey = item.ItemData.Key - 200;
+            SkillManager.Instance.isInSkill[gemSetIndex] = true;
             
-            SkillManager.instance.MakePool(gemSetIndex, mainGemKey);
+            SkillManager.Instance.MakePool(gemSetIndex, mainGemKey);
         }
         else if (item.ItemData.ItemType.Equals("SupportGem"))
         {
             if (isInMainGem)
             {
                 isInSupportGem.Add(true);
-                SkillManager.instance.AddSkillComponent(gemSetIndex,mainGemKey, item.ItemData.Key);
+                SkillManager.Instance.AddSkillComponent(gemSetIndex,mainGemKey, item.ItemData.Key);
             }
             else
             {
@@ -87,15 +87,15 @@ public class GemSet : MonoBehaviour
             else
             {
                 isInMainGem = false;
-                SkillManager.instance.isInSkill[gemSetIndex] = false;
+                SkillManager.Instance.isInSkill[gemSetIndex] = false;
                 
-                SkillManager.instance.RemovePool(gemSetIndex);
+                SkillManager.Instance.RemovePool(gemSetIndex);
             }
         }
         else if (item.ItemData.ItemType.Equals("SupportGem"))
         {
             isInSupportGem.RemoveAt(0);
-            SkillManager.instance.RemoveSkillComponent(gemSetIndex, item.ItemData.Key);
+            SkillManager.Instance.RemoveSkillComponent(gemSetIndex, item.ItemData.Key);
         }
 
         return true;
@@ -125,13 +125,13 @@ public class GemSet : MonoBehaviour
                     targetSet.isInMainGem = true;
                     isInMainGem = false;
                     
-                    SkillManager.instance.isInSkill[gemSetIndex] = false;
-                    SkillManager.instance.isInSkill[targetSet.gemSetIndex] = true;
+                    SkillManager.Instance.isInSkill[gemSetIndex] = false;
+                    SkillManager.Instance.isInSkill[targetSet.gemSetIndex] = true;
 
-                    SkillManager.instance.RemovePool(gemSetIndex);
+                    SkillManager.Instance.RemovePool(gemSetIndex);
 
                     string[] tokens = item.ItemData.Parameter.Split('_');
-                    SkillManager.instance.MakePool(targetSet.gemSetIndex, int.Parse(tokens[1]));
+                    SkillManager.Instance.MakePool(targetSet.gemSetIndex, int.Parse(tokens[1]));
                 }
             }
         }
