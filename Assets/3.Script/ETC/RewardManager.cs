@@ -104,8 +104,8 @@ public class RewardManager : MonoBehaviour
                 }
                 break;
             default:
-                Debug.LogError($"Unknown ItemType: {baseItem.ItemData.ItemType}");
-                return null;
+                Debug.LogWarning($"{baseItem.ItemData.ItemType}: This is not Equipment");
+                return baseItem;
         }
 
         // 공통 세팅
