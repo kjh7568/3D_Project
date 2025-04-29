@@ -4937,8 +4937,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     skillName: "\uD654\uC5FC\uAD6C"
-    minDamage: 1
-    maxDamage: 4
+    damageRate: 0.5
     moveSpeed: 10
     castSpeed: 1
     costMana: 5
