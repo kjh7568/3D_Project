@@ -1,8 +1,8 @@
 Key,Name,Parameter,ItemType,RequiredStrength,RequiredDexterity,RequiredIntelligence,RequiredLevel
-0,판금 조끼,"2,6,0,0	",BodyArmour,1,0,0,1
-25,철제 건틀릿,"1,3,0,0",Gloves,1,0,0,1
-50,철제 투구,"1,4,0,0",Helmet,1,0,0,1
-75,철제 각반,"1,3,0,0",Boots,1,0,0,1
+0,판금 조끼,"10,21,0,0	",BodyArmour,1,0,0,1
+25,철제 건틀릿,"5,16,0,0",Gloves,1,0,0,1
+50,철제 투구,"5,16,0,0",Helmet,1,0,0,1
+75,철제 각반,"5,16,0,0",Boots,1,0,0,1
 100,녹슨 검,"0,3,6,0,0",Weapon,5,0,0,1
 101,넓은날 검,"0,5,11,0,0",Weapon,7,0,0,2
 150,표류목 마법봉,"1,1,3,8,13",Weapon,0,0,5,1

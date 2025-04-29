@@ -45,8 +45,8 @@ public class PlayerStatPanelUI : MonoBehaviour
         dexterityText.text = $"민첩: {playerStats.Dexterity}";
         intelligenceText.text = $"지능: {playerStats.Intelligence}";
         
-        armourText.text = $"방어력: {Mathf.FloorToInt(playerStats.Armour)} (방어율: {playerStats.DamageReductionRate:F2}%)";
-        evasionText.text = $"회피: {Mathf.FloorToInt(playerStats.Evasion)} (회피율:  {playerStats.EvasionRate:F2}%)";
+        armourText.text = $"방어력: {Mathf.FloorToInt(playerStats.Armour)} (방어율: {playerStats.DamageReductionRate * 100f:F2}%)";
+        evasionText.text = $"회피: {Mathf.FloorToInt(playerStats.Evasion)} (회피율:  {playerStats.EvasionRate * 100f:F2}%)";
         
         attackDamageText.text = $"공격력: {playerStats.MinAttackDamage * playerStats.IncreaseAttackDamage} ~ {playerStats.MaxAttackDamage * playerStats.IncreaseAttackDamage - 1}";
         attackSpeedText.text = $"공격속도: {playerStats.AttackSpeed:F2}";

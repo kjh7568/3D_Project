@@ -13,6 +13,8 @@ public class GameDataSync : MonoBehaviour
     public List<Item> inventorySlots = null;
     public List<Item> equipmentSlots = null;
     public List<Item> gemSlots = null;
+
+    public int gold;
     
     private void Awake()
     {

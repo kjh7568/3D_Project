@@ -10,7 +10,7 @@ public class LocalPlayer : Player, IDamageAble
     public Collider MainCollider => playerCollider;
     public GameObject GameObject => gameObject;
 
-    //나중에 지팡이도 추가
+    //todo 나중에 지팡이도 추가
     public Collider weaponCollider;
     public PlayerStat Stat { get; private set; }
     public int gold;
@@ -25,6 +25,7 @@ public class LocalPlayer : Player, IDamageAble
         if (GameDataSync.Instance.playerStat != null)
         {
             Stat = GameDataSync.Instance.playerStat;
+            gold = GameDataSync.Instance.gold;
         }
         else
         {
@@ -45,6 +46,7 @@ public class LocalPlayer : Player, IDamageAble
     private void OnDestroy()
     {
         GameDataSync.Instance.playerStat = Stat;
+        GameDataSync.Instance.gold = gold;
     }
 
     public void TakeDamage(CombatEvent combatEvent)
