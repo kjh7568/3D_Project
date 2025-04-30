@@ -24,20 +24,37 @@ public class EquipmentManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
+        Instance = this;
+
+        if (GameDataSync.Instance != null)
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            EquipmentStat = GameDataSync.Instance.equipmentStat;
         }
         else
         {
-            Destroy(gameObject);
+            EquipmentStat = new EquipmentStst();
+            EquipmentStat.Initialize();
         }
         
-        EquipmentStat = new EquipmentStst();
-        EquipmentStat.Initialize();
-
         InitOptionTable();
+    }
+
+    private void Start()
+    {
+        if (GameDataSync.Instance.equipmentStat != null)
+        {
+            EquipmentStat = GameDataSync.Instance.equipmentStat;
+        }
+        else
+        {
+            EquipmentStat = new EquipmentStst();
+            EquipmentStat.Initialize();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        GameDataSync.Instance.equipmentStat = EquipmentStat;
     }
 
     private void InitOptionTable()
@@ -212,12 +229,12 @@ public class EquipmentManager : MonoBehaviour
         {
             EquipmentStat.MinAttackDamage += weapon.MinAttackDamage;
             EquipmentStat.MaxAttackDamage += weapon.MaxAttackDamage;
-            EquipmentStat.MinSpellDamage  += weapon.MinSpellDamage;
-            EquipmentStat.MaxSpellDamage  += weapon.MaxSpellDamage;
+            EquipmentStat.MinSpellDamage += weapon.MinSpellDamage;
+            EquipmentStat.MaxSpellDamage += weapon.MaxSpellDamage;
         }
         else if (equip is IArmour armor)
         {
-            EquipmentStat.Armour  += armor.Armor;
+            EquipmentStat.Armour += armor.Armor;
             EquipmentStat.Evasion += armor.Evasion;
         }
 
@@ -241,12 +258,12 @@ public class EquipmentManager : MonoBehaviour
         {
             EquipmentStat.MinAttackDamage -= weapon.MinAttackDamage;
             EquipmentStat.MaxAttackDamage -= weapon.MaxAttackDamage;
-            EquipmentStat.MinSpellDamage  -= weapon.MinSpellDamage;
-            EquipmentStat.MaxSpellDamage  -= weapon.MaxSpellDamage;
+            EquipmentStat.MinSpellDamage -= weapon.MinSpellDamage;
+            EquipmentStat.MaxSpellDamage -= weapon.MaxSpellDamage;
         }
         else if (equip is IArmour armor)
         {
-            EquipmentStat.Armour  -= armor.Armor;
+            EquipmentStat.Armour -= armor.Armor;
             EquipmentStat.Evasion -= armor.Evasion;
         }
 

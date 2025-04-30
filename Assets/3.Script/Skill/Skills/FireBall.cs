@@ -61,7 +61,7 @@ public class FireBall : Skill
                 {
                     Sender = Player.LocalPlayer,
                     Receiver = monster,
-                    Damage = Random.Range(data.minDamage, data.maxDamage),
+                    Damage = Random.Range(Player.LocalPlayer.RealStat.MinSpellDamage, Player.LocalPlayer.RealStat.MaxSpellDamage) * data.damageRate,
                     HitPosition = other.ClosestPoint(transform.position),
                     Collider = other
                 };

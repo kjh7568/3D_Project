@@ -7,11 +7,21 @@ public class GameDataSync : MonoBehaviour
 {
     public static GameDataSync Instance;
 
-    public Inventory inventoryTab;
-    public Inventory gemTab;
+    public PlayerStat playerStat = null;
+    public EquipmentStst equipmentStat = null;
 
-    public EquipmentManager syncEquipmentManager;
-    public SkillManager syncSkillManager;
+    public List<Item> inventorySlots = null;
+    public List<Item> equipmentSlots = null;
+    public List<Item> gemSlots = null;
+
+    public int gold;
+    
+    public bool[] isInSkill = new bool[3];
+
+    public bool[] isInMainGem = new bool[3];
+    public List<bool> isInSupportGem1 = new List<bool>();
+    public List<bool> isInSupportGem2 = new List<bool>();
+    public List<bool> isInSupportGem3 = new List<bool>();
     
     private void Awake()
     {

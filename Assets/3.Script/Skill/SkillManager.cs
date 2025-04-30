@@ -15,74 +15,52 @@ public class SkillManager : MonoBehaviour
     public Queue<GameObject>[] skillPool = new Queue<GameObject>[MAX_SKILL_COUNT];
     public bool[] isInSkill = new bool[MAX_SKILL_COUNT];
     public int currentCastingSpellIndex;
-    
+
     [SerializeField] private Transform[] poolParents = new Transform[MAX_SKILL_COUNT];
     [SerializeField] private Transform firePoint;
-    
+
     private Action<Skill>[] addComponentHandler = new Action<Skill>[100];
     private Action<Skill>[] removeComponentHandler = new Action<Skill>[100];
 
     private void Awake()
     {
-        if (Instance == null)
+        Instance = this;
+
+        for (int i = 0; i < MAX_SKILL_COUNT; i++)
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            skillPool[i] = new Queue<GameObject>();
+        }
+        
+        if (GameDataSync.Instance != null)
+        {
+            isInSkill = GameDataSync.Instance.isInSkill;
         }
         else
         {
-            Destroy(gameObject);
+            for (int i = 0; i < MAX_SKILL_COUNT; i++)
+            {
+                isInSkill[i] = false;
+            }
         }
     }
 
     private void Start()
     {
-        for (int i = 0; i < MAX_SKILL_COUNT; i++)
-        {
-            skillPool[i] = new Queue<GameObject>();
-            isInSkill[i] = false;
-        }
-
         InitializeHandler();
     }
 
-    private void Update()
+    private void OnDestroy()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            for (int i = 0; i < MAX_PREFAB_COUNT; i++)
-            {
-                var temp = skillPool[0].Dequeue();
-                var tempComponent = temp.GetComponent<Skill>();
-
-                tempComponent.Add<FasterProjectiles>();
-
-                skillPool[0].Enqueue(temp);
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha9))
-        {
-            for (int i = 0; i < MAX_PREFAB_COUNT; i++)
-            {
-                var temp = skillPool[0].Dequeue();
-                var tempComponent = temp.GetComponent<Skill>();
-
-                tempComponent.Remove<FasterProjectiles>();
-
-                skillPool[0].Enqueue(temp);
-            }
-        }
+        GameDataSync.Instance.isInSkill = isInSkill;
     }
-
+    
     public void InitializeHandler()
     {
         addComponentHandler[0] = (skill) => { skill.Add<FasterProjectiles>(); };
         removeComponentHandler[0] = (skill) => { skill.Remove<FasterProjectiles>(); };
 
-        addComponentHandler[1] = (skill) =>
-        {
-            // skill.Add<Proliferation>();
-        };
+        addComponentHandler[1] = (skill) => { skill.Add<Proliferation>(); };
+        removeComponentHandler[1] = (skill) => { skill.Remove<Proliferation>(); };
     }
 
     public void MakePool(int parentsIdx, int prefabsIdx)

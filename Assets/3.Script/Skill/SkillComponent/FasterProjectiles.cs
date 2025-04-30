@@ -6,8 +6,6 @@ public class FasterProjectiles : SkillComponent
 {
     private Skill rootSkill;
 
-    private float originalSpeed;
-
     private float projectileMoveSpeed;
     private float projectileRotate;
 
@@ -16,15 +14,16 @@ public class FasterProjectiles : SkillComponent
     public override void AddComponent(Skill skill)
     {
         rootSkill = skill;
-        originalSpeed = rootSkill.data.moveSpeed;
         rootSkill.data.moveSpeed += 10;
+        rootSkill.data.costMana += 5;
         rootSkill.tags.Add("FasterProjectiles");
     }
 
     public override void RemoveComponent(Skill skill)
     {
         rootSkill = skill;
-        rootSkill.data.moveSpeed -= 10;
+        rootSkill.data.moveSpeed -= 10;        
+        rootSkill.data.costMana -= 5;
         rootSkill.tags.Remove("FasterProjectiles");
     }
 }

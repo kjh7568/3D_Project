@@ -1,16 +1,61 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public class GemSet : MonoBehaviour
 {
+    public int number;
     public bool isInMainGem = false;
     public List<bool> isInSupportGem = new List<bool>();
 
     [SerializeField] private int gemSetIndex;
     [SerializeField] private int mainGemKey;
+
+    private void Awake()
+    {
+        if (GameDataSync.Instance != null)
+        {
+            if (number == 0)
+            {
+                isInMainGem = GameDataSync.Instance.isInMainGem[0];
+                isInSupportGem = GameDataSync.Instance.isInSupportGem1;
+            }
+            else if (number == 1)
+            {
+                isInMainGem = GameDataSync.Instance.isInMainGem[1];
+                isInSupportGem = GameDataSync.Instance.isInSupportGem2;
+            }
+            else if (number == 2)
+            {
+                isInMainGem = GameDataSync.Instance.isInMainGem[2];
+                isInSupportGem = GameDataSync.Instance.isInSupportGem3;
+            }
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (number == 0)
+        {
+            GameDataSync.Instance.isInMainGem[0] = isInMainGem;
+            GameDataSync.Instance.isInSupportGem1 = isInSupportGem;
+        }
+        else if (number == 1)
+        {
+            GameDataSync.Instance.isInMainGem[1] = isInMainGem;
+            GameDataSync.Instance.isInSupportGem2 = isInSupportGem;
+        }
+        else if (number == 2)
+        {
+            GameDataSync.Instance.isInMainGem[1] = isInMainGem;
+            GameDataSync.Instance.isInSupportGem2 = isInSupportGem;
+        }
+    }
+
     private bool CheckRequiredAttributes(Item item)
     {
         var currentStat = Player.LocalPlayer.RealStat;
@@ -55,7 +100,7 @@ public class GemSet : MonoBehaviour
             isInMainGem = true;
             mainGemKey = item.ItemData.Key - 200;
             SkillManager.Instance.isInSkill[gemSetIndex] = true;
-            
+
             SkillManager.Instance.MakePool(gemSetIndex, mainGemKey);
         }
         else if (item.ItemData.ItemType.Equals("SupportGem"))
@@ -63,7 +108,7 @@ public class GemSet : MonoBehaviour
             if (isInMainGem)
             {
                 isInSupportGem.Add(true);
-                SkillManager.Instance.AddSkillComponent(gemSetIndex,mainGemKey, item.ItemData.Key);
+                SkillManager.Instance.AddSkillComponent(gemSetIndex, mainGemKey, item.ItemData.Key);
             }
             else
             {
@@ -88,7 +133,7 @@ public class GemSet : MonoBehaviour
             {
                 isInMainGem = false;
                 SkillManager.Instance.isInSkill[gemSetIndex] = false;
-                
+
                 SkillManager.Instance.RemovePool(gemSetIndex);
             }
         }
@@ -124,7 +169,7 @@ public class GemSet : MonoBehaviour
                 {
                     targetSet.isInMainGem = true;
                     isInMainGem = false;
-                    
+
                     SkillManager.Instance.isInSkill[gemSetIndex] = false;
                     SkillManager.Instance.isInSkill[targetSet.gemSetIndex] = true;
 

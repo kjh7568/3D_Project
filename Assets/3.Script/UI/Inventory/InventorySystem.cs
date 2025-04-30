@@ -39,26 +39,18 @@ public class InventorySystem : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-        
+        Instance = this;
+
         raycaster = GetComponent<GraphicRaycaster>();
     }
 
     private void Start()
     {
-        inventoryTab.Initialize(itemTableManager.PlayerTable);
-        equipmentTab.Initialize(null);
-        gemTab.Initialize(null);
-        if(shopTab != null) shopTab.Initialize(null);
-    }   
+        inventoryTab.Initialize(GameDataSync.Instance.inventorySlots);
+        equipmentTab.Initialize(GameDataSync.Instance.equipmentSlots);
+        gemTab.Initialize(GameDataSync.Instance.gemSlots);
+        if (shopTab != null) shopTab.Initialize(null);
+    }
 
     private void Update()
     {
@@ -92,9 +84,9 @@ public class InventorySystem : MonoBehaviour
         {
             Inventory from;
             Inventory to;
-            
+
             InventorySlot targetSlot = result.gameObject.GetComponent<InventorySlot>();
-            
+
             if (!IsValidTarget(targetSlot) && !result.gameObject.name.Equals("CloseImage")) continue;
 
             if (targetSlot == null && SourceSlot.Item != null)
@@ -107,10 +99,10 @@ public class InventorySystem : MonoBehaviour
                 PickUpItem(targetSlot);
                 break;
             }
-            
+
             from = FindInventory(SourceSlot);
             to = FindInventory(targetSlot);
-            
+
             if (from.Equals(to))
             {
                 HandleSameInventoryMove(from, targetSlot);
@@ -119,6 +111,7 @@ public class InventorySystem : MonoBehaviour
             {
                 HandleDifferentInventoryMove(from, to, targetSlot);
             }
+
             break;
         }
 
@@ -129,7 +122,7 @@ public class InventorySystem : MonoBehaviour
     {
         return targetSlot != null && targetSlot != SourceSlot && targetSlot != dragSlot;
     }
-    
+
     private void HandleSameInventoryMove(Inventory from, InventorySlot targetSlot)
     {
         if (from.Equals(gemTab))
@@ -274,9 +267,9 @@ public class InventorySystem : MonoBehaviour
             Debug.Log($"돈이 부족합니다. {sellPrice}골드 필요");
         }
     }
+
     private void TryBuyItem(InventorySlot targetSlot)
     {
-        
     }
 
     private int CalculatePrice()
@@ -284,7 +277,7 @@ public class InventorySystem : MonoBehaviour
         if (SourceSlot.Item == null) return 0;
 
         int price = 0;
-        
+
         if (SourceSlot.Item is IEquipment equipment)
         {
             switch (equipment.Rarity)
@@ -315,9 +308,10 @@ public class InventorySystem : MonoBehaviour
                 return 400;
             }
         }
-        
+
         return 0;
     }
+
     private void SwapItem(InventorySlot a, InventorySlot b)
     {
         var temp = a.Item;
@@ -364,7 +358,7 @@ public class InventorySystem : MonoBehaviour
         };
 
         Vector2 offset = new Vector2(-470f, 320f);
-        
+
         if (pointerData.position.x + 1000f < 1920f)
         {
             offset.x = -offset.x;
@@ -373,16 +367,16 @@ public class InventorySystem : MonoBehaviour
         {
             offset.x = -470f;
         }
-        
+
         if (pointerData.position.y + 600f > 1080f)
-        {   
+        {
             offset.y = -offset.y;
         }
         else
         {
             offset.y = 320f;
         }
-        
+
         Vector2 anchoredPos;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             floatingUIPosition.parent as RectTransform,
@@ -441,7 +435,8 @@ public class InventorySystem : MonoBehaviour
     {
         var itemPos = Player.LocalPlayer.transform.position;
 
-        var dropItem = Instantiate(dropedItem, itemPos + new Vector3(0, 0.5f, 0), Quaternion.identity, dropedItemParent);
+        var dropItem = Instantiate(dropedItem, itemPos + new Vector3(0, 0.5f, 0), Quaternion.identity,
+            dropedItemParent);
         var dropItemUI = Instantiate(dropedItemUI, dropedItemUIParent);
 
         var dropItemSlot = dropItemUI.GetComponent<InventorySlot>();
@@ -463,5 +458,10 @@ public class InventorySystem : MonoBehaviour
         DropItemUI.Instance.UnregisterDrop(dropItemRect); // ✅ 등록 해제 및 드롭 오브젝트 제거
 
         Destroy(SourceSlot.gameObject);
+    }
+
+    public void MakeSkillPool()
+    {
+        
     }
 }

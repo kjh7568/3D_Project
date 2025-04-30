@@ -23,10 +23,18 @@ public class MonsterAttack : MonoBehaviour
         {
             Sender = Owner,
             Receiver = Player.LocalPlayer,
-            Damage = Random.Range(monsterStat.minDamage, monsterStat.maxDamage),
             HitPosition = other.ClosestPoint(transform.position),
             Collider = other
         };
+
+        if (Player.LocalPlayer.RealStat.EvasionRate > Random.Range(0f, 1f))
+        {
+            combatEvent.Damage = 0;
+        }
+        else
+        {
+            combatEvent.Damage = Random.Range(monsterStat.minDamage, monsterStat.maxDamage) * (1 - Player.LocalPlayer.RealStat.DamageReductionRate);
+        }
         
         CombatSystem.Instance.AddInGameEvent(combatEvent);
     }
