@@ -175,7 +175,7 @@ public class InventorySystem : MonoBehaviour
         }
         else if (from.Equals(shopTab) && to.Equals(inventoryTab)) // 아이템 구매
         {
-            TrySaleItem(targetSlot);
+            TryBuyItem(targetSlot);
         }
         else if (from.Equals(inventoryTab) && to.Equals(shopTab)) // 아이템 판매
         {
@@ -201,6 +201,10 @@ public class InventorySystem : MonoBehaviour
 
         if (gemSet.AddGem(dragSlot.Item))
         {
+            var gemSetNumber = targetSlot.gameObject.GetComponentInParent<GemSet>().number;
+            var itemKey = SourceSlot.Item.ItemData.Key;
+            
+            GameDataSync.Instance.gemKeySet[gemSetNumber].Add(itemKey);
             SwapItem(SourceSlot, targetSlot);
         }
     }
@@ -217,6 +221,10 @@ public class InventorySystem : MonoBehaviour
 
         if (gemSet.RemoveGem(dragSlot.Item))
         {
+            var gemSetNumber = SourceSlot.gameObject.GetComponentInParent<GemSet>().number;
+            var itemKey = SourceSlot.Item.ItemData.Key;
+            
+            GameDataSync.Instance.gemKeySet[gemSetNumber].Remove(itemKey);
             SwapItem(SourceSlot, targetSlot);
         }
     }
@@ -252,7 +260,7 @@ public class InventorySystem : MonoBehaviour
         SwapItem(SourceSlot, targetSlot);
     }
 
-    private void TrySaleItem(InventorySlot targetSlot)
+    private void TryBuyItem(InventorySlot targetSlot)
     {
         int sellPrice = CalculatePrice();
 
@@ -268,7 +276,7 @@ public class InventorySystem : MonoBehaviour
         }
     }
 
-    private void TryBuyItem(InventorySlot targetSlot)
+    private void TrySaleItem(InventorySlot targetSlot)
     {
     }
 
@@ -460,8 +468,4 @@ public class InventorySystem : MonoBehaviour
         Destroy(SourceSlot.gameObject);
     }
 
-    public void MakeSkillPool()
-    {
-        
-    }
 }

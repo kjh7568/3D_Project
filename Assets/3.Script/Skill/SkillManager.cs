@@ -47,6 +47,7 @@ public class SkillManager : MonoBehaviour
     private void Start()
     {
         InitializeHandler();
+        InitializeSkillPoolOnSceneLoad();
     }
 
     private void OnDestroy()
@@ -123,5 +124,25 @@ public class SkillManager : MonoBehaviour
         temp.transform.position = firePoint.position;
         temp.SetActive(true);
         temp.GetComponent<Skill>().Cast();
+    }
+
+    private void InitializeSkillPoolOnSceneLoad()
+    {
+        var keySet = GameDataSync.Instance.gemKeySet;
+        
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < keySet[i].Count; j++)
+            {
+                if (keySet[i][j] >= 200 && keySet[i][j] < 300)
+                {
+                    MakePool(i, keySet[i][j] - 200);
+                }
+                else
+                {
+                    AddSkillComponent(i, keySet[i][0]-200, keySet[i][j]);
+                }
+            }
+        } 
     }
 }
