@@ -41,6 +41,17 @@ public class FireBall : Skill
         // 적이랑 충돌했을 때 한 번만 실행
         if (other.CompareTag("Enemy"))
         {
+            if (data.isIncreasedAOE)
+            {
+                radius = 2f;
+                explosion.transform.localScale = Vector3.one * 1.2f;
+            }
+            else
+            {
+                radius = 1.5f;
+                explosion.transform.localScale = Vector3.one * 0.7f;
+            }
+            
             // 스킬의 중심 위치 기준으로 반경 탐색
             Collider[] hits = Physics.OverlapSphere(transform.position, radius, LayerMask.GetMask("Enemy"));
 

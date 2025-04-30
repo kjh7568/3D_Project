@@ -65,6 +65,9 @@ public class SkillManager : MonoBehaviour
 
         addComponentHandler[2] = (skill) => { skill.Add<FasterCast>(); };
         removeComponentHandler[2] = (skill) => { skill.Remove<FasterCast>(); };
+
+        addComponentHandler[3] = (skill) => { skill.Add<IncreasedAOE>(); };
+        removeComponentHandler[3] = (skill) => { skill.Remove<IncreasedAOE>(); };
     }
 
     public void MakePool(int parentsIdx, int prefabsIdx)

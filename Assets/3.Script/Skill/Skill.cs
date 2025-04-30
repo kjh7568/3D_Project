@@ -12,6 +12,7 @@ public abstract class Skill : MonoBehaviour
         public float moveSpeed;
         public float costMana;
         public float castSpeed;
+        public bool isIncreasedAOE = false;
     }
 
     public SkillData data;
