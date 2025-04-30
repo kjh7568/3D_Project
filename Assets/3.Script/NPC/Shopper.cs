@@ -66,13 +66,14 @@ public class Shopper : MonoBehaviour
             }
             else // (300, 301, 302, 303) 35%
             {
-                int roll = Random.Range(0, 4); // 0, 1, 2, 3
+                int roll = Random.Range(0, 5); // 0, 1, 2, 3, 4
                 switch (roll)
                 {
                     case 0: index = 10; break; // 300
                     case 1: index = 11; break; // 301
                     case 2: index = 12; break; // 302
                     case 3: index = 13; break; // 303
+                    case 4: index = 14; break; // 304
                 }
             }
         }

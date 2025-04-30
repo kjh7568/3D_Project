@@ -25911,7 +25911,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponCollider: {fileID: 1047872100}
-  gold: 5000
+  gold: 1000
   playerCollider: {fileID: 607217842}
 --- !u!114 &607217844
 MonoBehaviour:

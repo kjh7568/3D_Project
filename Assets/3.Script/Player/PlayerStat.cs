@@ -40,7 +40,7 @@ public class PlayerStat
         MaxExp = 10;
 
         Strength = 5;
-        Dexterity = 5;
+        Dexterity = 12;
         Intelligence = 5;
 
         Armour = 0;

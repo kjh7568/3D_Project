@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -8276033669044311154}
   m_Layer: 0
   m_Name: Fireball
-  m_TagString: Untagged
+  m_TagString: Skill
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4935,12 +4935,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5bad05182874ecabc9c83e8a1f57eb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAdditional: 0
   data:
     skillName: "\uD654\uC5FC\uAD6C"
     damageRate: 0.5
     moveSpeed: 10
     costMana: 5
     castSpeed: 1
+    isIncreasedAOE: 0
+    isMultipleProjectiles: 0
   tags:
   - Spell
   - Projectile
@@ -4965,7 +4968,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.15
+  m_Radius: 0.1
   m_Center: {x: 0.0011570603, y: 0.007274881, z: 0.0021345913}
 --- !u!54 &-8276033669044311154
 Rigidbody:

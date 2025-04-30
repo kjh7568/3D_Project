@@ -13,11 +13,15 @@ public abstract class Skill : MonoBehaviour
         public float costMana;
         public float castSpeed;
         public bool isIncreasedAOE = false;
+        public bool isMultipleProjectiles = false;
     }
 
+    public bool isAdditional=false;    
     public SkillData data;
     public List<string> tags = new List<string>();
 
+    public abstract void SpecialCast(Vector3 direction, int idx);
+    
     protected float CalculateDamage()
     {
         var pStat = Player.LocalPlayer.RealStat;

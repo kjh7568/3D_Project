@@ -68,6 +68,9 @@ public class SkillManager : MonoBehaviour
 
         addComponentHandler[3] = (skill) => { skill.Add<IncreasedAOE>(); };
         removeComponentHandler[3] = (skill) => { skill.Remove<IncreasedAOE>(); };
+
+        addComponentHandler[4] = (skill) => { skill.Add<MultipleProjectiles>(); };
+        removeComponentHandler[4] = (skill) => { skill.Remove<MultipleProjectiles>(); };
     }
 
     public void MakePool(int parentsIdx, int prefabsIdx)
@@ -130,8 +133,38 @@ public class SkillManager : MonoBehaviour
     {
         //todo 스킬 특성 별로 발사 위치 시전 모션 등등 다르게 해보기
         var temp = skillPool[idx].Dequeue();
+        var tempSkill = temp.GetComponent<Skill>();
         temp.transform.position = firePoint.position;
+        tempSkill.SpecialCast(Vector3.zero, idx);
         temp.SetActive(true);
+        
+        // if (tempSkill.data.isMultipleProjectiles)
+        // {
+        //     temp.transform.position = firePoint.position;
+        //
+        //     // === 여기서 중심 방향 벡터 계산 ===
+        //     Vector3 forward = temp.transform.forward;
+        //     Vector3 right = Vector3.Cross(Vector3.up, forward).normalized;
+        //
+        //     // 중심 투사체
+        //     temp.SetActive(true);
+        //
+        //     // 오른쪽 투사체
+        //     var temp1 = skillPool[idx].Dequeue();
+        //     var temp1Skill = temp1.GetComponent<Skill>();
+        //     temp1.transform.position = temp.transform.position + right * 0.5f;
+        //     temp1Skill.isAdditional = true;
+        //     temp1Skill.SpecialCast(forward);
+        //     temp1.SetActive(true);
+        //
+        //     // 왼쪽 투사체
+        //     var temp2 = skillPool[idx].Dequeue();
+        //     var temp2Skill = temp2.GetComponent<Skill>();
+        //     temp2.transform.position = temp.transform.position - right * 0.5f;
+        //     temp2Skill.isAdditional = true;
+        //     temp2Skill.SpecialCast(forward);
+        //     temp2.SetActive(true);
+        // }
     }
 
     private void InitializeSkillPoolOnSceneLoad()

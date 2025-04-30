@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8bb7a1b2c1463b04685cb57dbbfac54f, type: 3}
-  m_Name: 4. IncreasedAOE_SpriteSAO
+  m_Name: 5. MultipleProjectiles_SpriteSAO
   m_EditorClassIdentifier: 
-  key: 303
-  sprite: {fileID: 21300000, guid: 1afa385c2b240844b9a00d759cfdfb0a, type: 3}
+  key: 304
+  sprite: {fileID: 21300000, guid: fe5c34d8cf6ab094f92ee1031a3d0b35, type: 3}
   dragSize: {x: 90, y: 90}

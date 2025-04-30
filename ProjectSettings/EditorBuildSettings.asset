@@ -10,8 +10,8 @@ EditorBuildSettings:
     guid: afec49d2f2fe2c44e953494eee9d5326
   - enabled: 1
     path: Assets/1.Scene/Dungeon 1.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    guid: ec004d71238b4ba4b87a04ba84c97143
   - enabled: 1
-    path: Assets/1.Scene/DungeonTest.unity
-    guid: 4cf5d64e79cba254cb9a43b263503e79
+    path: Assets/1.Scene/Dungeon 2.unity
+    guid: 99e9622da0bf27c48bbcdc8980572cea
   m_configObjects: {}
