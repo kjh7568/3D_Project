@@ -11,13 +11,13 @@ public abstract class Skill : MonoBehaviour
         public float damageRate;
         public float moveSpeed;
         public float costMana;
+        public float castTime;
     }
 
     public SkillData data;
     public List<string> tags = new List<string>();
-    public abstract void Cast();
-    
-    public float CalculateDamage()
+
+    protected float CalculateDamage()
     {
         var pStat = Player.LocalPlayer.RealStat;
         var damage = (Random.Range(pStat.MinSpellDamage, pStat.MaxSpellDamage) * pStat.IncreaseSpellDamage) * data.damageRate;

@@ -179,7 +179,7 @@ public class InventorySystem : MonoBehaviour
         }
         else if (from.Equals(inventoryTab) && to.Equals(shopTab)) // 아이템 판매
         {
-            TryUnequipEquipment(targetSlot);
+            TrySaleItem(targetSlot);
         }
     }
 
@@ -262,7 +262,7 @@ public class InventorySystem : MonoBehaviour
 
     private void TryBuyItem(InventorySlot targetSlot)
     {
-        int sellPrice = CalculatePrice();
+        int sellPrice = CalculatePrice(SourceSlot.Item);
 
         if (Player.LocalPlayer.gold >= sellPrice)
         {
@@ -278,15 +278,21 @@ public class InventorySystem : MonoBehaviour
 
     private void TrySaleItem(InventorySlot targetSlot)
     {
+        int sellPrice = Mathf.RoundToInt(CalculatePrice(SourceSlot.Item) * 0.7f);
+        Player.LocalPlayer.gold += sellPrice;
+        FindObjectOfType<Shopper>().SetGoldText();
+        
+        dragSlot.SetSlot(null);
+        SourceSlot.SetSlot(null);
     }
 
-    private int CalculatePrice()
+    private int CalculatePrice(Item item)
     {
-        if (SourceSlot.Item == null) return 0;
+        if (item == null) return 0;
 
         int price = 0;
 
-        if (SourceSlot.Item is IEquipment equipment)
+        if (item is IEquipment equipment)
         {
             switch (equipment.Rarity)
             {

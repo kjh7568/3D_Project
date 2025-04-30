@@ -123,7 +123,6 @@ public class SkillManager : MonoBehaviour
         var temp = skillPool[idx].Dequeue();
         temp.transform.position = firePoint.position;
         temp.SetActive(true);
-        temp.GetComponent<Skill>().Cast();
     }
 
     private void InitializeSkillPoolOnSceneLoad()
