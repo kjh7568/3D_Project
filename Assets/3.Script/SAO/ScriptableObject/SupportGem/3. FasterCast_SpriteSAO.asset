@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8bb7a1b2c1463b04685cb57dbbfac54f, type: 3}
-  m_Name: FasterProjectiles_SpriteSAO
+  m_Name: 3. FasterCast_SpriteSAO
   m_EditorClassIdentifier: 
-  key: 300
-  sprite: {fileID: 21300000, guid: 3aac28d7259838143900018044a429a0, type: 3}
+  key: 302
+  sprite: {fileID: 21300000, guid: 7a9a6391bc2786443997191a1d83aa8d, type: 3}
   dragSize: {x: 90, y: 90}

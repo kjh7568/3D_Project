@@ -62,6 +62,9 @@ public class SkillManager : MonoBehaviour
 
         addComponentHandler[1] = (skill) => { skill.Add<Proliferation>(); };
         removeComponentHandler[1] = (skill) => { skill.Remove<Proliferation>(); };
+
+        addComponentHandler[2] = (skill) => { skill.Add<FasterCast>(); };
+        removeComponentHandler[2] = (skill) => { skill.Remove<FasterCast>(); };
     }
 
     public void MakePool(int parentsIdx, int prefabsIdx)

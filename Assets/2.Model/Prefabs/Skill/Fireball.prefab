@@ -4940,6 +4940,7 @@ MonoBehaviour:
     damageRate: 0.5
     moveSpeed: 10
     costMana: 5
+    castSpeed: 1
   tags:
   - Spell
   - Projectile

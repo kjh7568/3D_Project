@@ -64,9 +64,15 @@ public class Shopper : MonoBehaviour
             {
                 index = (Random.Range(0, 2) == 0) ? 8 : 9; // 200 or 201
             }
-            else // (300, 301)
+            else // (300, 301, 302)
             {
-                index = (Random.Range(0, 2) == 0) ? 10 : 11; // 300 or 301
+                int roll = Random.Range(0, 3); // 0, 1, 2
+                switch (roll)
+                {
+                    case 0: index = 10; break; // 300
+                    case 1: index = 11; break; // 301
+                    case 2: index = 12; break; // 302
+                }
             }
         }
 

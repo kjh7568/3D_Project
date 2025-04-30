@@ -205,6 +205,8 @@ public class PlayerController : MonoBehaviour
 
                     SkillManager.Instance.skillPool[idx].Enqueue(temp);
 
+                    Player.LocalPlayer.RealStat.CastSpeed = temp.GetComponent<Skill>().data.castSpeed;
+                    
                     animator.ResetTrigger(Skill1);
                     animator.SetTrigger(Skill1);
                 }
