@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class PlayerStat
 {
     public float Hp { get; set; }
@@ -37,9 +39,9 @@ public class PlayerStat
         Exp = 0;
         MaxExp = 10;
 
-        Strength = 50;
-        Dexterity = 50;
-        Intelligence = 50;
+        Strength = 5;
+        Dexterity = 5;
+        Intelligence = 5;
 
         Armour = 0;
         Evasion = 0;
@@ -49,8 +51,27 @@ public class PlayerStat
         CastSpeed = 1;
     }
 
-    public void UpdateMaxExp()
+
+    public void CheckLevelUp()
     {
-        MaxExp += MaxExp * 1.2f;
+        if (Exp >= MaxExp)
+        {
+            Level++;
+            UpdateMaxExp();
+            GetLevelUpReward();
+        }
+    }
+
+    private void UpdateMaxExp()
+    {
+        MaxExp += Mathf.CeilToInt(MaxExp * 1.33f);
+        Exp = 0;
+    }
+
+    private void GetLevelUpReward()
+    {
+        Strength += 1;
+        Dexterity += 1;
+        Intelligence += 1;
     }
 }

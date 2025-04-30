@@ -41,6 +41,7 @@ public class LocalPlayer : Player, IDamageAble
     private void Update()
     {
         RegenerateResources();
+        Stat.CheckLevelUp();
     }
 
     private void OnDestroy()
