@@ -8,7 +8,12 @@ public class FasterCast : SkillComponent
     public override void AddComponent(Skill skill)
     {
         rootSkill = skill;
-        EquipmentManager.Instance.EquipmentStat.IncreaseCastSpeed += 0.3f;
+
+        if (!EquipmentManager.Instance.EquipmentStat.isCastSpeed)
+        {
+            EquipmentManager.Instance.EquipmentStat.IncreaseCastSpeed += 0.3f;
+            EquipmentManager.Instance.EquipmentStat.isCastSpeed = true;
+        }
         
         rootSkill.data.costMana += 5;
         rootSkill.tags.Add("FasterCast");
@@ -17,8 +22,13 @@ public class FasterCast : SkillComponent
     public override void RemoveComponent(Skill skill)
     {
         rootSkill = skill;
-        EquipmentManager.Instance.EquipmentStat.IncreaseCastSpeed -= 0.3f;
 
+        if (EquipmentManager.Instance.EquipmentStat.isCastSpeed)
+        {
+            EquipmentManager.Instance.EquipmentStat.IncreaseCastSpeed -= 0.3f;
+            EquipmentManager.Instance.EquipmentStat.isCastSpeed = false;
+        }
+        
         rootSkill.data.costMana -= 5;
         rootSkill.tags.Remove("FasterCast");
     }

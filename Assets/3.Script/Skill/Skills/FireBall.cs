@@ -39,29 +39,30 @@ public class FireBall : Skill
     private void OnTriggerEnter(Collider other)
     {
         // 적이랑 충돌했을 때 한 번만 실행
-        if (!other.CompareTag("Enemy")) return;
-
-        // 스킬의 중심 위치 기준으로 반경 탐색
-        Collider[] hits = Physics.OverlapSphere(transform.position, radius, LayerMask.GetMask("Enemy"));
-
-        foreach (Collider hit in hits)
+        if (other.CompareTag("Enemy"))
         {
-            if (!hit.CompareTag("Enemy")) continue;
+            // 스킬의 중심 위치 기준으로 반경 탐색
+            Collider[] hits = Physics.OverlapSphere(transform.position, radius, LayerMask.GetMask("Enemy"));
 
-            var monster = CombatSystem.Instance.GetMonsterOrNull(hit);
-
-            if (monster != null)
+            foreach (Collider hit in hits)
             {
-                CombatEvent combatEvent = new CombatEvent
-                {
-                    Sender = Player.LocalPlayer,
-                    Receiver = monster,
-                    HitPosition = hit.ClosestPoint(transform.position),
-                    Collider = hit,
-                    Damage = CalculateDamage()
-                };
+                if (!hit.CompareTag("Enemy")) continue;
 
-                CombatSystem.Instance.AddInGameEvent(combatEvent);
+                var monster = CombatSystem.Instance.GetMonsterOrNull(hit);
+
+                if (monster != null)
+                {
+                    CombatEvent combatEvent = new CombatEvent
+                    {
+                        Sender = Player.LocalPlayer,
+                        Receiver = monster,
+                        HitPosition = hit.ClosestPoint(transform.position),
+                        Collider = hit,
+                        Damage = CalculateDamage()
+                    };
+
+                    CombatSystem.Instance.AddInGameEvent(combatEvent);
+                }
             }
         }
 
