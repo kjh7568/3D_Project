@@ -37,9 +37,9 @@ public class PlayerStat
         Exp = 0;
         MaxExp = 10;
 
-        Strength = 5;
-        Dexterity = 5;
-        Intelligence = 5;
+        Strength = 50;
+        Dexterity = 50;
+        Intelligence = 50;
 
         Armour = 0;
         Evasion = 0;
@@ -52,10 +52,5 @@ public class PlayerStat
     public void UpdateMaxExp()
     {
         MaxExp += MaxExp * 1.2f;
-    }
-
-    public void AddingStatFromAttributes()
-    {
-        // 이거 이래도 되나?
     }
 }

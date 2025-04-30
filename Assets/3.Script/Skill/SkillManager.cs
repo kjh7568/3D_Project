@@ -89,20 +89,23 @@ public class SkillManager : MonoBehaviour
 
     public void AddSkillComponent(int parentsIdx, int prefabsIdx, int componentKey)
     {
-        //큐 초기화
-        RemovePool(parentsIdx);
-
         // 컴포넌트 추가하기
+        Queue<GameObject> temp = new Queue<GameObject>();
+        
         for (int i = 0; i < MAX_PREFAB_COUNT; i++)
         {
-            var pool = Instantiate(skillPrefabs[prefabsIdx], poolParents[parentsIdx]);
+            var pool = skillPool[parentsIdx].Dequeue();
             var tempComponent = pool.GetComponent<Skill>();
 
             addComponentHandler[componentKey - 300]?.Invoke(tempComponent);
 
             pool.SetActive(false);
-            skillPool[parentsIdx].Enqueue(pool);
+            temp.Enqueue(pool);
         }
+        
+        //큐 초기화
+        RemovePool(parentsIdx);
+        skillPool[parentsIdx] = temp;
     }
 
     public void RemoveSkillComponent(int parentsIdx, int componentKey)

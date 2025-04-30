@@ -202,10 +202,10 @@ public class PlayerController : MonoBehaviour
                 if (Player.LocalPlayer.RealStat.Mp >= skill.data.costMana)
                 {
                     Player.LocalPlayer.RealStat.Mp -= skill.data.costMana;
-
                     SkillManager.Instance.skillPool[idx].Enqueue(temp);
 
-                    Player.LocalPlayer.RealStat.CastSpeed = temp.GetComponent<Skill>().data.castSpeed;
+                    Player.LocalPlayer.Stat.CastSpeed = temp.GetComponent<Skill>().data.castSpeed;
+                    Player.LocalPlayer.RealStat.UpdateStat();
                     
                     animator.ResetTrigger(Skill1);
                     animator.SetTrigger(Skill1);

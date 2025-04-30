@@ -16,6 +16,7 @@ public class SpellCastLogic : StateMachineBehaviour
         
         originalSpeed = animator.speed;
 
+        Debug.Log(Player.LocalPlayer.RealStat.CastSpeed);
         animator.speed = Player.LocalPlayer.RealStat.CastSpeed;
     }
 
