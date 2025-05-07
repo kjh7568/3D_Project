@@ -79,6 +79,7 @@ public class FloatingInfomationUI : MonoBehaviour
         
         if (item is IWeapon weapon)
         {
+            itemBaseStat.text = $"공격력: {weapon.MinAttackDamage} ~ {weapon.MaxAttackDamage} | 주문력: {weapon.MinSpellDamage} ~ {weapon.MaxSpellDamage - 1}";
         }
         else if (item is IArmour armor)
         {
