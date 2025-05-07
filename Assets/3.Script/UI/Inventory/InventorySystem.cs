@@ -175,11 +175,11 @@ public class InventorySystem : MonoBehaviour
         }
         else if (from.Equals(shopTab) && to.Equals(inventoryTab)) // 아이템 구매
         {
-            TrySaleItem(targetSlot);
+            TryBuyItem(targetSlot);
         }
         else if (from.Equals(inventoryTab) && to.Equals(shopTab)) // 아이템 판매
         {
-            TryUnequipEquipment(targetSlot);
+            TrySaleItem();
         }
     }
 
@@ -251,8 +251,7 @@ public class InventorySystem : MonoBehaviour
         EquipmentManager.Instance.UnEquipEquipment(SourceSlot.Item);
         SwapItem(SourceSlot, targetSlot);
     }
-
-    private void TrySaleItem(InventorySlot targetSlot)
+    private void TryBuyItem(InventorySlot targetSlot)
     {
         int sellPrice = CalculatePrice();
 
@@ -267,9 +266,16 @@ public class InventorySystem : MonoBehaviour
             Debug.Log($"돈이 부족합니다. {sellPrice}골드 필요");
         }
     }
-
-    private void TryBuyItem(InventorySlot targetSlot)
+    
+    private void TrySaleItem()
     {
+        int sellPrice = Mathf.RoundToInt(CalculatePrice() * 0.7f);
+        
+        Player.LocalPlayer.gold += sellPrice;
+        FindObjectOfType<Shopper>().SetGoldText();
+        
+        dragSlot.SetSlot(null);
+        SourceSlot.SetSlot(null);
     }
 
     private int CalculatePrice()

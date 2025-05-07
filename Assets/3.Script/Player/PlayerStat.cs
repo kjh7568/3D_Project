@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class PlayerStat
 {
     public float Hp { get; set; }
@@ -51,6 +53,6 @@ public class PlayerStat
 
     public void UpdateMaxExp()
     {
-        MaxExp += MaxExp * 1.2f;
+        MaxExp += Mathf.CeilToInt(MaxExp * 1.2f);
     }
 }

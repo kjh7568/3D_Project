@@ -45,14 +45,16 @@ public class PlayerStatPanelUI : MonoBehaviour
         dexterityText.text = $"민첩: {playerStats.Dexterity}";
         intelligenceText.text = $"지능: {playerStats.Intelligence}";
         
-        armourText.text = $"방어력: {Mathf.FloorToInt(playerStats.Armour)} (방어율: {playerStats.DamageReductionRate * 100f:F2}%)";
-        evasionText.text = $"회피: {Mathf.FloorToInt(playerStats.Evasion)} (회피율:  {playerStats.EvasionRate * 100f:F2}%)";
+        armourText.text = $"방어력: {Mathf.RoundToInt(playerStats.Armour)} (방어율: {playerStats.DamageReductionRate * 100f:F2}%)";
+        evasionText.text = $"회피: {Mathf.RoundToInt(playerStats.Evasion)} (회피율:  {playerStats.EvasionRate * 100f:F2}%)";
         
-        attackDamageText.text = $"공격력: {playerStats.MinAttackDamage * playerStats.IncreaseAttackDamage} ~ {playerStats.MaxAttackDamage * playerStats.IncreaseAttackDamage - 1}";
-        attackSpeedText.text = $"공격속도: {playerStats.AttackSpeed:F2}";
+        attackDamageText.text = $"공격력: {Mathf.RoundToInt(playerStats.MinAttackDamage * playerStats.IncreaseAttackDamage)} ~ " +
+                                $"{Mathf.RoundToInt(playerStats.MaxAttackDamage * playerStats.IncreaseAttackDamage - 1)}";
+        attackSpeedText.text = $"공격속도: {playerStats.AttackSpeed:F2}/s";
         
-        spellDamageText.text = $"주문력: {playerStats.MinSpellDamage * playerStats.IncreaseSpellDamage} ~ {playerStats.MaxSpellDamage * playerStats.IncreaseSpellDamage - 1}";
-        castSpeedText.text = $"시전속도: {playerStats.CastSpeed:F2}";
+        spellDamageText.text = $"주문력: {Mathf.RoundToInt(playerStats.MinSpellDamage * playerStats.IncreaseSpellDamage)} ~ " +
+                               $"{Mathf.RoundToInt(playerStats.MaxSpellDamage * playerStats.IncreaseSpellDamage - 1)}";
+        castSpeedText.text = $"시전속도: {playerStats.CastSpeed:F2}/s";
         
         criticalRateText.text = $"치명타 확률: {playerStats.CriticalChance * 100f:F1}%";
         criticalDamageText.text = $"치명타 피해: {playerStats.CriticalDamage * 100f:F1}%";
