@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-public class Goblin : MonoBehaviour, IMonster
+public class GobilnWarChief : MonoBehaviour, IMonster
 {
     public Collider MainCollider => monsterCollider;
     public GameObject GameObject => gameObject;
@@ -24,7 +23,6 @@ public class Goblin : MonoBehaviour, IMonster
         CombatSystem.Instance.RegisterMonster(this);
         monster = GetComponent<MonsterController>();
     }
-
     public void TakeDamage(CombatEvent combatEvent)
     {
         monsterStat.hp -= combatEvent.Damage;
@@ -34,8 +32,6 @@ public class Goblin : MonoBehaviour, IMonster
             OnDead();
         }
     }
-
-    public MonsterStat GetStat() => monsterStat;
 
     private void OnDead()
     {
@@ -48,15 +44,17 @@ public class Goblin : MonoBehaviour, IMonster
 
         monster.PlayDead();
     }
-
+    
+    public MonsterStat GetStat() => monsterStat;
+    
     public void TryGenerateItem()
     {
-        if (Random.Range(0f, 1f) < 0.33f) // 33% 확률
+        if (Random.Range(0f, 1f) < 0.40f) // 40% 확률
         {
             RewardManager.Instance.DropItem(transform.position);
         }
 
-        if (Random.Range(0f, 1f) < 0.5f) // 50% 확률
+        if (Random.Range(0f, 1f) < 0.7f) // 70% 확률
         {
             RewardManager.Instance.DropGold(dropGoldMinAmount, dropGoldMaxAmount, transform.position);
         }

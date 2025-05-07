@@ -80289,6 +80289,7 @@ MonoBehaviour:
   - {fileID: 436248905}
   monsterPrefabs:
   - {fileID: 5927601551664180525, guid: d3e47c8637349714fbf8243d3a8cfdab, type: 3}
+  - {fileID: 7357646727697849249, guid: fadadf57b01ee3442a1cbe09261ad029, type: 3}
 --- !u!1 &2092922184 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 127758, guid: 0e2d311aa2f76c2479ed7bbf11aa4ffb,

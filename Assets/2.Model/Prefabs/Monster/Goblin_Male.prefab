@@ -1404,6 +1404,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6800036409186276005}
+  - {fileID: 466070709677538808}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!95 &3041022032910644995
@@ -1439,7 +1440,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cafebc51f34a44d43a09bf512ca0a9ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
   chaseDistance: 30
   animator: {fileID: 3041022032910644995}
 --- !u!114 &1955825056930102926
@@ -1630,8 +1630,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 466070709677538808}
+  m_Children: []
   m_Father: {fileID: 6683589876550180334}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &4905285635729880372
@@ -2113,11 +2112,11 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4092926754600218926}
-  m_Father: {fileID: 6800036409186276005}
+  m_Father: {fileID: 6683589876550180334}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8486501717995466098
 GameObject:

@@ -12,8 +12,6 @@ public class MonsterController : MonoBehaviour
     private static readonly int Attack = Animator.StringToHash("Attack");
     private static readonly int Dead = Animator.StringToHash("Dead");
 
-    private const float ATTACK_RANGE = 2f;
-
     [Header("Navigation Move")] 
     private Transform player;
 
@@ -28,17 +26,21 @@ public class MonsterController : MonoBehaviour
     private AnimatorStateInfo animInfo;
     private bool isDead = false;
     private Rigidbody rigid;
-
+    
+    private MonsterStat mStat;
+    
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        rigid = GetComponent<Rigidbody>();
         player = GameObject.Find("Player").transform;
     }
 
     private void Start()
     {
         StartCoroutine(GetPathDistanceCoroutine());
-        rigid = GetComponent<Rigidbody>();
+        mStat = GetComponent<IMonster>().MonsterStat;
+        agent.speed = mStat.speed;
     }
 
     private void Update()
@@ -47,7 +49,7 @@ public class MonsterController : MonoBehaviour
         {
             animInfo = animator.GetCurrentAnimatorStateInfo(0);
 
-            if (navDistance <= ATTACK_RANGE)
+            if (navDistance <= mStat.range)
             {
                 AttackMonster();
             }
