@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -95,12 +96,18 @@ public class NPCEventManager : MonoBehaviour
             yield return null; // 한 프레임 쉬고 다시 반복
         }
 
-        // SceneManager.LoadScene("Dungeon 1");        
-        SceneManager.LoadScene("DungeonTest");        
+        PickMap();
     }
 
     public bool IsClickingNpc()
     {
         return isClickingNpc;
+    }
+
+    public void PickMap()
+    {
+        int rand = UnityEngine.Random.Range(0, 2);
+        if(rand == 0) SceneManager.LoadScene("Dungeon 1");
+        else if(rand == 1) SceneManager.LoadScene("Dungeon 2");
     }
 }
