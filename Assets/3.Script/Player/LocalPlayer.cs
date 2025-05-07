@@ -18,6 +18,13 @@ public class LocalPlayer : Player, IDamageAble
 
     [SerializeField] private Collider playerCollider;
 
+    private Rigidbody rBody;
+
+    private void Awake()
+    {
+        rBody = GetComponent<Rigidbody>();
+    }
+
     private void Start()
     {
         Player.LocalPlayer = this;
@@ -43,7 +50,7 @@ public class LocalPlayer : Player, IDamageAble
         RegenerateResources();
         UpdateLevel();
     }
-
+    
     private void OnDestroy()
     {
         GameDataSync.Instance.playerStat = Stat;
@@ -54,7 +61,7 @@ public class LocalPlayer : Player, IDamageAble
     {
         RealStat.Hp -= combatEvent.Damage;
     }
-
+    
     private void RegenerateResources()
     {
         if (RealStat.Hp < RealStat.MaxHp)
