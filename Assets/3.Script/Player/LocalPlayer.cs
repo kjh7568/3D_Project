@@ -21,7 +21,7 @@ public class LocalPlayer : Player, IDamageAble
     private void Start()
     {
         Player.LocalPlayer = this;
-        
+
         if (GameDataSync.Instance.playerStat != null)
         {
             Stat = GameDataSync.Instance.playerStat;
@@ -41,6 +41,7 @@ public class LocalPlayer : Player, IDamageAble
     private void Update()
     {
         RegenerateResources();
+        UpdateLevel();
     }
 
     private void OnDestroy()
@@ -64,6 +65,22 @@ public class LocalPlayer : Player, IDamageAble
         if (RealStat.Mp < RealStat.MaxMp)
         {
             RealStat.Mp += RealStat.MpRegenRate * Time.deltaTime;
+        }
+    }
+
+    private void UpdateLevel()
+    {
+        if (Stat.Exp >= Stat.MaxExp)
+        {
+            Stat.Exp -= Stat.MaxExp;
+            Stat.UpdateMaxExp();
+            
+            RealStat.Hp = RealStat.MaxHp;
+            RealStat.Mp = RealStat.MaxMp;
+
+            RealStat.Strength += 1;
+            RealStat.Dexterity += 1;
+            RealStat.Intelligence += 1;
         }
     }
 }

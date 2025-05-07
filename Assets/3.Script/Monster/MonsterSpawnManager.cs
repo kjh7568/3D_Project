@@ -40,13 +40,13 @@ public class MonsterSpawnManager : MonoBehaviour
     private int SpawnRate()
     {
         var rand = Random.Range(0f, 1f);
-        if (rand < 0.7f)
+        if (rand < 0.85f)
         {
-            return 0;
+            return 0; //일반 고블린
         }
         else if (rand < 1f)
         {
-            return 1;
+            return 1; //고블린 전쟁 우두머리
         }
 
         return -1;
@@ -56,7 +56,7 @@ public class MonsterSpawnManager : MonoBehaviour
     {
         foreach (var center in spawnPoints)
         {
-            int spawnCount = Random.Range(3, 8); // 3~7마리
+            int spawnCount = Random.Range(3, 7); // 3~6마리
 
             for (int i = 0; i < spawnCount; i++)
             {

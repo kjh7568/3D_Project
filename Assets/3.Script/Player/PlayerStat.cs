@@ -53,9 +53,4 @@ public class PlayerStat
     {
         MaxExp += MaxExp * 1.2f;
     }
-
-    public void AddingStatFromAttributes()
-    {
-        // 이거 이래도 되나?
-    }
 }
