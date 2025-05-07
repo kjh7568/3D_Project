@@ -211,7 +211,7 @@ public class PlayerController : MonoBehaviour
                 else
                 {
                     SkillManager.Instance.skillPool[idx].Enqueue(temp);
-                    Debug.Log("마나가 부족합니다.");
+                    ErrorMessageUI.Instance.StartFade(0);
                 }
             }
         }
