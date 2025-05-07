@@ -6,8 +6,15 @@ using Random = UnityEngine.Random;
 
 public class FireBall : Skill
 {
+    [SerializeField] private GameObject explosion;
+
     private Camera mainCam;
     private Vector3 moveDirection;
+
+    private float radius = 1.5f;
+    private LayerMask enemyLayer;
+
+    private int index;
     
     private void Awake()
     {
@@ -16,14 +23,45 @@ public class FireBall : Skill
 
     private void OnEnable()
     {
-        Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
-        Plane groundPlane = new Plane(Vector3.up, transform.position);
-
-        if (groundPlane.Raycast(ray, out float enter))
+        if (!isAdditional)
         {
-            Vector3 mouseWorldPosition = ray.GetPoint(enter);
-            moveDirection = (mouseWorldPosition - transform.position).normalized;
+            Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
+            Plane groundPlane = new Plane(Vector3.up, transform.position);
+
+            if (groundPlane.Raycast(ray, out float enter))
+            {
+                Vector3 mouseWorldPosition = ray.GetPoint(enter);
+                moveDirection = (mouseWorldPosition - transform.position).normalized;
+            }
+
+            if (data.isMultipleProjectiles)
+            {
+                var temp = SkillManager.Instance.skillPool[index].Dequeue();
+                var tempSkill = temp.GetComponent<Skill>();
+                
+                tempSkill.isAdditional = true;
+                tempSkill.SpecialCast(moveDirection, index);
+                temp.transform.position = transform.position + new Vector3(0,0,0.5f);
+                temp.SetActive(true);
+                
+                var temp1 = SkillManager.Instance.skillPool[index].Dequeue();
+                var temp1Skill = temp1.GetComponent<Skill>();
+
+                temp1Skill.isAdditional = true;
+                temp1Skill.SpecialCast(moveDirection, index);
+                temp1.transform.position = transform.position - new Vector3(0,0,0.5f);
+                temp1.SetActive(true);
+            }
         }
+        else
+        {
+            isAdditional = false;
+        }
+    }
+    public override void SpecialCast(Vector3 direction, int idx)
+    {
+        index = idx;
+        moveDirection = direction;
     }
 
     private void Update()
@@ -31,46 +69,53 @@ public class FireBall : Skill
         transform.Translate(moveDirection * (Time.deltaTime * data.moveSpeed));
     }
 
-    public override void Cast()
-    {
-        
-        
-        if (tags.Count == 0)
-        {
-            Debug.Log("No tags found");
-            return;
-        }
-        
-        foreach (var tag in tags)
-        {
-            Debug.Log(tag);
-        }
-    }
-
     private void OnTriggerEnter(Collider other)
     {
+        // 적이랑 충돌했을 때 한 번만 실행
         if (other.CompareTag("Enemy"))
         {
-            if (!other.CompareTag("Enemy")) return;
-        
-            var monster = CombatSystem.Instance.GetMonsterOrNull(other);
-        
-            if (monster != null)
+            if (data.isIncreasedAOE)
             {
-                CombatEvent combatEvent = new CombatEvent
-                {
-                    Sender = Player.LocalPlayer,
-                    Receiver = monster,
-                    Damage = Random.Range(Player.LocalPlayer.RealStat.MinSpellDamage, Player.LocalPlayer.RealStat.MaxSpellDamage) * data.damageRate,
-                    HitPosition = other.ClosestPoint(transform.position),
-                    Collider = other
-                };
+                radius = 2f;
+                explosion.transform.localScale = Vector3.one * 1.2f;
+            }
+            else
+            {
+                radius = 1.5f;
+                explosion.transform.localScale = Vector3.one * 0.7f;
+            }
 
-                CombatSystem.Instance.AddInGameEvent(combatEvent);
+            // 스킬의 중심 위치 기준으로 반경 탐색
+            Collider[] hits = Physics.OverlapSphere(transform.position, radius, LayerMask.GetMask("Enemy"));
+
+            foreach (Collider hit in hits)
+            {
+                if (!hit.CompareTag("Enemy")) continue;
+
+                var monster = CombatSystem.Instance.GetMonsterOrNull(hit);
+
+                if (monster != null)
+                {
+                    CombatEvent combatEvent = new CombatEvent
+                    {
+                        Sender = Player.LocalPlayer,
+                        Receiver = monster,
+                        HitPosition = hit.ClosestPoint(transform.position),
+                        Collider = hit,
+                        Damage = CalculateDamage()
+                    };
+
+                    CombatSystem.Instance.AddInGameEvent(combatEvent);
+                }
             }
         }
-        
-        SkillManager.Instance.skillPool[0].Enqueue(gameObject);
-        gameObject.SetActive(false);
+
+        // 이펙트 생성 및 반환 처리
+        if (!other.CompareTag("Skill"))
+        {
+            Instantiate(explosion, transform.position, Quaternion.identity);
+            SkillManager.Instance.skillPool[0].Enqueue(gameObject);
+            gameObject.SetActive(false);
+        }
     }
 }

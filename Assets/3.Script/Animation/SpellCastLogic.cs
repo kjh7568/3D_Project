@@ -8,15 +8,10 @@ public class SpellCastLogic : StateMachineBehaviour
     [Range(0f, 1f)] public float endNormalizedTime;
 
     private bool isCast = false;
-    private float originalSpeed;
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         isCast = false;
-        
-        originalSpeed = animator.speed;
-
-        animator.speed = Player.LocalPlayer.RealStat.CastSpeed;
     }
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -33,6 +28,6 @@ public class SpellCastLogic : StateMachineBehaviour
     
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.speed = originalSpeed;
+        animator.speed = 1f;
     }
 }

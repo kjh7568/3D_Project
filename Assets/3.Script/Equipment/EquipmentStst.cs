@@ -38,6 +38,8 @@ public class EquipmentStst
     public float MaxSpellDamage { get; set; }
     public float IncreaseSpellDamage { get; set; }
 
+    public bool isCastSpeed;
+    
     public void Initialize()
     {
         Hp = 0f;

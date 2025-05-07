@@ -4,26 +4,24 @@ using UnityEngine;
 
 public class FasterProjectiles : SkillComponent
 {
-    private Skill rootSkill;
-
-    private float projectileMoveSpeed;
-    private float projectileRotate;
-
     public string SkillTag { get; private set; } = "FasterProjectiles";
     
+    private float increaseValue;
+    private Skill rootSkill;
     public override void AddComponent(Skill skill)
     {
         rootSkill = skill;
-        rootSkill.data.moveSpeed += 10;
-        rootSkill.data.costMana += 5;
+        increaseValue = rootSkill.data.moveSpeed * 0.5f;
+        rootSkill.data.moveSpeed += increaseValue;
+        rootSkill.data.costMana += 3;
         rootSkill.tags.Add("FasterProjectiles");
     }
 
     public override void RemoveComponent(Skill skill)
     {
         rootSkill = skill;
-        rootSkill.data.moveSpeed -= 10;        
-        rootSkill.data.costMana -= 5;
+        rootSkill.data.moveSpeed -= increaseValue;        
+        rootSkill.data.costMana -= 3;
         rootSkill.tags.Remove("FasterProjectiles");
     }
 }

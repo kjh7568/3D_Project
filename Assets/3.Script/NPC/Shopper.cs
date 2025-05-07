@@ -60,13 +60,21 @@ public class Shopper : MonoBehaviour
         else // 30% 그룹
         {
             float subGroupRoll = Random.Range(0f, 100f);
-            if (subGroupRoll < 70f) // (200, 201)
+            if (subGroupRoll < 65f) // (200, 201) 65%
             {
                 index = (Random.Range(0, 2) == 0) ? 8 : 9; // 200 or 201
             }
-            else // (300, 301)
+            else // (300, 301, 302, 303) 35%
             {
-                index = (Random.Range(0, 2) == 0) ? 10 : 11; // 300 or 301
+                int roll = Random.Range(0, 5); // 0, 1, 2, 3, 4
+                switch (roll)
+                {
+                    case 0: index = 10; break; // 300
+                    case 1: index = 11; break; // 301
+                    case 2: index = 12; break; // 302
+                    case 3: index = 13; break; // 303
+                    case 4: index = 14; break; // 304
+                }
             }
         }
 

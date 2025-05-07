@@ -10,7 +10,7 @@ public class NPCEventManager : MonoBehaviour
 
     [SerializeField] private Collider shopNpcCollider;
     [SerializeField] private Collider portalCollider;
-    
+
     [SerializeField] private GameObject inventoryPanel;
     [SerializeField] private GameObject shopPanel;
 
@@ -28,8 +28,9 @@ public class NPCEventManager : MonoBehaviour
         {
             DetectClick();
         }
-        
-        if(Vector3.Distance(shopNpcCollider.gameObject.transform.position, Player.LocalPlayer.transform.position) > 2.0f)
+
+        if (Vector3.Distance(shopNpcCollider.gameObject.transform.position, Player.LocalPlayer.transform.position) >
+            2.0f)
         {
             shopPanel.SetActive(false);
         }
@@ -79,7 +80,7 @@ public class NPCEventManager : MonoBehaviour
         inventoryPanel.SetActive(true);
         shopPanel.SetActive(true);
     }
-    
+
     private IEnumerator MoveToPortal(Transform target)
     {
         while (Vector3.Distance(target.position, Player.LocalPlayer.transform.position) > 4.0f)
@@ -95,8 +96,27 @@ public class NPCEventManager : MonoBehaviour
             yield return null; // 한 프레임 쉬고 다시 반복
         }
 
-        // SceneManager.LoadScene("Dungeon 1");        
-        SceneManager.LoadScene("DungeonTest");        
+        // int mapNumber = Random.Range(0, 2);
+        int mapNumber = 0;
+        Debug.Log(mapNumber);
+        if (mapNumber == 0)
+        {
+            Debug.Log("Dungeon 1");
+            SceneManager.LoadScene("Dungeon 1");
+        }
+        else if (mapNumber == 1)
+        {
+            Debug.Log("Dungeon 2");
+            SceneManager.LoadScene("Dungeon 2");
+        }
+        // else if (mapNumber == 2)
+        // {
+        //     SceneManager.LoadScene("Dungeon 3");
+        // }
+        // else if (mapNumber == 3)
+        // {
+        //     SceneManager.LoadScene("Dungeon 4");
+        // }
     }
 
     public bool IsClickingNpc()

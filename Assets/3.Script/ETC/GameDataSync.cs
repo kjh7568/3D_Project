@@ -22,7 +22,9 @@ public class GameDataSync : MonoBehaviour
     public List<bool> isInSupportGem1 = new List<bool>();
     public List<bool> isInSupportGem2 = new List<bool>();
     public List<bool> isInSupportGem3 = new List<bool>();
-    
+
+    public List<int>[] gemKeySet = new List<int>[3];
+
     private void Awake()
     {
         if (Instance == null)
@@ -33,6 +35,24 @@ public class GameDataSync : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+
+        for (int i = 0; i < 3; i++)
+        {
+            gemKeySet[i] = new List<int>();
+        }
+    }
+
+    public void WriteGemKeys()
+    {
+        for (int i = 0; i < gemKeySet.Length; i++)
+        {
+            string str = "";
+            for (int j = 0; j < gemKeySet[i].Count; j++)
+            {
+                str += $"{gemKeySet[i][j]}, ";
+            }
+            Debug.Log(str);
         }
     }
 }

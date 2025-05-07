@@ -47,6 +47,7 @@ public class SkillManager : MonoBehaviour
     private void Start()
     {
         InitializeHandler();
+        InitializeSkillPoolOnSceneLoad();
     }
 
     private void OnDestroy()
@@ -61,6 +62,15 @@ public class SkillManager : MonoBehaviour
 
         addComponentHandler[1] = (skill) => { skill.Add<Proliferation>(); };
         removeComponentHandler[1] = (skill) => { skill.Remove<Proliferation>(); };
+
+        addComponentHandler[2] = (skill) => { skill.Add<FasterCast>(); };
+        removeComponentHandler[2] = (skill) => { skill.Remove<FasterCast>(); };
+
+        addComponentHandler[3] = (skill) => { skill.Add<IncreasedAOE>(); };
+        removeComponentHandler[3] = (skill) => { skill.Remove<IncreasedAOE>(); };
+
+        addComponentHandler[4] = (skill) => { skill.Add<MultipleProjectiles>(); };
+        removeComponentHandler[4] = (skill) => { skill.Remove<MultipleProjectiles>(); };
     }
 
     public void MakePool(int parentsIdx, int prefabsIdx)
@@ -85,20 +95,23 @@ public class SkillManager : MonoBehaviour
 
     public void AddSkillComponent(int parentsIdx, int prefabsIdx, int componentKey)
     {
-        //큐 초기화
-        RemovePool(parentsIdx);
-
         // 컴포넌트 추가하기
+        Queue<GameObject> temp = new Queue<GameObject>();
+        
         for (int i = 0; i < MAX_PREFAB_COUNT; i++)
         {
-            var pool = Instantiate(skillPrefabs[prefabsIdx], poolParents[parentsIdx]);
+            var pool = skillPool[parentsIdx].Dequeue();
             var tempComponent = pool.GetComponent<Skill>();
 
             addComponentHandler[componentKey - 300]?.Invoke(tempComponent);
 
             pool.SetActive(false);
-            skillPool[parentsIdx].Enqueue(pool);
+            temp.Enqueue(pool);
         }
+        
+        //큐 초기화
+        RemovePool(parentsIdx);
+        skillPool[parentsIdx] = temp;
     }
 
     public void RemoveSkillComponent(int parentsIdx, int componentKey)
@@ -120,8 +133,57 @@ public class SkillManager : MonoBehaviour
     {
         //todo 스킬 특성 별로 발사 위치 시전 모션 등등 다르게 해보기
         var temp = skillPool[idx].Dequeue();
+        var tempSkill = temp.GetComponent<Skill>();
         temp.transform.position = firePoint.position;
+        tempSkill.SpecialCast(Vector3.zero, idx);
         temp.SetActive(true);
-        temp.GetComponent<Skill>().Cast();
+        
+        // if (tempSkill.data.isMultipleProjectiles)
+        // {
+        //     temp.transform.position = firePoint.position;
+        //
+        //     // === 여기서 중심 방향 벡터 계산 ===
+        //     Vector3 forward = temp.transform.forward;
+        //     Vector3 right = Vector3.Cross(Vector3.up, forward).normalized;
+        //
+        //     // 중심 투사체
+        //     temp.SetActive(true);
+        //
+        //     // 오른쪽 투사체
+        //     var temp1 = skillPool[idx].Dequeue();
+        //     var temp1Skill = temp1.GetComponent<Skill>();
+        //     temp1.transform.position = temp.transform.position + right * 0.5f;
+        //     temp1Skill.isAdditional = true;
+        //     temp1Skill.SpecialCast(forward);
+        //     temp1.SetActive(true);
+        //
+        //     // 왼쪽 투사체
+        //     var temp2 = skillPool[idx].Dequeue();
+        //     var temp2Skill = temp2.GetComponent<Skill>();
+        //     temp2.transform.position = temp.transform.position - right * 0.5f;
+        //     temp2Skill.isAdditional = true;
+        //     temp2Skill.SpecialCast(forward);
+        //     temp2.SetActive(true);
+        // }
+    }
+
+    private void InitializeSkillPoolOnSceneLoad()
+    {
+        var keySet = GameDataSync.Instance.gemKeySet;
+        
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < keySet[i].Count; j++)
+            {
+                if (keySet[i][j] >= 200 && keySet[i][j] < 300)
+                {
+                    MakePool(i, keySet[i][j] - 200);
+                }
+                else
+                {
+                    AddSkillComponent(i, keySet[i][0]-200, keySet[i][j]);
+                }
+            }
+        } 
     }
 }
