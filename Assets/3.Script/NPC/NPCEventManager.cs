@@ -96,12 +96,13 @@ public class NPCEventManager : MonoBehaviour
             yield return null; // 한 프레임 쉬고 다시 반복
         }
 
-        int mapNumber = Random.Range(0, 2);
+        // int mapNumber = Random.Range(0, 2);
+        int mapNumber = 0;
         Debug.Log(mapNumber);
         if (mapNumber == 0)
         {
             Debug.Log("Dungeon 1");
-            SceneManager.LoadScene("Dungeon 2");
+            SceneManager.LoadScene("Dungeon 1");
         }
         else if (mapNumber == 1)
         {
